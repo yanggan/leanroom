@@ -1,9 +1,81 @@
 body{
 
     
-    background-color: #fff;
+    margin: 0px;  
+    font-family: "Raleway", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 25px;
+    margin: 0px 0px 100px 110px;
+}
 
+a {
+    text-decoration:none
+}
+
+a:hover {
+    text-decoration:none
 }
 
 /* PC端导航栏 */
 
+.l-left-nav{
+
+    position: fixed;
+    background: transparent linear-gradient(80deg, #0b4182 1%, #1a78cf 99%) repeat scroll 0% 0%;
+    left: 0px;
+    text-align: center;
+    width: 120px;
+    height: 100%;
+
+}
+.l-left-nav img{
+
+    max-width: 120px;
+    display: block;
+    margin: 40px auto;
+    padding-left: 8px;
+}
+.l-left-nav ul {
+
+    list-style: none;
+    color: #fff;
+    margin: 0px 0px;
+    padding: 0px;
+}
+.l-left-nav ul li{
+    
+    display: block;
+    font-weight: bold;
+    margin-bottom: 35px;
+    text-align: center;
+
+}
+.l-left-nav ul li img{
+
+    max-width: 28px;
+    display: block;
+    margin: 8px auto;
+    padding: 0px;
+
+}
+.l-left-nav a{
+
+    color: #fff;
+    font-size: 14px;
+
+}
+.l-left-nav::after{
+
+　　content: "";
+
+　　position: absolute;
+
+　　left: -10px;
+
+　　top: -10px;
+
+　　right: -10px;
+
+　　bottom: -10px;
+
+}
