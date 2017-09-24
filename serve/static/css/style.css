@@ -79,3 +79,24 @@ a:hover {
 　　bottom: -10px;
 
 }
+/* ==内容区域== */
+.l-title{
+
+    height: 160px;
+    /* background-color: yellow; */
+    text-align: center;
+}
+.l-title h1{
+
+    padding-top: 60px;
+    font-size: 30px;
+}
+
+.l-title-line{
+
+    height: 1px;
+    background-color: #EDF0F2;
+    width: 100%;
+    overflow: hidden;
+}
+
