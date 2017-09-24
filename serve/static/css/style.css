@@ -5,7 +5,7 @@ body{
     font-family: "Raleway", Helvetica, Arial, sans-serif;
     font-size: 15px;
     line-height: 25px;
-    margin: 0px 0px 100px 110px;
+    margin: 0px 0px 120px 120px !important;
 }
 
 a {
@@ -13,7 +13,7 @@ a {
 }
 
 a:hover {
-    text-decoration:none
+    text-decoration:none!important;
 }
 
 /* PC端导航栏 */
@@ -26,6 +26,7 @@ a:hover {
     text-align: center;
     width: 120px;
     height: 100%;
+    z-index: 10;
 
 }
 .l-left-nav img{
@@ -80,6 +81,15 @@ a:hover {
 
 }
 /* ==内容区域== */
+/* 标题 */
+
+
+.l-right-contents{
+    
+/*     margin-left: 120px !important;
+    padding-left: 120px; */
+
+}
 .l-title{
 
     height: 160px;
@@ -88,7 +98,7 @@ a:hover {
 }
 .l-title h1{
 
-    padding-top: 60px;
+    padding-top: 40px;
     font-size: 30px;
 }
 
@@ -98,5 +108,29 @@ a:hover {
     background-color: #EDF0F2;
     width: 100%;
     overflow: hidden;
+}
+/* 课程导航 */
+
+.l-content-nav{
+    
+    margin-left: 120px;
+    max-width: 1400px;
+    font-size: 14px;
+}
+
+.l-content-nav a{
+    
+    font-size: 14px;
+    color: #666!important;
+    text-align: 
+}
+
+
+/* 课程内容区域 */
+
+.l-content-nav-tab{
+
+    margin-bottom: 20px;
+
 }
 
