@@ -1,8 +1,32 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}leanroom - 最全的编程自学课程库{%endblock%}</title>
 
-{% block title%} leanroom - 最全的编程自学课程库  {%endblock%}
+    
+    <!-- My CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
 
-{% block content%}
+</head>
+<body>
+    
+
+    <!-- import JS -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- materialize theme css and JS -->
+    <link rel="stylesheet" href="static/materialize/css/materialize.css">
+    <script src="static/materialize/js/materialize.min.js"></script>
+
+
+
+
     <!-- contents -->
     <!-- ==固定侧面的PC端导航栏==  -->
     <div class="l-left-nav z-depth-1">
@@ -13,7 +37,8 @@
             <li><a href=""><img src="../static/img/about.png" alt=""><p>关于</p></a></li>
         </ul>
     </div>
-
+    
+    {% block centent %}
     <!-- ==屏幕缩小时候的移动端导航栏== -->
     <!-- ==内容区== -->
 
@@ -106,7 +131,11 @@
             </div>
         </div>
     </div>
-    
+    {% endblock%}
     <!-- JS  -->
 
-{% endblock%}
+
+
+    </script>
+</body>
+</html>
