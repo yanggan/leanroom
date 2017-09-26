@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 
+{# 引入宏组件 #}
+{% import 'component.html' as md %}
+
+
 {%block title%} 课程详情 {%endblock%}
 
 {% block content %}
-
     
+
+    {{ md.contents_title()}}
+    {{ md.test()}}
 
 {%endblock%}

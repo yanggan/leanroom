@@ -1,0 +1,23 @@
+<!-- 这个文档放置组件，利用macro实现 -->
+
+
+{# 组件定义 #}
+<!-- 网页标题栏块 -->
+
+{% macro contents_title(title="课程标题",description="课程副标题")-%}
+    
+    <div class="l-title ">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+    </div>
+    <div class="l-title-line"></div>
+
+{%- endmacro %}
+
+<!-- 网页标题栏块 -->
+
+{% macro test()-%}
+    
+     <h1>TEST</h1>
+
+{%- endmacro %}
