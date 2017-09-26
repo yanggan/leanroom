@@ -15,18 +15,31 @@ def create_app():
 app = create_app()
 
 
-# # 路由管理
+# 路由管理
+# 首页
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return render_template("course.html")
 
+@app.route('/course')
+def course():
+    return render_template("course.html")
+
+
+# 课程详情页
+@app.route('/course/<int:course_id>')
+def course_detail(course_id):
+    # 生成数据
+
+    # 返回给
+    return render_template("course_detail.html",course_id=course_id)
 
 @app.route('/print')
 def test():
 
     print type(app.config)
-    return "OK"
+    return render_template('course_detail.html')
 
 if __name__=='__main__':
     app.run(debug=app.config['DEBUG'])

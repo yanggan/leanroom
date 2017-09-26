@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{%block title%}leanroom - 最全的编程自学课程库{%endblock%}</title>
+    <title>{%block title%} {# 填充标题 #} {%endblock%}</title>
 
-    
+        
     <!-- My CSS -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 
 </head>
 <body>
     
-
+    {# JS相关文件引入 #}
     <!-- import JS -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
@@ -21,14 +21,12 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- materialize theme css and JS -->
-    <link rel="stylesheet" href="static/materialize/css/materialize.css">
-    <script src="static/materialize/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="/static/materialize/css/materialize.css">
+    <script src="/static/materialize/js/materialize.min.js"></script>
 
 
-
-
-    <!-- contents -->
-    <!-- ==固定侧面的PC端导航栏==  -->
+    {% block pc_nav %}
+    {# PC端导航 #}
     <div class="l-left-nav z-depth-1">
         <img src="../static/img/logov2.png" alt=""><a href="#"></a></img>
         <ul>
@@ -37,103 +35,13 @@
             <li><a href=""><img src="../static/img/about.png" alt=""><p>关于</p></a></li>
         </ul>
     </div>
+    {% endblock %}
+
     
-    {% block centent %}
-    <!-- ==屏幕缩小时候的移动端导航栏== -->
-    <!-- ==内容区== -->
-
-    <div class="container-fluid l-right-contents">
-        <div class="l-title ">
-            <h1>Leanroom课程库</h1>
-            <p>查看您需要的课程</p>
-        </div>
-        <div class="l-title-line"></div> 
-        <div class="l-content">
-            <!-- 课程分类和内容 -->
-            <div class="row l-content-nav">
-                <!-- 导航 -->
-                <div class="col s12 l-content-nav-tab">
-                    <ul class="tabs ">
-                        <li class="tab"><a class="active" href="#test1">WEB前端</a></li>
-                        <li class="tab"><a href="#test2">后端开发</a></li>
-                        <li class="tab"><a href="#test3">Android开发</a></li>
-                        <li class="tab"><a href="#test4">IOS开发</a></li>
-                        <li class="tab"><a href="#test5">运维</a></li>
-                        <li class="tab"><a href="#test6">数据库</a></li>
-                        <li class="tab"><a href="#test7">大数据</a></li>
-                        <li class="tab"><a href="#test8">微信</a></li>
-                    </ul>
-                </div>
-                <!-- 每个导航地下的内容 -->
-                <div id="test1" class="col s12 ">
-                    <!-- 这里放置课程内容列表 -->
-                    <div class="row">
-                        <div class="col s12 m3 ">
-                            <div class="card small z-depth-1">
-                                <div class="card-image">
-                                <img src="http://vue-js.org/images/vue-js-what-is-that.jpg">      </div>
-                                <div class="card-content">
-                                    <span class="card-title">Vue.js课程</span>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">查看</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12 m3 ">
-                            <div class="card small z-depth-1">
-                                <div class="card-image">
-                                <img src="http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg">      </div>
-                                <div class="card-content">
-                                    <span class="card-title">Angular.js课程</span>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">查看</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12 m3 ">
-                            <div class="card small z-depth-1">
-                                <div class="card-image">
-                                <img src="http://n1.itc.cn/img8/wb/recom/2016/08/17/147144894821161299.PNG">      
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title">React.js课程</span>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">查看</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col s12 m3 ">
-                            <div class="card small z-depth-1">
-                                <div class="card-image">
-                                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506276630051&di=648bede1b38569c6244326c7692ba5f4&imgtype=0&src=http%3A%2F%2Fimg.mukewang.com%2F54d3157a0001352f04280252.jpg">
-                                </div>
-                                <div class="card-content">
-                                    <span class="card-title">Javascript课程</span>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">查看</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div id="test2" class="col s12">后端</div>
-                <div id="test3" class="col s12">Android开发</div>
-                <div id="test4" class="col s12">IOS开发</div>
-                <div id="test5" class="col s12">运维</div>
-                <div id="test6" class="col s12">数据库</div>
-                <div id="test7" class="col s12">大数据</div>
-                <div id="test8" class="col s12">微信</div>
-            </div>
-        </div>
-    </div>
-    {% endblock%}
-    <!-- JS  -->
-
+    {% block contents %}
+    {# 内容区域 #}
+    {% endblock %}
+    
 
 
     </script>
