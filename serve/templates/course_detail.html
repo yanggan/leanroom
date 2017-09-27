@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 
-{# 引入宏组件 #}
-{% import 'component.html' as md %}
 
 
 {%block title%} 课程详情 {%endblock%}
 
-{% block content %}
-    
 
-    {{ md.contents_title()}}
-    {{ md.test()}}
+{% block contents %}
 
-{%endblock%}
+<!-- 顶部的标题组件 -->
+
+    <div class="l-sub-title">
+        <div class="l-sub-title-left">
+            <img src="http://vue-js.org/images/vue-js-what-is-that.jpg">
+            <h1>Vue.js课程</h1>
+            <span>前端 | 共有23门课程</span>
+
+        </div>
+    </div>
+    <div class="l-title-line"></div>
+
+{% endblock %}
