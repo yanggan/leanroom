@@ -2,11 +2,10 @@ html{
     
     top: 0px;
     bottom: 0px;
-    margin: 0px;  
     font-family: "Raleway", Helvetica, Arial, sans-serif;
     font-size: 15px;
     line-height: 25px;
-    margin: 0px 0px 120px 120px !important;
+    /* margin: 0px 0px 120px 120px !important; */
 }
 body{
 
@@ -15,7 +14,7 @@ body{
     font-family: "Raleway", Helvetica, Arial, sans-serif;
     font-size: 15px;
     line-height: 25px;
-    margin: 0px 0px 120px 120px !important;
+    /* margin: 0px 0px 120px 120px !important; */
 }
 
 h1,h2,h3,h4,h5,p{
