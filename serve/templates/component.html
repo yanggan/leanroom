@@ -14,4 +14,26 @@
 
 {%- endmacro %}
 
+{# 内页标题栏目 #}
+
+{% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="") %}
+
+<div class="l-sub-title-left row">
+    
+    <div class="col s1 lstl-img">
+        <img src="{{img_url}}">
+        
+    </div>
+    
+    <div class=" col s5">
+        <h5>{{course_name}}</h5>
+        <span>{{course_category}} | 共有{{course_count}}门课程</span>
+    </div>
+    <div class="col s6 ">
+    </div>
+</div>
+
+<div class="l-title-line"></div>
+
+{% endmacro%}
 

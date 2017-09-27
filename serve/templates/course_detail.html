@@ -1,22 +1,72 @@
 {% extends "base.html" %}
 
 
-
 {%block title%} 课程详情 {%endblock%}
 
 
 {% block contents %}
+    {# 引入宏组件 #}
+    {% import 'component.html' as md %}
+
+   
+
 
 <!-- 顶部的标题组件 -->
+    
+    <!-- 用户登录、消息盒子等 -->
+    <div class="l-user-tools row">
+        <div class="container">
+            <!-- pass -->
+        </div>
 
-    <div class="l-sub-title">
-        <div class="l-sub-title-left">
-            <img src="http://vue-js.org/images/vue-js-what-is-that.jpg">
-            <h1>Vue.js课程</h1>
-            <span>前端 | 共有23门课程</span>
+        <div class="col s12"></div>
+    </div>
+    
+    {# 这里是头部标题的组件 #}
+    {{ md.course_sub_title(course_name="Vue.JS",img_url="http://vue-js.org/images/vue-js-what-is-that.jpg",course_category="前端开发",course_count="20")}}
+
+    {# 这里是课程表格的组件 #}
+    
+    <div class="l-excel row">
+        
+        <div class="container-fluid">
+                
+
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>课程名称</th>
+                        <th>更新日期</th>
+                        <th>分享链接</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vue.js入门到精通</td>
+                        <td>2017-09-21</td>
+                        <td><a>http://pan.baidu.com</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Alan</td>
+                        <td>Jellybean</td>
+                        <td>$3.76</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Jonathan</td>
+                        <td>Lollipop</td>
+                        <td>$7.00</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
-    </div>
-    <div class="l-title-line"></div>
+
+    </div>    
+
+
 
 {% endblock %}

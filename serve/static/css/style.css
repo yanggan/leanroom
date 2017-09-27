@@ -9,7 +9,8 @@ html{
 }
 body{
 
-    
+    top: 0px;
+    bottom: 0px;
     margin: 0px;  
     font-family: "Raleway", Helvetica, Arial, sans-serif;
     font-size: 15px;
@@ -41,7 +42,7 @@ a:hover {
     text-align: center;
     width: 120px;
     height: 100%;
-    z-index: 10;
+    z-index: 8888;
     top: 0px!important;
     bottom: 0px!important;
 
@@ -129,23 +130,40 @@ a:hover {
     overflow: hidden;
 }
 
+/* usr-tools */
+.l-user-tools{
+        
+    height: 40px;
+    
+}
 
 /* 2级页面，标题组件样式 */
 
 .l-sub-title{
     
-    width: 100%;
-    height: 60px;
-    margin-top: 60px;c
-    background-color: red;
+    
 }
 .l-sub-title-left{
+    
+  
 
 }
-.l-sub-title-left > img{
+.lstl-img{
+    
+    text-align: center;
+}
+.l-sub-title-left  img{
+    
+    max-width: 50px;
+    height: 50px;
+    border-radius: 99px;
+    margin-left: 2em;
+    margin-top: 1.0em;
 
-    width: 50px;
-    display: block;
+}
+.l-sub-title-left > h1,h2,h3,h4,h5{
+    
+    font-weight: 600px;
 
 }
 
