@@ -35,9 +35,18 @@ def course_detail(course_id):
     # 返回给
     return render_template("course_detail.html",course_id=course_id)
 
+# 通过激活码激活课程
+@app.route("/act")
+def course_activete():
+    # pass
+    return render_template('act.html')
+
+
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+
 
 if __name__=='__main__':
     app.run(debug=app.config['DEBUG'])

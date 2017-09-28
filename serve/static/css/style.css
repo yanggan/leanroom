@@ -46,6 +46,7 @@ a:hover {
     top: 0px!important;
     bottom: 0px!important;
 
+
 }
 .l-left-nav img{
 
@@ -167,6 +168,12 @@ a:hover {
 
 }
 
+.lstl-control{
+
+    margin-top: 30px;
+    margin-right: 30px;
+    float: right;
+}
 
 
 
@@ -194,4 +201,18 @@ a:hover {
     margin-bottom: 20px;
 
 }
+
+
+/* ========act.html==== */
+/* 激活码填写区域 */
+.l-act-input{
+
+    text-align: center;
+}
+.l-act-input p{
+
+    color: #666;
+}
+
+
 

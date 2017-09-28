@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"font",
+				"font-weight"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
 				"back",
 				"background-color"
 			],
@@ -26,18 +50,6 @@
 			[
 				"from",
 				"from_pyfile\tfunction"
-			],
-			[
-				"pad",
-				"padding-left"
-			],
-			[
-				"font",
-				"font-size"
-			],
-			[
-				"ba",
-				"background-color"
 			],
 			[
 				"col",
@@ -78,10 +90,6 @@
 			[
 				"re",
 				"relative"
-			],
-			[
-				"bor",
-				"border-radius"
 			],
 			[
 				"text-a",
@@ -127,7 +135,7 @@
 			"file": "/Users/yg/Documents/code/Project/leanroom/serve/templates/course_detail.html",
 			"settings":
 			{
-				"buffer_size": 395,
+				"buffer_size": 1932,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -136,22 +144,22 @@
 			"file": "/Users/yg/Documents/code/Project/leanroom/serve/templates/component.html",
 			"settings":
 			{
-				"buffer_size": 276,
+				"buffer_size": 785,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/yg/Documents/code/Project/leanroom/serve/templates/base.html",
+			"file": "/Users/yg/Documents/code/Project/leanroom/serve/run.py",
 			"settings":
 			{
-				"buffer_size": 1680,
+				"buffer_size": 807,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "MBP:serve yg$                                                                             \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n",
+			"contents": "MBP:serve yg$ source virtualenv/bin/activate                                              \n(virtualenv) MBP:serve yg$ python run.py                                                  \nTraceback (most recent call last):                                                        \n  File \"run.py\", line 43, in <module>                                                     \n    app.run(debug=app.config['DEBUG'])                                                    \n  File \"/Users/yg/Documents/code/Project/leanroom/serve/virtualenv/lib/python2.7/site-pack\nages/flask/app.py\", line 841, in run                                                      \n    run_simple(host, port, self, **options)                                               \n  File \"/Users/yg/Documents/code/Project/leanroom/serve/virtualenv/lib/python2.7/site-pack\nages/werkzeug/serving.py\", line 720, in run_simple                                        \n    s.bind((hostname, port))                                                              \n  File \"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/socket.py\",\n line 228, in meth                                                                        \n    return getattr(self._sock,name)(*args)                                                \nsocket.error: [Errno 48] Address already in use                                           \n(virtualenv) MBP:serve yg$ python run.py                                                  \nTraceback (most recent call last):                                                        \n  File \"run.py\", line 43, in <module>                                                     \n    app.run(debug=app.config['DEBUG'])                                                    \n  File \"/Users/yg/Documents/code/Project/leanroom/serve/virtualenv/lib/python2.7/site-pack\nages/flask/app.py\", line 841, in run                                                      \n    run_simple(host, port, self, **options)                                               \n  File \"/Users/yg/Documents/code/Project/leanroom/serve/virtualenv/lib/python2.7/site-pack\nages/werkzeug/serving.py\", line 720, in run_simple                                        \n    s.bind((hostname, port))                                                              \n  File \"/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/socket.py\",\n line 228, in meth                                                                        \n    return getattr(self._sock,name)(*args)                                                \nsocket.error: [Errno 48] Address already in use                                           \n(virtualenv) MBP:serve yg$                                                                \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n                                                                                          \n",
 			"settings":
 			{
 				"buffer_size": 3822,
@@ -162,13 +170,11 @@
 			}
 		},
 		{
-			"contents": "html{\n    \n    top: 0px;\n    bottom: 0px;\n    font-family: \"Raleway\", Helvetica, Arial, sans-serif;\n    font-size: 15px;\n    line-height: 25px;\n    /* margin: 0px 0px 120px 120px !important; */\n}\nbody{\n\n    \n    margin: 0px;  \n    font-family: \"Raleway\", Helvetica, Arial, sans-serif;\n    font-size: 15px;\n    line-height: 25px;\n    margin: 0px 0px 120px 120px !important;\n}\n\nh1,h2,h3,h4,h5,p{\n    \n    top: 0px!important;\n    bottom: 0px!important;\n}\n\na {\n    text-decoration:none\n}\n\na:hover {\n    text-decoration:none!important;\n}\n\n/* PC端导航栏 */\n\n.l-left-nav{\n\n    position: fixed;\n    background: transparent linear-gradient(80deg, #0b4182 1%, #1a78cf 99%) repeat scroll 0% 0%;\n    left: 0px;\n    text-align: center;\n    width: 120px;\n    height: 100%;\n    z-index: 10;\n\n}\n.l-left-nav img{\n\n    max-width: 120px;\n    display: block;\n    margin: 40px auto;\n    padding-left: 8px;\n}\n.l-left-nav ul {\n\n    list-style: none;\n    color: #fff;\n    margin: 0px 0px;\n    padding: 0px;\n}\n.l-left-nav ul li{\n    \n    display: block;\n    font-weight: bold;\n    margin-bottom: 35px;\n    text-align: center;\n\n}\n.l-left-nav ul li img{\n\n    max-width: 28px;\n    display: block;\n    margin: 8px auto;\n    padding: 0px;\n\n}\n.l-left-nav a{\n\n    color: #fff;\n    font-size: 14px;\n\n}\n.l-left-nav::after{\n\n　　content: \"\";\n\n　　position: absolute;\n\n　　left: -10px;\n\n　　top: -10px;\n\n　　right: -10px;\n\n　　bottom: -10px;\n\n}\n/* ==内容区域== */\n/* 标题 */\n\n/* 右侧内容区域样式 */\n.l-right-contents{\n    \n/*     margin-left: 120px !important;\n    padding-left: 120px; */\n\n}\n\n/* 一级页面，标题组件样式 */\n.l-title{\n\n    height: 160px;\n    /* background-color: yellow; */\n    text-align: center;\n}\n.l-title h1{\n\n    padding-top: 40px;\n    font-size: 30px;\n}\n\n.l-title-line{\n\n    height: 1px;\n    background-color: #EDF0F2;\n    width: 100%;\n    overflow: hidden;\n}\n\n\n/* 2级页面，标题组件样式 */\n\n.l-sub-title{\n    \n    width: 100%;\n    height: 60px;\n    margin-top: 60px;c\n    background-color: red;\n}\n.l-sub-title-left{\n\n}\n.l-sub-title-left > img{\n\n    width: 50px;\n    display: block;\n\n}\n\n\n\n\n/* 课程导航 */\n\n.l-content-nav{\n    \n    margin-left: 120px;\n    max-width: 1400px;\n    font-size: 14px;\n}\n\n.l-content-nav a{\n    \n    font-size: 14px;\n    color: #666!important;\n    text-align: \n}\n\n\n/* 课程内容区域 */\n\n.l-content-nav-tab{\n\n    margin-bottom: 20px;\n\n}\n\n",
 			"file": "/Users/yg/Documents/code/Project/leanroom/serve/static/css/style.css",
-			"file_size": 2403,
-			"file_write_time": 131509581830000000,
 			"settings":
 			{
-				"buffer_size": 2282,
+				"buffer_size": 2539,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -299,15 +305,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 395,
+						"buffer_size": 1932,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								315,
-								315
+								1132,
+								1132
 							]
 						],
 						"settings":
@@ -325,6 +331,14 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
 								}
 							],
 							"bracket_highlighter.busy": false,
@@ -332,12 +346,27 @@
 							{
 								"close":
 								{
+									"1":
+									[
+										1134,
+										1135
+									]
 								},
 								"icon":
 								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/tag.png",
+										"brackethighlighter.default"
+									]
 								},
 								"open":
 								{
+									"1":
+									[
+										1102,
+										1103
+									]
 								},
 								"unmatched":
 								{
@@ -345,71 +374,73 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_single_quote_content"
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Flatland_Black.tmTheme",
 							"git_gutter_is_enabled": true,
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
+							"syntax": "Packages/Jinja2/Syntaxes/HTML (Jinja2).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 400.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -418,7 +449,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 276,
+						"buffer_size": 785,
 						"regions":
 						{
 						},
@@ -426,7 +457,7 @@
 						[
 							[
 								256,
-								124
+								256
 							]
 						],
 						"settings":
@@ -444,6 +475,14 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
 								}
 							],
 							"bracket_highlighter.busy": false,
@@ -451,12 +490,27 @@
 							{
 								"close":
 								{
+									"1":
+									[
+										252,
+										255
+									]
 								},
 								"icon":
 								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/tag.png",
+										"brackethighlighter.default"
+									]
 								},
 								"open":
 								{
+									"1":
+									[
+										225,
+										228
+									]
 								},
 								"unmatched":
 								{
@@ -464,65 +518,67 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_single_quote_content"
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Flatland_Black.tmTheme",
 							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Jinja2/Syntaxes/HTML (Jinja2).tmLanguage"
+							"syntax": "Packages/Jinja2/Syntaxes/HTML (Jinja2).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -533,11 +589,11 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/yg/Documents/code/Project/leanroom/serve/templates/base.html",
-					"semi_transient": true,
+					"file": "/Users/yg/Documents/code/Project/leanroom/serve/run.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1680,
+						"buffer_size": 807,
 						"regions":
 						{
 						},
@@ -570,27 +626,12 @@
 							{
 								"close":
 								{
-									"1":
-									[
-										14,
-										15
-									]
 								},
 								"icon":
 								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/angle_bracket.png",
-										"brackethighlighter.default"
-									]
 								},
 								"open":
 								{
-									"1":
-									[
-										0,
-										1
-									]
 								},
 								"unmatched":
 								{
@@ -598,64 +639,65 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_single_quote_content"
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Flatland_Black.tmTheme",
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -663,7 +705,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -678,8 +720,8 @@
 						"selection":
 						[
 							[
-								14,
-								14
+								2666,
+								2666
 							]
 						],
 						"settings":
@@ -715,61 +757,61 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_single_quote_content"
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
 							"caret_style": "blink",
 							"color_scheme": "Packages/TerminalView/TerminalView.hidden-tmTheme",
@@ -793,8 +835,8 @@
 							},
 							"terminal_view_last_cursor_pos":
 							[
-								0,
-								14
+								29,
+								27
 							],
 							"word_wrap": false
 						},
@@ -817,15 +859,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2282,
+						"buffer_size": 2539,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1900,
-								1900
+								2207,
+								2241
 							]
 						],
 						"settings":
@@ -863,6 +905,14 @@
 								{
 									"characters": ".#",
 									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
 								}
 							],
 							"bracket_highlighter.busy": false,
@@ -872,8 +922,8 @@
 								{
 									"1":
 									[
-										1928,
-										1929
+										2273,
+										2274
 									]
 								},
 								"icon":
@@ -888,8 +938,8 @@
 								{
 									"1":
 									[
-										1836,
-										1837
+										2241,
+										2242
 									]
 								},
 								"unmatched":
@@ -898,21 +948,41 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
@@ -923,36 +993,16 @@
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Flatland_Black.tmTheme",
 							"git_gutter_is_enabled": true,
@@ -962,10 +1012,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1971.0,
+						"translation.y": 2246.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

@@ -14,22 +14,42 @@
 
 {%- endmacro %}
 
-{# 内页标题栏目 #}
+{# 内页标题栏目 + 右侧功能按钮 #}
 
 {% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="") %}
 
 <div class="l-sub-title-left row">
     
-    <div class="col s1 lstl-img">
-        <img src="{{img_url}}">
-        
-    </div>
-    
+    {# 左边是课程的信息 #}
+    <div class="col s1 lstl-img"><img src="{{img_url}}"></div>
     <div class=" col s5">
         <h5>{{course_name}}</h5>
         <span>{{course_category}} | 共有 {{course_count}} 门课程</span>
     </div>
-    <div class="col s6 ">
+    {# 右边是操作，返回上一页，兑换课程，导出地址和提取码 #}
+    <div class="col s6">
+        <div class="lstl-control">
+            <div class="btn-group">
+                <button  type="button" class="btn btn-default blue" aria-label="Left Align">
+                    <span title = "返回上一页" class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                </button>
+
+                <button title = "输入兑换码兑换课程" type="button" class="btn btn-default blue" aria-label="Center Align">
+                    <span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
+                </button>
+
+                <button title = "d"  type="button" class="btn btn-default blue" aria-label="Right Align">
+                    <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
+                </button>
+
+                <button type="button" class="btn btn-default blue" aria-label="Right Align">
+                    <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
+                </button>
+
+            </div>
+        </div>
+       
+
     </div>
 </div>
 
