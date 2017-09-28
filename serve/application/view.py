@@ -1,21 +1,11 @@
-# !/usr/bin/python
 # coding:utf-8
+from application import app
 from flask import Flask,request,render_template
 from flask_restful import Resource, Api, abort, reqparse
-from config.config import config # 引入字典
-
-
-def create_app():  
-    app=Flask(__name__)  
-    app.config.from_object(config["default"])  
-
-    return app  
-
-
-app = create_app()
-
 
 # 路由管理
+
+
 # 首页
 @app.route('/')
 @app.route('/index')
@@ -45,9 +35,3 @@ def course_activete():
 @app.route('/test')
 def test():
     return render_template('test.html')
-
-
-
-if __name__=='__main__':
-    app.run(debug=app.config['DEBUG'])
-
