@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
     <meta charset="UTF-8">
     <title>{%block title%} {# 填充标题 #} {%endblock%}</title>
 
         
     <!-- My CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/materialize/css/materialize.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    
+    <!-- 第三方模态插件，文件的引入 -->
+    <link rel="stylesheet" href="/static/remodal/remodal.css">
+    <link rel="stylesheet" href="/static/remodal/remodal-default-theme.css">
 
 </head>
 <body>
@@ -14,15 +21,18 @@
     {# JS相关文件引入 #}
     <!-- import JS -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
   
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- materialize theme css and JS -->
     <link rel="stylesheet" href="/static/materialize/css/materialize.css">
     <script src="/static/materialize/js/materialize.min.js"></script>
+
+    <!-- 模态插件 -->
+    <script src="/static/remodal/remodal.min.js"></script>
+
+    <!-- 以下是内容 -->
 
 
     {% block pc_nav %}
@@ -44,6 +54,8 @@
     
 
 
-    </script>
+  
+
 </body>
+
 </html>

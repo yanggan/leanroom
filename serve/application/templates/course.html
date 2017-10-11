@@ -20,18 +20,43 @@
                 <!-- 导航 -->
                 <div class="col s12 l-content-nav-tab">
                     <ul class="tabs ">
-                        <li class="tab"><a class="active" href="#test1">WEB前端</a></li>
-                        <li class="tab"><a href="#test2">后端开发</a></li>
-                        <li class="tab"><a href="#test3">Android开发</a></li>
-                        <li class="tab"><a href="#test4">IOS开发</a></li>
-                        <li class="tab"><a href="#test5">运维</a></li>
-                        <li class="tab"><a href="#test6">数据库</a></li>
-                        <li class="tab"><a href="#test7">大数据</a></li>
-                        <li class="tab"><a href="#test8">微信</a></li>
+                        {# 这里是分类菜单，从数据库读取 #}
+                        {% for cour in course %}
+                            <li class="tab">
+                                <a class="{%if loop.first %} active {%endif%}" href="#{{cour['category_id']}}">{{cour.category_name}}</a>
+                            </li>   
+                        {% endfor %}
+
                     </ul>
                 </div>
+                {# 这里是每个分类地下的课程详情 #}
+                {% for cour in course %}
+                    <div id="{{cour.category_id}}" class="col s12">
+                        {# 一个分类地下的所有课程 #}                        
+                        <!-- 课程卡片 -->
+                        {% for i in cour.category_course %}
+                            <div class="col s12 m3 ">
+                                <div class="card small z-depth-1">
+                                    <div class="card-image">
+                                    <img src="{{i.course_img}}"></div>
+                                    <div class="card-content">
+                                        <span class="card-title">{{i.course_name}}</span>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="/course/{{i.course_id}}">点击查看</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {%endfor%}
+
+                    </div>
+                {% endfor%}
+
+
+
                 <!-- 每个导航地下的内容 -->
-                <div id="test1" class="col s12 ">
+            {#     <div id="test1" class="col s12 ">
                     <!-- 这里放置课程内容列表 -->
                     <div class="row">
                         <div class="col s12 m3 ">
@@ -94,7 +119,14 @@
                 <div id="test6" class="col s12">数据库</div>
                 <div id="test7" class="col s12">大数据</div>
                 <div id="test8" class="col s12">微信</div>
+                 #}
+
+
+
+
             </div>
         </div>
     </div>
+
+
 {% endblock %}

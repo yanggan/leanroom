@@ -10,7 +10,6 @@
 
    
 
-
 <!-- 顶部的标题组件 -->
     
     <!-- 用户登录、消息盒子等 -->
@@ -23,7 +22,7 @@
     </div>
     
     {# 这里是头部标题的组件 #}
-    {{ md.course_sub_title(course_name="Vue.JS",img_url="http://vue-js.org/images/vue-js-what-is-that.jpg",course_category="前端开发",course_count="20")}}
+    {{ md.course_sub_title(course_name=course_data.course_name,img_url=course_data.course_img,course_category=course_data.course_category,course_count=course_data.course_count)}}
 
     {# 这里是课程表格的组件 #}
     
@@ -32,43 +31,54 @@
         <div class="container-fluid">
                 
 
-            <table class="striped">
+            <table class="highlight bordered">
                 <thead>
                     <tr>
                         <th>课程名称</th>
                         <th>更新日期</th>
                         <th>分享链接</th>
-                        <th>操作</th>
+                        <th>提取密码</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {# 需要填充的地方 #}
+                    {%for i in course_data.course_data %}
                     <tr>
-                        <td>Vue.js入门到精通</td>
-                        <td>2017-09-21</td>
-                        <td><a>http://pan.baidu.com/DKEJds4</a></td>
+                        <td>《{{i.resource_name}}》</td>
+                        <td>{{i.update_time}}</td>
+                        <td><a href="{{i.resource_addr}}">{{i.resource_addr}}</a></td>
                         <td>
-                             <button type="button" class="btn  btn-success blue btn-xs">获取提取码</button>
-                            <button type="button" class="btn btn-default blue btn-xs">打开链接</button>
+                            <a class="waves-effect waves-light btn blue" href="#act_modal" >获取提取码</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Alan</td>
-                        <td>Jellybean</td>
-                        <td>$3.76</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Jonathan</td>
-                        <td>Lollipop</td>
-                        <td>$7.00</td>
-                        <td></td>
-                    </tr>
+                    {%endfor%}
                 </tbody>
             </table>
 
         </div>
 
     </div>    
-    
+
+    {# 这里是谈层 #}
+    <!-- modal内容，输入兑换码 -->
+    <div class="remodal" data-remodal-id="act_modal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h5>输入您的兑换码</h5>
+        <p>
+            输入兑换码获取提取密码,没有兑换码？<a href="#">前往小店购买。</a>
+        </p>
+        <br>
+        <!-- 这里输入兑换码 -->
+        <div class="row">
+            <div class="input-field col s12">
+                <input value="" id="first_name2" type="text" class="validate">
+                <label class="active" for="first_name2">兑换码</label>
+            </div>
+        </div>
+        <button data-remodal-action="cancel" class="remodal-cancel">取消</button>
+        <button data-remodal-action="confirm" class="remodal-confirm">确认</button>
+    </div>
+
 
 {% endblock %}
+
