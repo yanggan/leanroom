@@ -68,7 +68,7 @@ fake_category = [
 ]
 
 
-# 分类模拟数据
+# 课程内页模拟数据
 
 fake_course_date = {
     
@@ -79,15 +79,27 @@ fake_course_date = {
     'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg',
     'course_data':[
 
-        {'resource_id':1,'resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':1,'resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':1,'resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':1,'resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':1,'resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
+        {'resource_id':'043','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
+        {'resource_id':'120','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
+        {'resource_id':'110','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
+        {'resource_id':'129','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
+        {'resource_id':'090','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
     
     ]
 
 
+}
+
+# 模拟密码数据
+
+fake_passwd_data = {
+    
+    "043":"ek32",
+    "120":"09dk",    
+    "110":"od9d",    
+    "129":"0okc",    
+    "093":"crs4",
+    "090":"cds0"
 }
 
 if __name__ == "__main__":
