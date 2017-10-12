@@ -16,7 +16,7 @@
 
 {# 内页标题栏目 + 右侧功能按钮 #}
 
-{% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="") %}
+{% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="",course_passwd=None) %}
 
 <div class="l-sub-title-left row">
     
@@ -24,27 +24,24 @@
     <div class="col s1 lstl-img"><img src="{{img_url}}"></div>
     <div class=" col s5">
         <h5>{{course_name}}</h5>
-        <span>{{course_category}} | 共有 {{course_count}} 门课程</span>
+        <span>{{course_category}} | 共有 {{course_count}} 门课程</span> &nbsp
+        {%if course_passwd != None %}<span class="label label-success">已兑换</span>{%endif%}
     </div>
     {# 右边是操作，返回上一页，兑换课程，导出地址和提取码 #}
     <div class="col s6">
         <div class="lstl-control">
             <div class="btn-group">
-                <button  type="button" class="btn btn-default blue" aria-label="Left Align">
+                <a href="/index"><button  type="button" class="btn btn-default blue tooltipped " aria-label="Left Align" data-tooltip="返回上一页" >
                     <span title = "返回上一页" class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                </button>
+                </button></a>
 
-                <button title = "输入兑换码兑换课程" type="button" class="btn btn-default blue" aria-label="Center Align">
-                    <span class="glyphicon glyphicon-align-center" aria-hidden="true"></span>
-                </button>
-
-                <button title = "d"  type="button" class="btn btn-default blue" aria-label="Right Align">
+                <a href="#"><button title = "d"  type="button" class="btn btn-default blue tooltipped" aria-label="Right Align" data-tooltip="前往店铺购买此课程">
                     <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
-                </button>
+                </button></a>
 
-                <button type="button" class="btn btn-default blue" aria-label="Right Align">
+                <a href="#"><button type="button" class="btn btn-default blue tooltipped" aria-label="Right Align" data-tooltip="导出为txt保持到本地">
                     <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
-                </button>
+                </button></a>
 
             </div>
         </div>
