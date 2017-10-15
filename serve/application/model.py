@@ -49,20 +49,40 @@ fake_category = [
     'category_name':"大数据",
     'category_count':12,
     'category_course':[{
-        'course_id':'121',
-        'course_name':'Vue.js课程',
+        'course_id':'3912',
+        'course_name':'数据分析课程',
         'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
     },
     {
-        'course_id':'139',
+        'course_id':'3091',
+        'course_name':'CentOS服务器运维',
+        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
+    },
+    {
+        'course_id':'0313',
+        'course_name':'python课程',
+        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
+    },
+    {
+        'course_id':'0932',
         'course_name':'angular.js课程',
         'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
     },
     {
-        'course_id':'121',
+        'course_id':'0984',
         'course_name':'python课程',
         'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
     },
+    {
+        'course_id':'9301',
+        'course_name':'angular.js课程',
+        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
+    },
+    {
+        'course_id':'9842',
+        'course_name':'python课程',
+        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
+    }
     ]
 },
 ]
