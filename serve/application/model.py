@@ -24,20 +24,20 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
-# 基类：
-Base = declarative_base()
+# # 基类：
+# Base = declarative_base()
 
 
-# 定义数据库和表
-class Course(Base):
+# # 定义数据库和表
+# class Course(Base):
 
-    __tablename__ = "Course"
+#     __tablename__ = "Course"
 
-    # 表字段
-    id = Column('id',Integer,primary_key=True)
-    name = Column('name',String(40))
-    description = Column('name',String(100))
-    category_id = Column('name',String())
+#     # 表字段
+#     id = Column('id',Integer,primary_key=True)
+#     name = Column('name',String(40))
+#     description = Column('name',String(100))
+#     category_id = Column('name',String())
 
 
 
