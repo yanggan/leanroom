@@ -1,6 +1,81 @@
 #coding:utf-8
+
+# 1、需要定义数据库（初始化）
+#     - course表 
+#     - category表
+#     - resouce表
+#     - actcode表
+# 2、需要对表增删改查
+#     - course 
+#     - category
+#     - resource 
+#     - actcode
+# 
+
+
 import json
 from cprint import cprint
+
+# 引入配置字典
+from config.config import config 
+
+# 导入sqlalchemy的相关
+from sqlalchemy import Column,Integer, String, create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+
+# 基类：
+Base = declarative_base()
+
+
+# 定义数据库和表
+class Course(Base):
+
+    __tablename__ = "Course"
+
+    # 表字段
+    id = Column('id',Integer,primary_key=True)
+    name = Column('name',String(40))
+    description = Column('name',String(100))
+    category_id = Column('name',String())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 分类模拟数据
 fake_category = [
