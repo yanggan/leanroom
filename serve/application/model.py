@@ -92,6 +92,36 @@ fake_category = [
         'course_name':'angular.js课程',
         'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
     },
+    {
+        'course_id':'121',
+        'course_name':'Vue.js课程',
+        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
+    },
+    {
+        'course_id':'139',
+        'course_name':'angular.js课程',
+        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
+    },
+    {
+        'course_id':'121',
+        'course_name':'Vue.js课程',
+        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
+    },
+    {
+        'course_id':'139',
+        'course_name':'angular.js课程',
+        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
+    },
+        {
+        'course_id':'121',
+        'course_name':'Vue.js课程',
+        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
+    },
+    {
+        'course_id':'139',
+        'course_name':'angular.js课程',
+        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
+    },
     ]
 },
 {
