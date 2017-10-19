@@ -181,7 +181,7 @@ a:hover {
 
 .l-content-nav{
     
-    margin-left: 120px;
+    /* margin-left: 120px; */
     max-width: 1400px;
     font-size: 14px;
 }
