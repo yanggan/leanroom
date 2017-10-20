@@ -68,15 +68,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 
-
-
-
-
-
-
-
-
-# 分类模拟数据
+# 分类模拟数据,测试
 fake_category = [
 {
     'category_id':3213,
