@@ -133,7 +133,10 @@
 
     <div class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>开发信息：</strong> Git版本:{{dev_data.git['version']}} 版本信息：{{dev_data.git['commit']}}
+        <strong>开发调试信息：<br> </strong>
+         Git版本: {{dev_data.git['version']}} <br> 
+         版本信息: {{dev_data.git['commit']}} <br>
+         更新时间: {{dev_data.git['time']}} <br>
     </div>
     
     {%endif%}

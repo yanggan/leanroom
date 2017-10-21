@@ -205,21 +205,26 @@ def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
     # return 451ecd160187ab7ea0c8bcef85a906967dd95d6a added: model add colmmn structure
     if flag == True:
         print "show git data "
-        (status, output) = commands.getstatusoutput('git log --pretty=oneline -1 ')
+        (status, output) = commands.getstatusoutput('git log --pretty=fuller -1 ')
         print status, output
 
-        git_data = re.findall(r'(\w{20,}) (.*)',output)
+        recomm = r'commit.(\w{20,})\nAuthor:\s*.*\n.*\n.*\nCommitDate:(.*)\n*(.*)'
+        git_data = re.findall(recomm,output)
         git_data = git_data[0] #转换为元祖
         print git_data
         print type(git_data)
 
-    return {'version':git_data[0],'commit':git_data[1]}
+    return {'version':git_data[0],'commit':git_data[2],'time':git_data[1]}
 
 # 执行
 # show_git_data()
 dev_data = {
     'flag':config["default"].GIT_VERSION_DISPLAY,
-    'git':{'version':show_git_data()['version'],'commit':show_git_data()['commit']}
+    'git':{ 
+        'version':show_git_data()['version'],
+        'commit':show_git_data()['commit'],
+        'time':show_git_data()['time'],
+    }
 }
 
 
