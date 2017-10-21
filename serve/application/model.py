@@ -216,9 +216,8 @@ def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
 
     return {'version':git_data[0],'commit':git_data[2],'time':git_data[1]}
 
-# 执行
+# 开启或者关闭调试信息功能
 # show_git_data()
-
 if config["default"].GIT_VERSION_DISPLAY:
     
     dev_data = {
