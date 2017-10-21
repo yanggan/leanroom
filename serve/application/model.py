@@ -19,7 +19,8 @@ import json
 from config.config import config 
 
 # 导入sqlalchemy的相关
-from sqlalchemy import Column,Integer, String, create_engine
+from sqlalchemy import Column,Integer, String, create_engine,ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -35,10 +36,37 @@ class Course(Base):
     __tablename__ = "Course"
 
     # 表字段
-    id = Column('id',Integer,primary_key=True)
+    id = Column('id',Integer, primary_key=True)
     name = Column('name',String(40))
     description = Column('description',String(100))
     # category_id = Column('category_id')
+
+
+    # 和兑换码的关系,1个课程对应n个兑换码
+    course_actcode = relationship("Actcode")
+    # 当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。
+
+    # 和分类的关系，1个课程对应多个分类，定义外键
+    category_id = Column(Integer, ForeignKey('Category.id'))
+    # 在子表类中通过 foreign key (外键)引用父表的参考字段
+
+    # 增删改查使用静态方法
+    @staticmethod
+    def add_course():
+        pass
+
+    @staticmethod
+    def get_course():
+        pass
+
+    @staticmethod
+    def update_course():
+        pass
+
+    @staticmethod
+    def del_course():
+        pass
+
 
 
 class Category(Base):
@@ -47,9 +75,50 @@ class Category(Base):
 
     # 分类表
 
-    id = Column('id',Integer,primary_key=True)
+    id = Column('id',Integer, primary_key=True)
     name = Column('name',String(100))
     description = Column('description',String(100))
+
+    # 和课程的关系
+    # 和分类的关系,1个课程对应多个分类，定义关系属性
+    category_course = relationship("Course")
+
+    # 增删改查使用静态方法
+    @staticmethod
+    def init_category():
+        #初始化分类
+
+        # 创建session对象:
+        session = DBSession()
+        # 创建新User对象:
+        new_user = User(id='5', name='Bob')
+        # 添加到session:
+        session.add(new_user)
+        # 提交即保存到数据库:
+        session.commit()
+        # 关闭session:
+        session.close()
+        
+        pass
+        
+
+    @staticmethod
+    def add_category():
+        pass
+
+    @staticmethod
+    def get_category():
+        pass
+
+    @staticmethod
+    def update_category():
+        pass
+
+    @staticmethod
+    def del_category():
+        pass
+
+
 
 class Resource(Base):
 
@@ -58,11 +127,30 @@ class Resource(Base):
 
     # 表
 
-    id = Column('id',Integer,primary_key=True)
+    id = Column('id',Integer, primary_key=True)
     name = Column('name',String(100))
     url = Column('url',String(100))
     passwd = Column('passwd',String(100))
     update_time = Column('update_time',String(100))
+
+    # 增删改查使用静态方法
+    @staticmethod
+    def add_resource():
+        pass
+
+    @staticmethod
+    def get_resource():
+        pass
+
+    @staticmethod
+    def update_resource():
+        pass
+
+    @staticmethod
+    def del_resource():
+        pass
+
+
 
 class Actcode(Base):
 
@@ -71,16 +159,45 @@ class Actcode(Base):
 
     # 表
 
-    id = Column('id',Integer,primary_key=True)
+    id = Column('id',Integer, primary_key=True)
     code = Column('code',String(100))
+
+    # 和course的关系
+    course_id = Column(Integer, ForeignKey('Course.id'))
+    # 在子表类中通过 foreign key (外键)引用父表的参考字段
+
+    # 增删改查使用静态方法
+    @staticmethod
+    def add_actcode():
+        pass
+
+    @staticmethod
+    def get_actcode():
+        pass
+
+    @staticmethod
+    def update_actcode():
+        pass
+
+    @staticmethod
+    def del_actcode():
+        pass
+
+
+
 
 
 
 # 初始化数据库连接:
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
 
-# 创建数据库和表结构
+# 创建数据库和表结构（目前不支持自动更新表结构，智能删库重新）
 Base.metadata.create_all(bind=engine)
+
+
+
+
+# 测试
 
 
 
