@@ -218,16 +218,22 @@ def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
 
 # 执行
 # show_git_data()
-dev_data = {
-    'flag':config["default"].GIT_VERSION_DISPLAY,
-    'git':{ 
-        'version':show_git_data()['version'],
-        'commit':show_git_data()['commit'],
-        'time':show_git_data()['time'],
+
+if config["default"].GIT_VERSION_DISPLAY:
+    
+    dev_data = {
+        'flag':config["default"].GIT_VERSION_DISPLAY,
+        'git':{ 
+            'version':show_git_data()['version'],
+            'commit':show_git_data()['commit'],
+            'time':show_git_data()['time'],
+        }
     }
-}
+else:
 
-
+    dev_data = {
+        'flag':config["default"].GIT_VERSION_DISPLAY,
+    }
 
 
 
