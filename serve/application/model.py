@@ -72,7 +72,7 @@ from sqlalchemy.ext.declarative import declarative_base
 fake_category = [
 {
     'category_id':3213,
-    'category_name':"前端开发",
+    'category_name':"所有课程",
     'category_count':12,
     'category_course':[{
         'course_id':'121',
