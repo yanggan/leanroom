@@ -24,38 +24,63 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
-# # 基类：
-# Base = declarative_base()
+# 基类：
+Base = declarative_base()
 
 
-# # 定义数据库和表
-# class Course(Base):
+# 定义数据库和表
+class Course(Base):
 
-#     __tablename__ = "Course"
+    # 课程表
+    __tablename__ = "Course"
 
-#     # 表字段
-#     id = Column('id',Integer,primary_key=True)
-#     name = Column('name',String(40))
-#     description = Column('name',String(100))
-#     category_id = Column('name',String())
-
-
-
+    # 表字段
+    id = Column('id',Integer,primary_key=True)
+    name = Column('name',String(40))
+    description = Column('description',String(100))
+    # category_id = Column('category_id')
 
 
+class Category(Base):
+
+    __tablename__ = 'Category'
+
+    # 分类表
+
+    id = Column('id',Integer,primary_key=True)
+    name = Column('name',String(100))
+    description = Column('description',String(100))
+
+class Resource(Base):
+
+    # 百度云链接资源表
+    __tablename__ = "Resource"
+
+    # 表
+
+    id = Column('id',Integer,primary_key=True)
+    name = Column('name',String(100))
+    url = Column('url',String(100))
+    passwd = Column('passwd',String(100))
+    update_time = Column('update_time',String(100))
+
+class Actcode(Base):
+
+    # 资源表
+    __tablename__ = 'Actcode'
+
+    # 表
+
+    id = Column('id',Integer,primary_key=True)
+    code = Column('code',String(100))
 
 
 
+# 初始化数据库连接:
+engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
 
-
-
-
-
-
-
-
-
-
+# 创建数据库和表结构
+Base.metadata.create_all(bind=engine)
 
 
 

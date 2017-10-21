@@ -4,7 +4,7 @@
 class DevelopmentConfig():
     DEBUG = True
     SECRET_KEY='123456'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///./db/learoom.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///./application/db/learoom.db'
     pass
 
 
