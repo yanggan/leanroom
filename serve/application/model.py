@@ -118,7 +118,7 @@ fake_category = [
 },
 {
     'category_id':4341,
-    'category_name':"后端开发",
+    'category_name':"前端开发",
     'category_count':12,
     'category_course':[{
         'course_id':'121',
