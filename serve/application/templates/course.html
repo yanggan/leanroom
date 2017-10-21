@@ -128,5 +128,15 @@
         </div>
     </div>
 
+    <!-- 开发信息展示 -->
+    {%if dev_data['flag']%}
+
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>开发信息：</strong> Git版本:{{dev_data.git['version']}} 版本信息：{{dev_data.git['commit']}}
+    </div>
+    
+    {%endif%}
+
 
 {% endblock %}

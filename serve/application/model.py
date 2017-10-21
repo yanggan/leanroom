@@ -24,6 +24,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+import commands,re
 
 # 基类：
 Base = declarative_base()
@@ -197,9 +198,29 @@ Base.metadata.create_all(bind=engine)
 
 
 
-# 测试
+# 测试用的功能
+# 开发环境下显示git版本号 
+def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
+    # git log --pretty=oneline -1  
+    # return 451ecd160187ab7ea0c8bcef85a906967dd95d6a added: model add colmmn structure
+    if flag == True:
+        print "show git data "
+        (status, output) = commands.getstatusoutput('git log --pretty=oneline -1 ')
+        print status, output
 
+        git_data = re.findall(r'(\w{20,}) (.*)',output)
+        git_data = git_data[0] #转换为元祖
+        print git_data
+        print type(git_data)
 
+    return {'version':git_data[0],'commit':git_data[1]}
+
+# 执行
+# show_git_data()
+dev_data = {
+    'flag':config["default"].GIT_VERSION_DISPLAY,
+    'git':{'version':show_git_data()['version'],'commit':show_git_data()['commit']}
+}
 
 
 

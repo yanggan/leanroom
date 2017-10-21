@@ -62,7 +62,7 @@ act = Act_Man()
 @app.route('/course/')
 def index():
 
-    return render_template("course.html",course=fake_category)
+    return render_template("course.html",course=fake_category,dev_data=dev_data)
 
 
 
@@ -85,7 +85,9 @@ def course_detail(course_id):
 
             user_input_key =  session.get('course_'+str(course_id))
             print user_input_key
-            resp = make_response(render_template("course_detail.html",course_data=fake_course_date,passwd_dict=fake_passwd_data))
+            resp = make_response( \
+                render_template("course_detail.html",course_data=fake_course_date,passwd_dict=fake_passwd_data,dev_data=dev_data)
+                )
             return resp
 
         # 判断cookies,需要重新验证vaule验证码是否合法
@@ -97,11 +99,13 @@ def course_detail(course_id):
             if verity_result_dict['flag'] == True:
 
                 flash(verity_result_dict['status'])
-                resp = make_response(render_template("course_detail.html",course_data=fake_course_date,passwd_dict=fake_passwd_data))
+                resp = make_response(\
+                    render_template("course_detail.html",course_data=fake_course_date,passwd_dict=fake_passwd_data,dev_data=dev_data)
+                    )
                 return resp
         else:
             # 第一次访问
-            return render_template("course_detail.html",course_data=fake_course_date,passwd_dict=None)
+            return render_template("course_detail.html",course_data=fake_course_date,passwd_dict=None,dev_data=dev_data)
 
 
     elif request.method == "POST":
