@@ -35,7 +35,7 @@ DBSession = sessionmaker(bind=engine)
 
 
 
-# 创建session对象:
+
 session = DBSession()
 # 创建新User对象，对象用于传数据:
 new_user = User(id='5', name='Bob')
