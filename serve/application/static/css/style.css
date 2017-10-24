@@ -45,6 +45,9 @@ table.bordered > thead > tr, table.bordered > tbody > tr {
     font-weight: bolder;
     color: #333!important;
 }
+.tabs .indicator {
+    background-color: #999;
+}
 
 /* PC端导航栏 */
 
