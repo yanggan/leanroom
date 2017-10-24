@@ -128,7 +128,7 @@ def add_resouce():
 
             {
                 'id':None,
-                'name':u'MongoDB课程',
+                'name':u'HTML入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
                 'passwd':'yhaa',
                 'course_id':10000

@@ -92,7 +92,7 @@ def course_detail(course_id):
             print user_input_key
 
             resp = make_response( \
-                render_template("course_detail.html",course_data=real_course_data,passwd_dict=fake_passwd_data,dev_data=dev_data)
+                render_template("course_detail.html",course_data=real_course_data,passwd_dict=real_course_data.get('passwd_dict'),dev_data=dev_data)
                 )
             return resp
 
@@ -106,7 +106,7 @@ def course_detail(course_id):
 
                 flash(verity_result_dict['status'])
                 resp = make_response(\
-                    render_template("course_detail.html",course_data=real_course_data,passwd_dict=fake_passwd_data,dev_data=dev_data)
+                    render_template("course_detail.html",course_data=real_course_data,passwd_dict=real_course_data.get('passwd_dict'),dev_data=dev_data)
                     )
                 return resp
         else:

@@ -104,7 +104,9 @@ class Course(Base):
         # 
         course_case = (sess.query(Course).filter_by(id=course_id).one())
         print '分类ID',course_case.category_id
+        # 包含的资源和密码字典
         course_data = []
+        passwd_dict = {}
         for x in course_case.course_resouce:
             course_data.append({
                 'resource_id':x.id,
@@ -113,14 +115,16 @@ class Course(Base):
                 'resource_addr':x.url,
                 'resource_passwd':x.passwd
                 })
-        
+            passwd_dict[x.id] = x.passwd 
+
         return_data = {
             "course_category":sess.query(Category).filter_by(id=course_case.category_id).one().name,
             'course_id':course_case.id,
             'course_name':course_case.name,
             'course_count':len(course_case.course_resouce),
             'course_img':course_case.img_url,
-            'course_data':course_data
+            'course_data':course_data,
+            'passwd_dict':passwd_dict
 
         }
 
