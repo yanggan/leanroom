@@ -1,5 +1,5 @@
 html{
-    
+    text-decoration:none!important;
     top: 0px;
     bottom: 0px;
     font-family: "Raleway", Helvetica, Arial, sans-serif;
@@ -31,12 +31,20 @@ a {
 a:hover {
     text-decoration:none!important;
 }
-
+/* 强制覆盖掉第三方的样式 */
 .card .card-image img {
 /*     width: auto!important;
     height: 100%!important; */
 }
-
+table.bordered > thead > tr, table.bordered > tbody > tr {
+    border-bottom: 1px solid #f3f3f4;
+}
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: #ee6e73;
+    font-weight: bolder;
+    color: #333!important;
+}
 
 /* PC端导航栏 */
 
