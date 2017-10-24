@@ -19,7 +19,7 @@ import json
 from config.config import config 
 
 # 导入sqlalchemy的相关
-from sqlalchemy import Column,Integer, String,Float, create_engine,ForeignKey
+from sqlalchemy import Column,Integer, String,Float,Boolean,create_engine,ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -50,13 +50,16 @@ class Course(Base):
     # category_id = Column('category_id')
     taobao_id = Column('taobao_id',Integer)
     taobao_price = Column('taobao_price',Float)
+    is_free = Column('is_free',Boolean,default=False)
+
 
     # 和兑换码的关系,1个课程对应n个兑换码
     course_actcode = relationship("Actcode")
     # 当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。
 
     course_resouce = relationship("Resource")
-
+    course_size = Column('couse_size',Float)
+    
     # 和分类的关系，1个课程对应多个分类，定义外键
     category_id = Column(Integer, ForeignKey('Category.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
