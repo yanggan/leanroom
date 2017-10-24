@@ -32,12 +32,19 @@ a:hover {
     text-decoration:none!important;
 }
 
+.card .card-image img {
+/*     width: auto!important;
+    height: 100%!important; */
+}
+
+
 /* PC端导航栏 */
 
 .l-left-nav{
 
     position: fixed;
-    background: transparent linear-gradient(80deg, #0b4182 1%, #1a78cf 99%) repeat scroll 0% 0%;
+    /* background: transparent linear-gradient(80deg, #0b4182 1%, #1a78cf 99%) repeat scroll 0% 0%; */
+    background: transparent linear-gradient(80deg, #333 1%, #4A4A4A 99%) repeat scroll 0% 0%;
     left: 0px;
     text-align: center;
     width: 120px;
@@ -119,7 +126,7 @@ a:hover {
 }
 .l-title h1{
 
-    padding-top: 40px;
+    padding-top: 28px;
     font-size: 30px;
 }
 

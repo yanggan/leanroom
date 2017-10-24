@@ -5,8 +5,8 @@ __pycache__/
 *$py.class
 
 # db file
-*.db
-./serve/application/db/*.db
+#*.db
+#./serve/application/db/*.db
 
 # system
 .DS_Store 

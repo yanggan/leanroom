@@ -24,6 +24,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+from cprint import cprint 
 
 # 基类：
 Base = declarative_base()
@@ -43,7 +44,7 @@ class Course(Base):
     # 表字段
     id = Column('id',Integer, primary_key=True,autoincrement=True)
     name = Column('name',String(40))
-    description = Column('description',String(100))
+    description = Column('description',String)
     img_url = Column('img_url',String(100))
     # category_id = Column('category_id')
 
@@ -58,9 +59,38 @@ class Course(Base):
 
     # 增删改查使用静态方法
     @staticmethod
-    def add_course():
-        pass
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "OK"
+        return sess
 
+    @staticmethod
+    def add_course(add_list=[]):
+         # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx','img_url':'','category_id':id},{}]
+        if add_list == []:
+            return "No Course add data"
+
+        # 获取sess/插入
+        sess = Course.get_session(engine)
+
+        add_cate_list = []
+        # 插入
+        for cate in add_list:
+            new_cate = Course( 
+                id = cate.get('id'),
+                name = cate.get('name'),
+                description = cate.get('description'),
+                img_url = cate.get('img_url'),
+                category_id = cate.get('category_id')
+                )
+            add_cate_list.append(new_cate)
+        sess.add_all(add_cate_list)
+        sess.commit()
+        sess.close()
+        
+        return "Course add OK"
     @staticmethod
     def get_course():
         pass
@@ -172,10 +202,32 @@ class Category(Base):
     def get_category(where=''):
         # 直接全部
         sess = Category.get_session(engine)
-        for instance in sess.query(Category).order_by(Category.id):
-            print(instance.id, instance.name)
+
         
-        return [{},{},{}]
+        real_data = []
+        # 查询分类 
+        for instance in sess.query(Category).order_by(Category.id):
+            print(instance.id, instance.name,instance.category_course)
+            # instance.category_course 是cate对应的课程list
+            cate_course = []
+            for course_data in instance.category_course:
+                x = {
+                    'course_id':course_data.id,
+                    'course_name':course_data.name,
+                    'course_img':course_data.img_url,
+                    'category_id':course_data.category_id
+                }
+                cate_course.append(x)
+
+            data = {
+                'category_id':instance.id,
+                'category_name':instance.name,
+                'category_count':len(instance.category_course),
+                'category_course':cate_course
+            }
+            real_data.append(data)
+        cprint(real_data)
+        return real_data
 
     @staticmethod
     def update_category():
@@ -272,21 +324,15 @@ Base.metadata.create_all(bind=engine)
 # 初始化category表
 print Category.init_category()
 # print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
-print Category.get_category()
+cate_real_data = Category.get_category()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# print Course.add_course([{
+#     'id':None,
+#     'name':u'Vue.js',
+#     'description':u'轻量级前端Javascript框架',
+#     'img_url':"/static/img/course/1000.jpg",
+#     'category_id':1000
+#     }])
 
 
 
@@ -410,6 +456,7 @@ fake_category = [
 },
 ]
 
+fake_category = cate_real_data
 
 # 课程内页模拟数据
 
