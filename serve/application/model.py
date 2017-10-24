@@ -51,6 +51,8 @@ class Course(Base):
     course_actcode = relationship("Actcode")
     # 当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。
 
+    course_resouce = relationship("Resouce")
+
     # 和分类的关系，1个课程对应多个分类，定义外键
     category_id = Column(Integer, ForeignKey('Category.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
@@ -125,7 +127,7 @@ class Category(Base):
         # 获取session对象
         DBSession = sessionmaker(bind=engine)
         sess = DBSession()
-        print "OK"
+        print "Get sesssion OK"
         return sess
 
     @staticmethod
@@ -250,7 +252,18 @@ class Resource(Base):
     passwd = Column('passwd',String(100))
     update_time = Column('update_time',String(100))
 
-    # 增删改查使用静态方法
+    # 外键，一个课程对应多个资源
+    course_id = Column(Integer, ForeignKey('Course.id'))
+
+    # 增删改查使用静态方法      
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
     @staticmethod
     def add_resource():
         pass
@@ -277,7 +290,7 @@ class Actcode(Base):
     # 表
 
     id = Column('id',Integer, primary_key=True,autoincrement=True)
-    code = Column('code',String(100))
+    code = Column('code',String)
 
     # 和course的关系
     course_id = Column(Integer, ForeignKey('Course.id'))
