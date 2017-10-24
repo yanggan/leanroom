@@ -8,7 +8,7 @@ html{
     /* margin: 0px 0px 120px 120px !important; */
 }
 body{
-
+    
     top: 0px;
     bottom: 0px;
     margin: 0px;  
@@ -48,6 +48,20 @@ table.bordered > thead > tr, table.bordered > tbody > tr {
 .tabs .indicator {
     background-color: #999;
 }
+th {
+
+    font-size: 12px;
+    color: #999;
+    font-weight: 300;
+}
+td {
+
+    font-size: 14px;
+    color: #333;
+
+}
+
+
 
 /* PC端导航栏 */
 
@@ -182,7 +196,8 @@ table.bordered > thead > tr, table.bordered > tbody > tr {
 }
 .l-sub-title-left > h1,h2,h3,h4,h5{
     
-    font-weight: 600px;
+    font-weight: 600;
+    color: #333;
 
 }
 

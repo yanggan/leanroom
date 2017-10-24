@@ -135,6 +135,33 @@ def add_resouce():
                 'passwd':'dead',
                 'course_id':10001
 
+            },
+            {
+                'id':None,
+                'name':u'Bootstrap入门到精通视频合集',
+                'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'size':'3.2',
+                'passwd':'dead',
+                'course_id':10001
+
+            },
+            {
+                'id':None,
+                'name':u'Bootstrap入门到精通视频合集',
+                'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'size':'3.2',
+                'passwd':'dead',
+                'course_id':10001
+
+            },            
+            {
+                'id':None,
+                'name':u'Bootstrap入门到精通视频合集',
+                'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'size':'3.2',
+                'passwd':'dead',
+                'course_id':10001
+
             }
 
     ])

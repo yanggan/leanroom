@@ -59,7 +59,7 @@ class Course(Base):
 
     course_resouce = relationship("Resource")
     course_size = Column('couse_size',Float)
-    
+
     # 和分类的关系，1个课程对应多个分类，定义外键
     category_id = Column(Integer, ForeignKey('Category.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
@@ -327,7 +327,7 @@ class Resource(Base):
                 url = res.get('url'),
                 passwd = res.get('passwd'),
                 size = res.get('size'),  
-                update_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                update_time = datetime.datetime.now().strftime('%Y-%m-%d'),
                 course_id = res.get('course_id')
                 )
             add_res_list.append(new_res)
