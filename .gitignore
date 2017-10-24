@@ -1,5 +1,7 @@
 __pycache__/
-./serve/application/*.py[cod]
+*.py[cod]
+!serve/virtualenv/*.py[cod]
+
 *$py.class
 
 # db file
