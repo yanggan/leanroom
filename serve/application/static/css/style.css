@@ -18,10 +18,12 @@ body{
     margin: 0px 0px 120px 120px !important;
 }
 
-h1,h2,h3,h4,h5,p{
+h1,h2,h3,h4,h5{
     
     top: 0px!important;
     bottom: 0px!important;
+    line-height: 1.2!important;
+
 }
 
 a {
@@ -66,7 +68,10 @@ td {
      of the button to still show through. */
       background-color: rgba(12, 12, 11, 0.73);
 }
-
+.card.small .card-image, .card.medium .card-image, .card.large .card-image {
+    max-height: 58%!important;
+    overflow: hidden;
+}
 
 /* PC端导航栏 */
 
