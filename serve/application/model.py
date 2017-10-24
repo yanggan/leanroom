@@ -24,8 +24,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-from cprint import cprint 
-
 # 基类：
 Base = declarative_base()
 
@@ -226,7 +224,7 @@ class Category(Base):
                 'category_course':cate_course
             }
             real_data.append(data)
-        cprint(real_data)
+        print(real_data)
         return real_data
 
     @staticmethod
