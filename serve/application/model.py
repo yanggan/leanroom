@@ -33,6 +33,8 @@ reload(sys)
 sys.setdefaultencoding('utf8')  
 
 
+import os 
+
 # 定义数据库和表
 class Course(Base):
 
@@ -505,4 +507,9 @@ fake_passwd_data = {
 
 if __name__ == "__main__":
 
-    pass
+    # 修改工作路径，方便直接python model
+    print "当前工作目录为"
+    print(os.getcwd()) # 打印当前工作目录
+    os.chdir('../') # 将当前工作目录改变为`/Users/<username>/Desktop/`
+    print "当前工作目录为"
+    print(os.getcwd()) # 打印当前工作目录
