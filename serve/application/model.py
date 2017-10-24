@@ -169,8 +169,13 @@ class Category(Base):
         return "OK"
 
     @staticmethod
-    def get_category():
-        pass
+    def get_category(where=''):
+        # 直接全部
+        sess = Category.get_session(engine)
+        for instance in sess.query(Category).order_by(Category.id):
+            print(instance.id, instance.name)
+        
+        return [{},{},{}]
 
     @staticmethod
     def update_category():
@@ -267,7 +272,7 @@ Base.metadata.create_all(bind=engine)
 # 初始化category表
 print Category.init_category()
 # print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
-
+print Category.get_category()
 
 
 
