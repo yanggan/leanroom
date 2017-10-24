@@ -1,7 +1,10 @@
 __pycache__/
-*.py[cod]
+./serve/application/*.py[cod]
 *$py.class
+
 # db file
 *.db
 ./serve/application/db/*.db
 
+# system
+.DS_Store 
