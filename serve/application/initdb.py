@@ -85,21 +85,21 @@ if __name__ == "__main__":
             'id':None,
             'name':u'Mysql课程',
             'description':u'',
-            'img_url':"/static/img/course/vue.jpg",
+            'img_url':"/static/img/course/mysql.jpg",
             'category_id':1002
         },
         {
             'id':None,
             'name':u'Oracle课程',
             'description':u'',
-            'img_url':"/static/img/course/vue.jpg",
+            'img_url':"/static/img/course/oracle.jpg",
             'category_id':1002
         },
         {
             'id':None,
             'name':u'SQLServer课程',
             'description':u'',
-            'img_url':"/static/img/course/vue.jpg",
+            'img_url':"/static/img/course/sqlserver.jpg",
             'category_id':1002
         },        
         {
