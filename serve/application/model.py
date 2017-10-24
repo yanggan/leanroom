@@ -51,7 +51,7 @@ class Course(Base):
     course_actcode = relationship("Actcode")
     # 当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。
 
-    course_resouce = relationship("Resouce")
+    course_resouce = relationship("Resource")
 
     # 和分类的关系，1个课程对应多个分类，定义外键
     category_id = Column(Integer, ForeignKey('Category.id'))
