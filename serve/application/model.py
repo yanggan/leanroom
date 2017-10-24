@@ -19,7 +19,7 @@ import json
 from config.config import config 
 
 # 导入sqlalchemy的相关
-from sqlalchemy import Column,Integer, String, create_engine,ForeignKey
+from sqlalchemy import Column,Integer, String,Float, create_engine,ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -48,7 +48,8 @@ class Course(Base):
     description = Column('description',String)
     img_url = Column('img_url',String(100))
     # category_id = Column('category_id')
-
+    taobao_id = Column('taobao_id',Integer)
+    taobao_price = Column('taobao_price',Float)
 
     # 和兑换码的关系,1个课程对应n个兑换码
     course_actcode = relationship("Actcode")
@@ -113,6 +114,7 @@ class Course(Base):
                 'resource_name':x.name,
                 "update_time":x.update_time,
                 'resource_addr':x.url,
+                'resource_size':x.size,
                 'resource_passwd':x.passwd
                 })
             passwd_dict[x.id] = x.passwd 
@@ -172,7 +174,7 @@ class Category(Base):
     def init_category():
         #初始化分类  
         # 初始分类：
-        cate_list = [u'前端开发',u'后端开发',u"数据库",u'IOS开发',u'Android开发',u"运维开发",u'编程语言',u'数据结构和算法',u'数据分析'] 
+        cate_list = [u'前端开发',u'后端开发',u"数据库",u'IOS开发',u'Android开发',u"运维开发",u'编程语言',u'数据结构和算法',u'网络安全',u'数据分析'] 
         id_start_numbers = 1000
 
         # 创建session对象:
@@ -288,7 +290,9 @@ class Resource(Base):
     name = Column('name',String(100))
     url = Column('url',String(100))
     passwd = Column('passwd',String(100))
+    size = Column('size',String)
     update_time = Column('update_time',String)
+
 
     # 外键，一个课程对应多个资源
     course_id = Column(Integer, ForeignKey('Course.id'))
@@ -319,6 +323,7 @@ class Resource(Base):
                 name = res.get('name'),
                 url = res.get('url'),
                 passwd = res.get('passwd'),
+                size = res.get('size'),  
                 update_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                 course_id = res.get('course_id')
                 )
@@ -354,7 +359,7 @@ class Actcode(Base):
 
     id = Column('id',Integer, primary_key=True,autoincrement=True)
     code = Column('code',String)
-
+    use_count = Column('use_count',Integer)
     # 和course的关系
     course_id = Column(Integer, ForeignKey('Course.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
@@ -396,7 +401,7 @@ Base.metadata.create_all(bind=engine)
 
 
 # 初始化category表
-print Category.init_category()
+# print Category.init_category()
 # print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
 cate_real_data = Category.get_category()
 

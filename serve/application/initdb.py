@@ -113,9 +113,10 @@ def init_resouce():
 
             {
                 'id':600000,
-                'name':u'MongoDB课程',
+                'name':u'Html入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
                 'passwd':'yhaa',
+                'size':'3.2',
                 'course_id':10000
 
             }
@@ -130,6 +131,7 @@ def add_resouce():
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'size':'3.2',
                 'passwd':'dead',
                 'course_id':10001
 
@@ -139,18 +141,16 @@ def add_resouce():
     return "add resource ok"
 
 
-# fake_passwd_data = {
-    
-#     "043":"ek32",
-#     "120":"09dk",    
-#     "110":"od9d",    
-#     "129":"0okc",    
-#     "093":"crs4",
-#     "090":"cds0"
-# }
+def init_category():
+
+    return Category.init_category()
 
 
 if __name__ == "__main__":
 
+    print init_category()
+    print init_course()
+    print init_resouce()
     print add_resouce()
+    
     pass
