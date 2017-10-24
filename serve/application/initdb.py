@@ -1,14 +1,9 @@
 # coding:utf-8
 from model import *
 
-if __name__ == "__main__":
-
-    
-    # 初始化表结构(model搞定)
-    # 初始化分类(model搞定)
-    # 初始化课程(需要在这里插入)
 
 
+def init_course():
 
     print Course.add_course([
         {
@@ -111,9 +106,51 @@ if __name__ == "__main__":
         }
 
     ])
+    return "init course OK"
+
+def init_resouce():
+    print Resource.add_resource([
+
+            {
+                'id':600000,
+                'name':u'MongoDB课程',
+                'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'passwd':'yhaa',
+                'course_id':10000
+
+            }
+
+    ])
+    return "init resource ok"
+
+def add_resouce():
+    print Resource.add_resource([
+
+            {
+                'id':None,
+                'name':u'MongoDB课程',
+                'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'passwd':'yhaa',
+                'course_id':10000
+
+            }
+
+    ])
+    return "add resource ok"
 
 
-    # 初始化资源（需要在这里）
-    # 初始化兑换码（需要在这里）
+# fake_passwd_data = {
+    
+#     "043":"ek32",
+#     "120":"09dk",    
+#     "110":"od9d",    
+#     "129":"0okc",    
+#     "093":"crs4",
+#     "090":"cds0"
+# }
 
+
+if __name__ == "__main__":
+
+    print add_resouce()
     pass

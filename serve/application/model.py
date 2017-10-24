@@ -33,7 +33,8 @@ reload(sys)
 sys.setdefaultencoding('utf8')  
 
 
-import os 
+import os
+import datetime
 
 # 定义数据库和表
 class Course(Base):
@@ -70,7 +71,7 @@ class Course(Base):
 
     @staticmethod
     def add_course(add_list=[]):
-         # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx','img_url':'','category_id':id},{}]
+        # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx','img_url':'','category_id':id},{}]
         if add_list == []:
             return "No Course add data"
 
@@ -94,9 +95,40 @@ class Course(Base):
         
         return "Course add OK"
     @staticmethod
-    def get_course():
-        pass
+    def get_one_course(course_id=None):
+        # 如果为空，则不处理,例如couse_id = 10000
+        if course_id == None:
+            return 'no have course_id'
+        
+        sess = Course.get_session(engine)
+        # 
+        course_case = (sess.query(Course).filter_by(id=course_id).one())
+        print '分类ID',course_case.category_id
+        course_data = []
+        for x in course_case.course_resouce:
+            course_data.append({
+                'resource_id':x.id,
+                'resource_name':x.name,
+                "update_time":x.update_time,
+                'resource_addr':x.url,
+                'resource_passwd':x.passwd
+                })
+        
+        return_data = {
+            "course_category":sess.query(Category).filter_by(id=course_case.category_id).one().name,
+            'course_id':course_case.id,
+            'course_name':course_case.name,
+            'course_count':len(course_case.course_resouce),
+            'course_img':course_case.img_url,
+            'course_data':course_data
 
+        }
+
+        return return_data
+
+    @staticmethod
+    def get_all_course():
+        pass
     @staticmethod
     def update_course():
         pass
@@ -252,7 +284,7 @@ class Resource(Base):
     name = Column('name',String(100))
     url = Column('url',String(100))
     passwd = Column('passwd',String(100))
-    update_time = Column('update_time',String(100))
+    update_time = Column('update_time',String)
 
     # 外键，一个课程对应多个资源
     course_id = Column(Integer, ForeignKey('Course.id'))
@@ -267,8 +299,33 @@ class Resource(Base):
         return sess
 
     @staticmethod
-    def add_resource():
-        pass
+    def add_resource(add_list):
+        # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx','img_url':'','category_id':id},{}]
+        if add_list == []:
+            return "No Course add data"
+
+        # 获取sess/插入
+        sess = Resource.get_session(engine)
+
+        add_res_list = []
+        # 插入
+        for res in add_list:
+            new_res = Resource( 
+                id = res.get('id'),
+                name = res.get('name'),
+                url = res.get('url'),
+                passwd = res.get('passwd'),
+                update_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                course_id = res.get('course_id')
+                )
+            add_res_list.append(new_res)
+        sess.add_all(add_res_list)
+        sess.commit()
+        sess.close()
+        
+        return "Resource add OK"        
+
+
 
     @staticmethod
     def get_resource():
@@ -513,3 +570,6 @@ if __name__ == "__main__":
     os.chdir('../') # 将当前工作目录改变为`/Users/<username>/Desktop/`
     print "当前工作目录为"
     print(os.getcwd()) # 打印当前工作目录
+
+    x = Course.get_one_course(10000)
+    print x

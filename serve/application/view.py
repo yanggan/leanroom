@@ -73,21 +73,26 @@ def index():
 @app.route('/course/<int:course_id>',methods=['POST','GET'])
 def course_detail(course_id):
 
-
+    # 课程数据
+    real_course_data = Course.get_one_course(course_id)
+    
     if request.method == "GET":
 
         # 2种情况，1、第一次访问，2、输入兑换码后，重定向访问，这时候需要返回带密码页面
         # 1、读取用户的cookies和session，把兑换码拿出来，匹配是否是这门课程的对缓慢
         # 2、如果是这门课程的兑换码，则返回带提取密码数据的页面
         # 3、如果不是，则返回普通的页面
+
+
         
         # 判断session,如果有key,value就不用验证了
         if session.get('course_'+str(course_id)) != None:
 
             user_input_key =  session.get('course_'+str(course_id))
             print user_input_key
+
             resp = make_response( \
-                render_template("course_detail.html",course_data=fake_course_date,passwd_dict=fake_passwd_data,dev_data=dev_data)
+                render_template("course_detail.html",course_data=real_course_data,passwd_dict=fake_passwd_data,dev_data=dev_data)
                 )
             return resp
 
@@ -101,12 +106,12 @@ def course_detail(course_id):
 
                 flash(verity_result_dict['status'])
                 resp = make_response(\
-                    render_template("course_detail.html",course_data=fake_course_date,passwd_dict=fake_passwd_data,dev_data=dev_data)
+                    render_template("course_detail.html",course_data=real_course_data,passwd_dict=fake_passwd_data,dev_data=dev_data)
                     )
                 return resp
         else:
             # 第一次访问
-            return render_template("course_detail.html",course_data=fake_course_date,passwd_dict=None,dev_data=dev_data)
+            return render_template("course_detail.html",course_data=real_course_data,passwd_dict=None,dev_data=dev_data)
 
 
     elif request.method == "POST":

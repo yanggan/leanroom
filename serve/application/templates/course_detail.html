@@ -106,10 +106,14 @@
     <!-- 消息闪现 -->
     {% for message in get_flashed_messages() %}
         {{message}}
-        <a class="btn" onclick="Materialize.toast('flash: {{message}}', 4000)">Toast!
+        <a class="btn" onclick="Materialize.toast('flash: {{message}}', 4000)">Toast!</a>
     {%endfor%}
-  </a>
-    
+  
+    <p>课程数据</p>
+    {{course_data}}
 
+
+    
+    
 {% endblock %}
 
