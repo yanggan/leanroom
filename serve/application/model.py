@@ -266,7 +266,7 @@ Base.metadata.create_all(bind=engine)
 
 # 初始化category表
 print Category.init_category()
-print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
+# print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
 
 
 
