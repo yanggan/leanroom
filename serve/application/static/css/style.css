@@ -116,7 +116,8 @@ td {
 
 }
 .l-left-nav a{
-
+    
+    display: block;
     color: #fff;
     font-size: 14px;
 
@@ -136,6 +137,12 @@ td {
 　　bottom: -10px;
 
 }
+.l-left-nav p{
+
+    font-size: 12px;
+
+}
+
 /* ==内容区域== */
 /* 标题 */
 
