@@ -6,6 +6,7 @@ from flask_restful import Resource, Api, abort, reqparse
 
 from model import *
 
+from dev_tools import * 
 
 # 避免中文传给jinja2时候报错
 import sys

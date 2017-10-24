@@ -24,7 +24,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-import commands,re
 
 # 基类：
 Base = declarative_base()
@@ -250,11 +249,10 @@ class Actcode(Base):
 
 
 
-
 # 初始化数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
 
-# 直接运行调试
+# 直接 python model.py 开启这个路径
 # engine = create_engine('sqlite:///./db/learoom.db',echo=True)
 
 engine.raw_connection().connection.text_factory = str  # 解决中文插入乱码问题
@@ -284,44 +282,6 @@ print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xx
 
 
 
-
-
-# 测试用的功能
-# 开发环境下显示git版本号 
-def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
-    # git log --pretty=oneline -1  
-    # return 451ecd160187ab7ea0c8bcef85a906967dd95d6a added: model add colmmn structure
-    if flag == True:
-        print "show git data is enable"
-        (status, output) = commands.getstatusoutput('git log --pretty=fuller -1')
-        # print status, output
-
-        recomm = r'commit.(\w{20,})\nAuthor:\s*.*\n.*\n.*\nCommitDate:(.*)\n*(.*)'
-        git_data = re.findall(recomm,output)
-        git_data = git_data[0] #转换为元祖
-        # print git_data
-        # print type(git_data)
-
-    return {'version':git_data[0],'commit':git_data[2],'time':git_data[1]}
-
-# 开启或者关闭调试信息功能
-# show_git_data()
-if config["default"].GIT_VERSION_DISPLAY:
-    
-    git_data = show_git_data()
-    dev_data = {
-        'flag':config["default"].GIT_VERSION_DISPLAY,
-        'git':{ 
-            'version':git_data['version'],
-            'commit':git_data['commit'],
-            'time':git_data['time'],
-        }
-    }
-else:
-
-    dev_data = {
-        'flag':config["default"].GIT_VERSION_DISPLAY,
-    }
 
 
 
