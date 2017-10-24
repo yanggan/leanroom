@@ -29,6 +29,11 @@ import commands,re
 # 基类：
 Base = declarative_base()
 
+# 解决sqlalchemy插入中文提示错误的问题
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')  
+
 
 # 定义数据库和表
 class Course(Base):
@@ -37,9 +42,10 @@ class Course(Base):
     __tablename__ = "Course"
 
     # 表字段
-    id = Column('id',Integer, primary_key=True)
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
     name = Column('name',String(40))
     description = Column('description',String(100))
+    img_url = Column('img_url',String(100))
     # category_id = Column('category_id')
 
 
@@ -76,36 +82,92 @@ class Category(Base):
 
     # 分类表
 
-    id = Column('id',Integer, primary_key=True)
-    name = Column('name',String(100))
-    description = Column('description',String(100))
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
+    name = Column('name',String)
+    description = Column('description',String)
 
     # 和课程的关系
     # 和分类的关系,1个课程对应多个分类，定义关系属性
     category_course = relationship("Course")
 
-    # 增删改查使用静态方法
+
+
+    # 增删改查使用静态方法      
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "OK"
+        return sess
+
     @staticmethod
     def init_category():
-        #初始化分类
+        #初始化分类  
+        # 初始分类：
+        cate_list = [u'前端开发',u'后端开发',u"数据库",u'IOS开发',u'Android开发',u"运维开发",u'编程语言',u'数据结构和算法',u'数据分析'] 
+        id_start_numbers = 1000
 
         # 创建session对象:
-        session = DBSession()
-        # 创建新User对象:
-        new_user = User(id='5', name='Bob')
-        # 添加到session:
-        session.add(new_user)
-        # 提交即保存到数据库:
-        session.commit()
+        sess = Category.get_session(engine)
+        # 循环插入
+        add_cate_list = []
+
+        # 查询是是否已经有了对象,有就不插入
+        count = sess.query(Category).filter(Category.id).count()
+        if count != 0:
+            return 'Existing data'
+
+        for index,cate in enumerate(cate_list):
+            # 第一次就规定ID
+            if index == 0:
+
+                print "第一次",index,cate
+                new_cate = Category(id=id_start_numbers,name=cate)
+                add_cate_list.append(new_cate)
+
+            else:
+                print index,cate
+                new_cate = Category(name=cate)
+                add_cate_list.append(new_cate)
+
+
+        print add_cate_list,len(add_cate_list)
+
+        # 一次性添加
+        sess.add_all(add_cate_list)
+        # 提交 
+        sess.commit()
+
         # 关闭session:
-        session.close()
+        sess.close()
         
-        pass
+        return "OK"
         
 
     @staticmethod
-    def add_category():
-        pass
+    def add_category(add_list=[]):
+        # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx'},{},{}]
+        if add_list == []:
+            return "No add data"
+
+        # 获取sess/插入
+        sess = Category.get_session(engine)
+
+        add_cate_list = []
+        # 插入
+        for cate in add_list:
+            new_cate = Category( 
+                id=cate.get('id'),
+                name=cate.get('name'),
+                description=cate.get('description')
+                )
+            add_cate_list.append(new_cate)
+        sess.add_all(add_cate_list)
+        sess.commit()
+        sess.close()
+        
+        return "OK"
 
     @staticmethod
     def get_category():
@@ -128,7 +190,7 @@ class Resource(Base):
 
     # 表
 
-    id = Column('id',Integer, primary_key=True)
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
     name = Column('name',String(100))
     url = Column('url',String(100))
     passwd = Column('passwd',String(100))
@@ -160,7 +222,7 @@ class Actcode(Base):
 
     # 表
 
-    id = Column('id',Integer, primary_key=True)
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
     code = Column('code',String(100))
 
     # 和course的关系
@@ -189,11 +251,37 @@ class Actcode(Base):
 
 
 
-# 初始化数据库连接:
+# 初始化数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
+
+# 直接运行调试
+# engine = create_engine('sqlite:///./db/learoom.db',echo=True)
+
+engine.raw_connection().connection.text_factory = str  # 解决中文插入乱码问题
+
+
 
 # 创建数据库和表结构（目前不支持自动更新表结构，智能删库重新）
 Base.metadata.create_all(bind=engine)
+
+
+
+# 初始化category表
+print Category.init_category()
+print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -204,15 +292,15 @@ def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
     # git log --pretty=oneline -1  
     # return 451ecd160187ab7ea0c8bcef85a906967dd95d6a added: model add colmmn structure
     if flag == True:
-        print "show git data "
-        (status, output) = commands.getstatusoutput('git log --pretty=fuller -1 ')
-        print status, output
+        print "show git data is enable"
+        (status, output) = commands.getstatusoutput('git log --pretty=fuller -1')
+        # print status, output
 
         recomm = r'commit.(\w{20,})\nAuthor:\s*.*\n.*\n.*\nCommitDate:(.*)\n*(.*)'
         git_data = re.findall(recomm,output)
         git_data = git_data[0] #转换为元祖
-        print git_data
-        print type(git_data)
+        # print git_data
+        # print type(git_data)
 
     return {'version':git_data[0],'commit':git_data[2],'time':git_data[1]}
 
@@ -220,12 +308,13 @@ def show_git_data(flag=config["default"].GIT_VERSION_DISPLAY):
 # show_git_data()
 if config["default"].GIT_VERSION_DISPLAY:
     
+    git_data = show_git_data()
     dev_data = {
         'flag':config["default"].GIT_VERSION_DISPLAY,
         'git':{ 
-            'version':show_git_data()['version'],
-            'commit':show_git_data()['commit'],
-            'time':show_git_data()['time'],
+            'version':git_data['version'],
+            'commit':git_data['commit'],
+            'time':git_data['time'],
         }
     }
 else:
