@@ -102,8 +102,10 @@
         {% endif %}
 
         
-        
     </div>
+
+    <a href="#" data-activates="slide-out" class="btn button-collapse">Side nav demo</a>
+
     
     <!-- 消息闪现 -->
     {% for message in get_flashed_messages() %}
@@ -125,9 +127,29 @@
         </div>
     </div>    
     {%endif%}
-
-
     
+    <!-- 前往店铺购买弹窗 -->
+    <ul id="slide-out" class="side-nav">
+        <li><div class="user-view">
+            <div class="background">
+                <img src="/static/img/other/help.jpg">
+            </div>
+            <a href="#!user"><img class="circle" src="/static/img/logov3.png"></a>
+            <a href="#!name"><span class="white-text name">  -   </span></a>
+            <a href="#!email"><span class="white-text"> - 温馨提示 </span></a>
+           <!--  <a href="#!name"><span class="white-text name">  -   </span></a> -->
+
+        </div></li>
+        <li><a class="subheader">学习步骤</a></li>
+        <li><a href="#!"><i class="material-icons">1</i>查看您需要的课程</a></li>
+        <li><a href="#!"><i class="material-icons">2</i>前往店铺购买此课程，获取课程兑换码</a></li>
+        <li><a href="#!"><i class="material-icons">3</i>在本站兑换课程，获取资源开始学习</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">操作</a></li>
+        <li><a class="waves-effect" href="#!">前往电脑版店铺</a></li>
+        <li><a class="waves-effect" href="#!">扫码前往移动端店铺</a></li>
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
     
 {% endblock %}
 

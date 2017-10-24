@@ -94,8 +94,25 @@
         s.parentNode.insertBefore(j, s);
     })(window, document, 'script', '_MEIQIA');
     _MEIQIA('entId', 82240);
-</script>
-
+    </script>
+    
+    <!-- sild nav setting -->
+    <script>
+      // Initialize collapse button
+      $(".button-collapse").sideNav();
+      // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+      $('.collapsible').collapsible();
+    $('.button-collapse').sideNav({
+      menuWidth: 400, // Default is 300
+      edge: 'right', // Choose the horizontal origin
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true, // Choose whether you can drag to open on touch screens,
+      
+    });
+    
+    </script>
+    
+            
 
 </body>
 
