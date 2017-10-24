@@ -108,9 +108,21 @@
         {{message}}
         <a class="btn" onclick="Materialize.toast('flash: {{message}}', 4000)">Toast!</a>
     {%endfor%}
-  
-    <p>课程数据</p>
-    {{course_data}}
+
+    
+    <!-- 开发信息展示 -->
+    {%if dev_data['flag']%}
+    <div class="container l-right-contents">  
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>课程数据：<br> </strong>
+             {{course_data}}<br>
+             <strong>密码字典：<br> </strong>
+             {{passwd_dict}}
+
+        </div>
+    </div>    
+    {%endif%}
 
 
     
