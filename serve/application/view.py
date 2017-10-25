@@ -6,7 +6,7 @@ import re
 
 from model import *
 from dev_tools import * 
-
+from middleware import * 
 
 
 # 避免中文传给jinja2时候报错
@@ -24,28 +24,8 @@ sys.setdefaultencoding('utf-8')
 def index():
 
     # 获取分类和课程信息
-    cate_real_data = Category.get_category()
-    
-    # # 前台显示已经兑换课程的功能
-    # active_courses_list = []
-    # if request.method == "GET":
-    #     # 把keys拿出来,判断哪些课程已经兑换过
-    #     cookies_keys_list = request.cookies.keys()  
-    #     # for出来cookies里面保存的已经兑换的课程id
-    #     long_str = ''.join(cookies_keys_list)
-    #     print "test",long_str
-    #     active_courses_list = re.findall(r'course_(\d+)',long_str)
-    #     print active_courses_list
-
-    #     # 处理新的cate_data
-    #     new_cate_data = []
-    #     for cate in  cate_real_data:
-    #         for active_id in active_courses_list:
-    #             print cate.id,type(cate.id)
-
-    return render_template("course.html",course=cate_real_data,dev_data=dev_data)
-
-
+    cate_data = Data_Processor.category_add_status(Data_Processor.get_category(),request.cookies)
+    return render_template("course.html",course=cate_data,dev_data=dev_data)
 
 
 
@@ -53,26 +33,26 @@ def index():
 @app.route('/course/<int:course_id>',methods=['POST','GET'])
 def course_detail(course_id):
 
-    # 课程数据
-    real_course_data = Course.get_one_course(course_id)
-    
+    # 各种数据获取
+    course_data = Data_Processor.get_course_data(course_id)
+    dev_data = Data_Processor.get_devtools_data()
+    passwd_data = Data_Processor.get_passwd_data(course_data)
+
     if request.method == "GET":
 
         # 2种情况，1、第一次访问，2、输入兑换码后，重定向访问，这时候需要返回带密码页面
         # 1、读取用户的cookies和session，把兑换码拿出来，匹配是否是这门课程的对缓慢
         # 2、如果是这门课程的兑换码，则返回带提取密码数据的页面
         # 3、如果不是，则返回普通的页面
-
-
-        
         # 判断session,如果有key,value就不用验证了
+        
         if session.get('course_'+str(course_id)) != None:
 
             user_input_key =  session.get('course_'+str(course_id))
             print user_input_key
 
             resp = make_response( \
-                render_template("course_detail.html",course_data=real_course_data,passwd_dict=real_course_data.get('passwd_dict'),dev_data=dev_data)
+                render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
                 )
             return resp
 
@@ -86,12 +66,12 @@ def course_detail(course_id):
 
                 flash(verity_result_dict['status'])
                 resp = make_response(\
-                    render_template("course_detail.html",course_data=real_course_data,passwd_dict=real_course_data.get('passwd_dict'),dev_data=dev_data)
+                    render_template("course_detail.html",course_data=course_data,passwd_dict=course_data.get('passwd_dict'),dev_data=dev_data)
                     )
                 return resp
         else:
             # 第一次访问
-            return render_template("course_detail.html",course_data=real_course_data,passwd_dict=None,dev_data=dev_data)
+            return render_template("course_detail.html",course_data=course_data,passwd_dict=None,dev_data=dev_data)
 
 
     elif request.method == "POST":
@@ -102,7 +82,7 @@ def course_detail(course_id):
         # 4、返回重定向，让浏览器get访问本链接
 
         user_input_key = request.form.get('key', '')        
-        verity_result_dict = Actcode.verify_actcode(course_id,user_input_key) # 判断是否正确
+        verity_result_dict = Data_Processor.verify_actcode(course_id,user_input_key) # 判断是否正确
     
         if verity_result_dict['flag'] == True: # 成功之后返回
 
