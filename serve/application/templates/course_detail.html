@@ -65,7 +65,7 @@
 
     </div>    
 
-    {# 这里是谈层 #}
+    {# 这里是弹出层，输入购买验证码 #}
     <!-- modal内容，输入兑换码 -->
     <div class="remodal" data-remodal-id="act_modal">
         <button data-remodal-action="close" class="remodal-close"></button>
@@ -88,15 +88,17 @@
                 <!-- 这里输入兑换码 -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input name='key' value="" id="first_name2" type="text" class="validate">
-                        <label class="active" for="first_name2">兑换码</label>
-                        
+                        <!-- 输入input -->
+                        <input name='key' onkeyup="value=value.replace(/[^\d]/g,'')" pattern="[0-9]{4}"   id="first_name2" type="text" class="validate" title="请输入4位数字兑换码">
+                        <label class="active" for="first_name2">请输入4位数字兑换码</label>
+                        <!-- 新版input -->
+
                         {% if get_flashed_messages() %}
-                        <div class="alert alert-danger" role="alert">兑换失败，您输入的兑换码错误，请重新输入</div>
+                        <div class="alert alert-danger" role="alert">兑换失败，您输入的兑换码错误，请重新输入,或请联系客服获取帮助~</div>
                         {% endif %}
                     </div>
                 </div>
-                <button class="btn" type="submit"  > 提交验证 </button>
+                <button class="btn actcode_submit  green lighten-1 z-depth-0 waves-effect waves-brown waves-ripple " type="submit"  > 提交验证 </button>
             </form>
 
         {% endif %}
@@ -108,10 +110,10 @@
 
     
     <!-- 消息闪现 -->
-    {% for message in get_flashed_messages() %}
+<!--     {% for message in get_flashed_messages() %}
         {{message}}
         <a class="btn" onclick="Materialize.toast('flash: {{message}}', 4000)">Toast!</a>
-    {%endfor%}
+    {%endfor%} -->
 
     
     <!-- 开发信息展示 -->

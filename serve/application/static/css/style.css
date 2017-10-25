@@ -62,6 +62,13 @@ td {
     color: #333;
 
 }
+.alert-danger {
+
+    font-size: 12px;
+}
+.alert {
+    padding: 8px;
+}
 
 .waves-effect.waves-brown .waves-ripple {
      /* The alpha value allows the text and background color
@@ -286,4 +293,14 @@ td {
     max-height:120px;
     margin-left: 30px;
 }
+.validate{
 
+    font-size: 32px!important;
+}
+
+.actcode_submit{
+    
+    height: 50px;
+    width: 98%;
+    /* background-color: #52AF52; */
+}

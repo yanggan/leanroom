@@ -36,6 +36,8 @@ sys.setdefaultencoding('utf8')
 import os
 import datetime
 
+import random,string,uuid
+
 # 定义数据库和表
 class Course(Base):
 
@@ -398,14 +400,57 @@ class Actcode(Base):
 
     id = Column('id',Integer, primary_key=True,autoincrement=True)
     code = Column('code',String)
-    use_count = Column('use_count',Integer)
+    use_count = Column('use_count',Integer,default=0)
+    is_use =  Column('is_use',Boolean,default=False)
+    is_invalid = Column('is_use',Boolean,default=False) # 为ture则兑换码不可用
     # 和course的关系
     course_id = Column(Integer, ForeignKey('Course.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
 
+
+
     # 增删改查使用静态方法
     @staticmethod
-    def add_actcode():
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
+    @staticmethod
+    def init_actcode(course_number=50):
+        # course_number为每个课程初始化多少个兑换码
+        sess = Actcode.get_session(engine)
+        all_course_list = sess.query(Course).all()
+        print'所有课程',all_course_list,len(all_course_list)
+
+        new_code_list = []
+        chars = string.digits
+        for course in all_course_list:
+            # 每个课程遍历生成
+            print '课程 %s 正在生成 %s 个兑换码...' % (course.name,str(course_number))
+            # 12cd12
+  
+            # 每个课程生成100兑换码
+            for i in range(course_number):
+
+                code = "".join(random.choice(chars) for i in range(4)) #兑换码
+                print code
+                new_code = Actcode(
+                    # id = 100,
+                    code = code,
+                    course_id = course.id
+                    )
+                new_code_list.append(new_code)
+        
+        sess.add_all(new_code_list)
+        sess.commit()
+        sess.close()
+        return "init actcode succeed"
+
+    @staticmethod
+    def add_actcode(course_id,course_add_number=100):
         pass
 
     @staticmethod
@@ -420,8 +465,37 @@ class Actcode(Base):
     def del_actcode():
         pass
 
+    @staticmethod
+    def verify_actcode(course_id=None,act_code=None):
+        # 验证是否有效
+        # x = {'flag':False,'status':"兑换码不正确，请联系客服"}
+        # y = {'flag':True,'status':"兑换成功"}
+        if course_id ==None or act_code == None:
+            return "no course or code pass in"
 
-
+        sess = Actcode.get_session(engine)
+        # 查询
+        try:
+            result = sess.query(Actcode).filter_by(code=act_code,course_id=course_id).one()
+        except Exception as e:
+            x = '兑换码错误，请联系客服'
+            print x
+            sess.close()
+            return  {'flag':False,'status':x}
+        else:
+            # 兑换码正确,统计次数
+            print result
+            print result.id,result.code,result.course_id,result.use_count
+            # 设置失效的兑换码也不可用
+            if result.is_invalid == True:
+                sess.commit()
+                sess.close()
+                return  {'flag':False,'status':'兑换码已失效'}
+            result.is_use=True
+            result.use_count = result.use_count + 1
+            sess.commit()
+            sess.close()
+            return {'flag':True,'status':"兑换成功"}
 
 
 # 初始化数据库连接:sqlite:///./application/db/learoom.db
@@ -443,14 +517,6 @@ Base.metadata.create_all(bind=engine)
 # print Category.init_category()
 # print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
 cate_real_data = Category.get_category()
-
-# print Course.add_course([{
-#     'id':None,
-#     'name':u'Vue.js',
-#     'description':u'轻量级前端Javascript框架',
-#     'img_url':"/static/img/course/1000.jpg",
-#     'category_id':1000
-#     }])
 
 
 
@@ -622,6 +688,10 @@ if __name__ == "__main__":
     # x = Course.get_one_course(10000)
     # print x
 
-    x = Course.count_course_size()
+    # x = Course.count_course_size()
+    # print x
+    # x = Actcode.init_actcode()
+    # print x
+
+    x = Actcode.verify_actcode(course_id=10000,act_code=2873)
     print x
-    

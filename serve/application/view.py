@@ -15,41 +15,6 @@ sys.setdefaultencoding('utf-8')
 
 
 
-# 这个部分先写方法 
-class Course_Man(object):
-    """
-    1、获取所有课程分类，和分类地下课程
-    2、获取单门课程的的信息，包含资源
-    3、获取单门课程的
-
-
-    """
-    def __init__(self):
-        pass
-        
-class Act_Man(object):
-    """
-    1、生成兑换码
-    2、查询、修改兑换码
-    3、使用兑换码，验证兑换码是否有效
-
-    """
-    def __init__(self):
-        pass
-
-    def creat_act(self):
-        pass
-
-    def verify_act(self,course_id,act_code):
-        
-        print("接受到的课程ID和兑换码")
-        print(course_id,act_code)
-        x = {'flag':False,'status':"兑换码不正确，请联系客服"}
-        y = {'flag':True,'status':"兑换成功"}
-
-        return y
-
-act = Act_Man()
 
     
 
@@ -122,7 +87,7 @@ def course_detail(course_id):
         # 4、返回重定向，让浏览器get访问本链接
 
         user_input_key = request.form.get('key', '')        
-        verity_result_dict = act.verify_act(course_id,user_input_key) # 判断是否正确
+        verity_result_dict = Actcode.verify_actcode(course_id,user_input_key) # 判断是否正确
     
         if verity_result_dict['flag'] == True: # 成功之后返回
 

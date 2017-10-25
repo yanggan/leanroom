@@ -172,6 +172,47 @@ def init_category():
 
     return Category.init_category()
 
+# # 这个部分先写方法 
+# class Course_Man(object):
+#     """
+#     1、获取所有课程分类，和分类地下课程
+#     2、获取单门课程的的信息，包含资源
+#     3、获取单门课程的
+
+
+#     """
+#     def __init__(self):
+#         pass
+        
+# class Act_Man(object):
+#     """
+#     1、生成兑换码
+#     2、查询、修改兑换码
+#     3、使用兑换码，验证兑换码是否有效
+
+#     """
+#     def __init__(self):
+#         pass
+
+#     def creat_act(self):
+#         pass
+
+#     def verify_act(self,course_id,act_code):
+        
+#         print("接受到的课程ID和兑换码")
+#         print(course_id,act_code)
+#         x = {'flag':False,'status':"兑换码不正确，请联系客服"}
+#         y = {'flag':True,'status':"兑换成功"}
+
+#         return y
+
+# act = Act_Man()
+
+# 初始化兑换码
+def init_actcode():
+
+    return Actcode.init_actcode()
+
 
 if __name__ == "__main__":
 
@@ -179,5 +220,5 @@ if __name__ == "__main__":
     print init_course()
     print init_resouce()
     print add_resouce()
-    
+    print init_actcode()
     pass
