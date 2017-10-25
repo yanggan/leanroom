@@ -58,7 +58,7 @@ class Course(Base):
     # 当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。
 
     course_resouce = relationship("Resource")
-    course_size = Column('couse_size',Float)
+    course_size = Column('couse_size',Float,default=0)
 
     # 和分类的关系，1个课程对应多个分类，定义外键
     category_id = Column(Integer, ForeignKey('Category.id'))
@@ -93,11 +93,42 @@ class Course(Base):
                 category_id = cate.get('category_id')
                 )
             add_cate_list.append(new_cate)
+
         sess.add_all(add_cate_list)
         sess.commit()
         sess.close()
+
         
         return "Course add OK"
+
+    @staticmethod
+    def count_course_size(course_id=0):
+        # 统计课程资源的总大小,如果不传特定id进来，更新所有课程大小
+        sess = Course.get_session(engine)
+        size = 0
+        if course_id == 0:
+            # 更新所有课程的课程大小
+            all_course_list = sess.query(Course).all()
+            for course in all_course_list:
+                # 每个课程的大小，for资源大小相加
+                for resource in course.course_resouce:
+                    size = size + resource.size
+
+                # 更新课程size
+                print course.name,size
+                course.course_size = size
+                size = 0 
+            sess.commit()
+            sess.close()
+            return 'update all course resource size succeed'
+
+        course_case = sess.query(Course).filter_by(id=course_id).one()
+        print course_case
+        for resource in course_case.course_resouce:
+            size = size + resource.size
+        print size
+        return size
+
     @staticmethod
     def get_one_course(course_id=None):
         # 如果为空，则不处理,例如couse_id = 10000
@@ -105,7 +136,10 @@ class Course(Base):
             return 'no have course_id'
         
         sess = Course.get_session(engine)
-        # 
+        # 先更新所有的课程的resource_size字段
+        Course.count_course_size()
+
+        # 根据ID查询
         course_case = (sess.query(Course).filter_by(id=course_id).one())
         print '分类ID',course_case.category_id
         # 包含的资源和密码字典
@@ -129,6 +163,7 @@ class Course(Base):
             'course_count':len(course_case.course_resouce),
             'course_img':course_case.img_url,
             'course_data':course_data,
+            'course_size':course_case.course_size,
             'passwd_dict':passwd_dict
 
         }
@@ -258,6 +293,7 @@ class Category(Base):
                     'course_id':course_data.id,
                     'course_name':course_data.name,
                     'course_img':course_data.img_url,
+                    'course_size':course_data.course_size,
                     'category_id':course_data.category_id
                 }
                 cate_course.append(x)
@@ -293,7 +329,7 @@ class Resource(Base):
     name = Column('name',String(100))
     url = Column('url',String(100))
     passwd = Column('passwd',String(100))
-    size = Column('size',String)
+    size = Column('size',Float)
     update_time = Column('update_time',String)
 
 
@@ -583,5 +619,9 @@ if __name__ == "__main__":
     print "当前工作目录为"
     print(os.getcwd()) # 打印当前工作目录
 
-    x = Course.get_one_course(10000)
+    # x = Course.get_one_course(10000)
+    # print x
+
+    x = Course.count_course_size()
     print x
+    

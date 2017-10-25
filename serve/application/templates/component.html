@@ -16,7 +16,7 @@
 
 {# 内页标题栏目 + 右侧功能按钮 #}
 
-{% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="",course_passwd=None) %}
+{% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="",course_size=0,course_passwd=None) %}
 
 <div class="l-sub-title-left row">
     
@@ -24,7 +24,7 @@
     <div class="col s1 lstl-img"><img src="{{img_url}}"></div>
     <div class=" col s5">
         <h5>{{course_name}}</h5>
-        <span>{{course_category}} | 共有 {{course_count}} 门课程</span> &nbsp
+        <span>{{course_category}} | 共有 {{course_count}} 门课程 | 共计 {{course_size}} G</span> &nbsp
         {%if course_passwd != None %}<span class="label label-success">已兑换</span>{%endif%}
     </div>
     {# 右边是操作，返回上一页，兑换课程，导出地址和提取码 #}

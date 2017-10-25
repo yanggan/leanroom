@@ -73,6 +73,22 @@ td {
     overflow: hidden;
 }
 
+.chip{
+
+    display: inline-block;
+    float: right;
+    height: 24px;
+    font-size: 10px;
+    line-height: 24px;
+    color: #666666;
+
+}
+.card .card-action {
+
+    padding-right: 10px;
+}
+
+
 /* PC端导航栏 */
 
 .l-left-nav{
