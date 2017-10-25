@@ -111,3 +111,7 @@ def course_activete():
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+@app.route('/welcome')
+def welcome():
+    return render_template('welcome.html')

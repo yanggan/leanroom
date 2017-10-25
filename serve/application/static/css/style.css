@@ -346,3 +346,14 @@ input[type=text].valid:not(.browser-default){
     width: 98%;
     /* background-color: #52AF52; */
 }
+
+/* welcome页面 */
+
+.welcome-bk{
+    background: url('../img/welcome.png') no-repeat fixed center ;
+    height: 900px;
+    width: 100%;
+    background-size:100%;
+}
+
+
