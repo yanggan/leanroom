@@ -16,6 +16,7 @@ body{
     font-size: 15px;
     line-height: 25px;
     margin: 0px 0px 120px 120px !important;
+
 }
 
 h1,h2,h3,h4,h5{
@@ -33,6 +34,10 @@ a {
 a:hover {
     text-decoration:none!important;
 }
+
+
+
+
 /* 强制覆盖掉第三方的样式 */
 .card .card-image img {
 /*     width: auto!important;
@@ -94,6 +99,31 @@ td {
 
     padding-right: 10px;
 }
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #666;
+  -webkit-box-shadow: 0 1px 0 0 #666;
+          box-shadow: 0 1px 0 0 #666;
+}
+input[type=text].valid:not(.browser-default){
+
+    border-bottom: 1px solid #666;
+    -webkit-box-shadow: 0 1px 0 0 #666;
+    box-shadow: 0 1px 0 0 #666;
+}
+
+
 
 
 /* PC端导航栏 */
@@ -274,6 +304,16 @@ td {
     margin-bottom: 20px;
 
 }
+.is_active-label{
+    
+    position: absolute;
+    z-index: 999;
+    right: 6px;
+    top: 6px;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
 
 
 /* ========act.html==== */
@@ -296,6 +336,8 @@ td {
 .validate{
 
     font-size: 32px!important;
+    line-height: 1.8;
+    height: 3.6rem!important;
 }
 
 .actcode_submit{
