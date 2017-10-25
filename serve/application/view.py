@@ -2,22 +2,17 @@
 from application import app
 from flask import Flask,request,render_template,flash,redirect,url_for,session,make_response
 from flask_restful import Resource, Api, abort, reqparse
-
+import re
 
 from model import *
-
 from dev_tools import * 
+
+
 
 # 避免中文传给jinja2时候报错
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-
-
-
-    
-
 
 
 
@@ -28,7 +23,27 @@ sys.setdefaultencoding('utf-8')
 @app.route('/course/')
 def index():
 
-    return render_template("course.html",course=fake_category,dev_data=dev_data)
+    # 获取分类和课程信息
+    cate_real_data = Category.get_category()
+    
+    # # 前台显示已经兑换课程的功能
+    # active_courses_list = []
+    # if request.method == "GET":
+    #     # 把keys拿出来,判断哪些课程已经兑换过
+    #     cookies_keys_list = request.cookies.keys()  
+    #     # for出来cookies里面保存的已经兑换的课程id
+    #     long_str = ''.join(cookies_keys_list)
+    #     print "test",long_str
+    #     active_courses_list = re.findall(r'course_(\d+)',long_str)
+    #     print active_courses_list
+
+    #     # 处理新的cate_data
+    #     new_cate_data = []
+    #     for cate in  cate_real_data:
+    #         for active_id in active_courses_list:
+    #             print cate.id,type(cate.id)
+
+    return render_template("course.html",course=cate_real_data,dev_data=dev_data)
 
 
 
