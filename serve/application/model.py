@@ -28,9 +28,9 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 # 解决sqlalchemy插入中文提示错误的问题
-import sys  
-reload(sys)  
-sys.setdefaultencoding('utf8')  
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 import os
@@ -107,7 +107,7 @@ class Course(Base):
     def count_course_size(course_id=0):
         # 统计课程资源的总大小,如果不传特定id进来，更新所有课程大小
         sess = Course.get_session(engine)
-        size = 0
+        size = 0.0
         if course_id == 0:
             # 更新所有课程的课程大小
             all_course_list = sess.query(Course).all()
@@ -117,7 +117,6 @@ class Course(Base):
                     size = size + resource.size
 
                 # 更新课程size
-                print course.name,size
                 course.course_size = size
                 size = 0 
             sess.commit()
@@ -139,7 +138,7 @@ class Course(Base):
         
         sess = Course.get_session(engine)
         # 先更新所有的课程的resource_size字段
-        Course.count_course_size()
+        # Course.count_course_size()
 
         # 根据ID查询
         course_case = (sess.query(Course).filter_by(id=course_id).one())
