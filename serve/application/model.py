@@ -107,7 +107,7 @@ class Course(Base):
     def count_course_size(course_id=0):
         # 统计课程资源的总大小,如果不传特定id进来，更新所有课程大小
         sess = Course.get_session(engine)
-        size = 0.0
+        size = 0
         if course_id == 0:
             # 更新所有课程的课程大小
             all_course_list = sess.query(Course).all()
@@ -515,7 +515,7 @@ Base.metadata.create_all(bind=engine)
 # 初始化category表
 # print Category.init_category()
 # print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
-cate_real_data = Category.get_category()
+
 
 
 
@@ -639,7 +639,6 @@ fake_category = [
 },
 ]
 
-fake_category = cate_real_data
 
 # 课程内页模拟数据
 
