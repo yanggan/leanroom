@@ -40,9 +40,9 @@
                                     <div class="card-image">
                                                                                 
                                         <a class=" waves-effect waves-brown waves-ripple" href="/course/{{i.course_id}}">
-                                        <!-- {%if course_passwd != None %} -->
+                                        {%if i.is_exchange %}
                                         <span class="label label-success is_active-label">已兑换</span>
-                                        <!-- {%endif%} -->
+                                        {%endif%}
                                             <img src="{{i.course_img}}">
                                         </a>
                                    
