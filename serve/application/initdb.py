@@ -210,9 +210,12 @@ def init_category():
 
 # 初始化兑换码
 def init_actcode():
-
+    #初始化兑换码
     return Actcode.init_actcode()
 
+def renew_course_size():
+    # 更新课程文件大小
+    return Course.count_course_size()
 
 if __name__ == "__main__":
 
@@ -221,4 +224,5 @@ if __name__ == "__main__":
     print init_resouce()
     print add_resouce()
     print init_actcode()
+    print renew_course_size()
     pass
