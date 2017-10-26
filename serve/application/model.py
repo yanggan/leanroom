@@ -289,6 +289,7 @@ class Category(Base):
             # instance.category_course 是cate对应的课程list
             cate_course = []
             is_active_flag = 0
+            is_active_course_data = []
             for course_data in instance.category_course:
                
                 if is_active_id !=[]:
@@ -296,23 +297,37 @@ class Category(Base):
                     is_active_flag = [1 if i==course_data.id else 0 for i in is_active_id]
                     is_active_flag = 1 if 1 in is_active_flag  else 0
                     
-                x = {
-                    'course_id':course_data.id,
-                    'course_name':course_data.name,
-                    'course_img':course_data.img_url,
-                    'course_size':course_data.course_size,
-                    'category_id':course_data.category_id,
-                    'is_active':is_active_flag
-                }
-                is_active_flag = 0
-                
+                    x = {
+                        'course_id':course_data.id,
+                        'course_name':course_data.name,
+                        'course_img':course_data.img_url,
+                        'course_size':course_data.course_size,
+                        'category_id':course_data.category_id,
+                        'is_active':is_active_flag
+                    }
+                    is_active_course_data.append(x) if is_active_flag == 1 else None
+                    is_active_flag = 0
+                    
+                else:
+                    x = {
+                        'course_id':course_data.id,
+                        'course_name':course_data.name,
+                        'course_img':course_data.img_url,
+                        'course_size':course_data.course_size,
+                        'category_id':course_data.category_id,
+                        'is_active':0
+                    }
+               
                 cate_course.append(x)
+
+
             # 给模板的数据结构
             data = {
                 'category_id':instance.id,
                 'category_name':instance.name,
                 'category_count':len(instance.category_course),
-                'category_course':cate_course
+                'category_course':cate_course,
+                'category_active_course': is_active_course_data if is_active_course_data != [] else None
             }
             real_data.append(data)
         # print(real_data)

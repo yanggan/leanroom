@@ -21,7 +21,7 @@
                 <div class="col s12 l-content-nav-tab">
                     <ul class="tabs ">
                         {# 这里是分类菜单，从数据库读取 #}
-                        {% for cour in course %}
+                        {% for cour in category %}
                             <li class="tab">
                                 <a class="{%if loop.first %} active {%endif%}" href="#{{cour['category_id']}}">{{cour.category_name}}</a>
                             </li>   
@@ -30,7 +30,7 @@
                     </ul>
                 </div>
                 {# 这里是每个分类地下的课程详情 #}
-                {% for cour in course %}
+                {% for cour in category %}
                     <div id="{{cour.category_id}}" class="col s12">
                         {# 一个分类地下的所有课程 #}                        
                         <!-- 课程卡片 -->
@@ -54,7 +54,7 @@
                                     <div class="card-action">
                                         <a class="waves-effect waves-brown waves-ripple" href="/course/{{i.course_id}}">点击查看</a>
                                         
-                                        {%if i.course_size %}<div class="chip">共 {{i.course_size}} G</div>{%endif%}
+                                        {%if i.course_size %}<div class="chip size_chip">共 {{i.course_size}} G</div>{%endif%}
                                     </div>
                                 </div>
                             </div>
@@ -67,6 +67,40 @@
             </div>
         </div>
     </div>
+
+    <!-- 已兑换的课程显示弹窗 -->
+    <ul id="is_active_course_nav" class="side-nav is_active_course_nav">
+        <li><div class="user-view">
+            <div class="background">
+                <img src="/static/img/other/help.jpg">
+            </div>
+        </div></li>
+        <li><a class="subheader">已兑换课程集</a></li>
+        {% for cate in category %} 
+            {% if cate.category_active_course %}
+                {% for course in cate.category_active_course %} 
+                    <li><a href="/course/{{course.course_id}}" ><i class="material-icons"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></i>
+                        
+                        <div class="chip"><img src="{{course.course_img}}" alt="Contact Person">
+                        {{course.course_name}} &nbsp 
+                        <span> 
+                            {{course.course_size}}G
+                        </span>  
+                        
+                        </div></a></li>
+                {%endfor%}
+            {%endif%}
+        {%endfor%}
+        <li><a class="subheader">更多</a></li>
+        <li><a href="#" ><i class="material-icons"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></i>前往店铺</a></li>
+        <li><a href="/course" ><i class="material-icons"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></i>返回</a></li>
+
+        <!-- <li><div class="divider"></div></li>
+        <li><a class="subheader">操作</a></li>
+        <li><a class="waves-effect blue-text text-darken-2 " href="#!">去电脑版店铺</a></li>
+        <li><a class="waves-effect blue-text text-darken-2 " href="#!">扫码去移动端店铺</a></li>
+        <li><img class = "taobao_qc" src="/static/img/other/taobao_qc.png"></a></li> -->
+    </ul>
 
     <!-- 开发信息展示 -->
     {%if dev_data['flag']%}
@@ -82,19 +116,56 @@
         </div>
     </div>
     {%endif%}
-
+    
+    <!-- 调试数据展示 -->
     {%if dev_data['flag']%}
     <div class="container l-right-contents">  
         <div class="alert alert-info alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>页面数据：<br> </strong>
             <strong>课程数据：<br> </strong>
-            {{course}} <br><br>
+            {{category}} <br><br>
             <strong>开发工具数据：<br> </strong>
             {{dev_data}}<br>
         </div>
     </div>
     {%endif%}
+    
+{#     <!-- 调试数据展示 -->
+    {%if dev_data['flag']%}
+    <div class="container l-right-contents">  
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {% for cate in category %} 
+                    
+
+                <br>
+                分类ID：<br>
+                {{cate.category_id}}<br>
+                <br>
+                分类名：<br>
+                {{cate.category_name}}<br>
+                <br>
+                所有课程：<br>
+                {{cate.category_course}}<br>
+
+                激活的课程：<br>
+                {{cate.category_active_course}}
+                <br>
+                -------------
+<!--                 {% for course in cate.is_active_course %}
+                    <span>{{course}}</span>
+                {%endfor%} -->
+            {% endfor %}
+        </div>
+    </div>
+    {%endif%} #}
+    <!-- 已兑换的课程显示弹窗 触发按钮 -->
+    <a href="#" data-activates="is_active_course_nav" >
+        <button title = "d"  type="button" class="btn  button-collapse z-depth-1  tooltipped"   aria-label="Right Align" data-activates="is_active_course_nav"  data-tooltip="已兑换成功的课程">
+            已兑换
+        </button>
+    </a>
 
 
 {% endblock %}
