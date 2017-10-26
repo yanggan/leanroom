@@ -11,41 +11,26 @@
     
     {# 标题 #}
 
-    <div class="container-fluid">
-        <div class="l-title ">
-            <h1>Leanroom课程兑换</h1>
-            <p>填入您的课程数兑换课程</p>
-        </div>
-        <div class="l-title-line"></div>
-
-        {# 输入表单 #}
-        <div class="row l-act-input ">
-            <div class="col s12 m12">
-                <div class="card white z-depth-1">
-                <h5>输入您的兑换码</h5>
-                <p>
-                    输入兑换码获取提取密码,没有兑换码？<a href="#">前往小店购买。</a>
-                </p>
-                <br>
-                <form method="POST" >
-                    <!-- 这里输入兑换码 -->
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input name='key' value="" id="first_name2" type="text" class="validate">
-                            <label class="active" for="first_name2">兑换码</label>
-                            
-                            {% if get_flashed_messages() %}
-                                <div class="alert alert-danger" role="alert">兑换失败，您输入的兑换码错误，请重新输入</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="card-action">
-                        <a  type="submit"  class="waves-effect waves-light btn blue">点击兑换</a>
-                    </div>
-                </form>
-                </div>
+    <div class="container-fluid act">
+        <!-- 输入表单 -->
+        <div class="row">
+            <div class="act-user">
+                <img src="/static/img/o/user.png" class="w-64 circle">
+                <div class="m-t-md font-bold">David M.</div>
+            </div>
+            <div class="md-form-group w-xl w-auto-xs center-block">
+                <input type="password" class="md-input text-center">
+                <label class="block w-full">Your Password</label>
+            </div>
+            <div class="m-t">
+                <a href="#/" class="btn btn-danger p-x-md">Unlock</a>
             </div>
         </div>
+
+        <!-- 背景图片 -->
+        <div class="act_bk_bk">
+            <img class="act_bk_img" src="/static/img/other/act_bk.png" alt="">
+        </div> 
     </div>
 
 
