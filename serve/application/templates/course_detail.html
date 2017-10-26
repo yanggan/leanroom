@@ -12,20 +12,32 @@
 
 <!-- 顶部的标题组件 -->
     
-    <!-- 用户登录、消息盒子等 -->
-    <div class="l-user-tools row">
-        <div class="container">
-            <!-- pass -->
+    <div class="container-fluid course_info_nav">
+    
+        {# 预留 #}
+        <div class="l-user-tools row">
+            <div class="container">
+                <!-- pass -->
+            </div>
+
+            <div class="col s12"></div>
         </div>
 
-        <div class="col s12"></div>
+        {# 课程信息，操作区域 #}
+        {{ md.course_sub_title(course_name=course_data.course_name,img_url=course_data.course_img,course_category=course_data.course_category,course_count=course_data.course_count,course_passwd=passwd_dict,course_size=course_data.course_size)}}
+
+        {# 背景 #}
+        <div class="course_info_nav_bk">
+            <img class="nav_bk_img" src="/static/img/other/homepage_bk.png" alt="">
+        </div>
+
     </div>
+
+
     
-    {# 这里是头部标题的组件 #}
-    {{ md.course_sub_title(course_name=course_data.course_name,img_url=course_data.course_img,course_category=course_data.course_category,course_count=course_data.course_count,course_passwd=passwd_dict,course_size=course_data.course_size)}}
+
 
     {# 这里是课程表格的组件 #}
-    
     <div class="l-excel row">
         
         <div class="container-fluid">
