@@ -36,14 +36,16 @@ class Data_Processor(object):
         cookies_str = ''.join(cookies_keys_list)
         # print "test",long_str
         active_courses_list = re.findall(r'course_(\d+)',cookies_str)
-        active_courses_list = [ int(x) for x in active_courses_list ]
-        
-        print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
-        # 拿model带状态的分类数据
-        new_data = Category.get_category(is_active_id=active_courses_list)
-    
+        if active_courses_list != []:
+            active_courses_list = [ int(x) for x in active_courses_list ]        
+            print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
+            new_data = Category.get_category(is_active_id=active_courses_list)
+            return new_data
+        else:
+            return Category.get_category()
 
-        return new_data
+
+        
 
     @staticmethod
     def verify_actcode(course_id,user_input_key):
