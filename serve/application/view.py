@@ -24,7 +24,12 @@ def index():
 
     # 获取分类和课程信息
     cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
-    return render_template("course.html",category=cate_data,dev_data=dev_data)
+    return render_template(
+        "course.html",
+        category=cate_data.get('category_data'),
+        has_active_course=cate_data.get('has_active_course'),
+        dev_data=dev_data
+        )
 
 
 

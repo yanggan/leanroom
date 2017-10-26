@@ -23,11 +23,14 @@
             <p>海量课程资源收集，好课任您挑选</p>
         </div> #}
         <!-- 已兑换的课程显示弹窗 触发按钮 -->
+        {# 判断是否有兑换的课程 #}
+        {% if has_active_course %}
         <a href="#" data-activates="is_active_course_nav" >
             <button  title = "d"  type="button" class="btn btn-floating button-collapse z-depth-1  grey darken-1  tooltipped  active_btn"   aria-label="Right Align" data-activates="is_active_course_nav"  data-tooltip="已兑换成功的课程">
             <img src="/static/img/other/actvie_btn.png" alt="">
             </button>
         </a>
+        {% endif %}
         <div class="l-title-line"></div> 
 
 
@@ -143,6 +146,7 @@
             <strong>页面数据：<br> </strong>
             <strong>课程数据：<br> </strong>
             {{category}} <br><br>
+            {{has_active_course}} <br><br>
             <strong>开发工具数据：<br> </strong>
             {{dev_data}}<br>
         </div>

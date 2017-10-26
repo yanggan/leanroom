@@ -290,9 +290,12 @@ class Category(Base):
             cate_course = []
             is_active_flag = 0
             is_active_course_data = []
+            cate_has_active_course = None
             for course_data in instance.category_course:
                
                 if is_active_id !=[]:
+
+                    cate_has_active_course = True
                     # 判断激活id = 课程id
                     is_active_flag = [1 if i==course_data.id else 0 for i in is_active_id]
                     is_active_flag = 1 if 1 in is_active_flag  else 0

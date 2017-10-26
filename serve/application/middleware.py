@@ -36,13 +36,15 @@ class Data_Processor(object):
         cookies_str = ''.join(cookies_keys_list)
         # print "test",long_str
         active_courses_list = re.findall(r'course_(\d+)',cookies_str)
+        has_active_course = False
         if active_courses_list != []:
+            has_active_course = True
             active_courses_list = [ int(x) for x in active_courses_list ]        
             print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
             new_data = Category.get_category(is_active_id=active_courses_list)
-            return new_data
+            return {'category_data':new_data,'has_active_course':has_active_course } 
         else:
-            return Category.get_category()
+            return {'category_data':Category.get_category(),'has_active_course':has_active_course }  
 
 
         

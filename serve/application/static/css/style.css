@@ -464,11 +464,11 @@ input[type=text].valid:not(.browser-default){
 .act_card{
     
     padding: 0!important;
-    margin-top: 6rem;
+    margin-top: 4rem;
 }
 
 .card.large {
-    height: 500px;
+    height: 490px;
 }
 .actpage_input{
     
