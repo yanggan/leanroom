@@ -249,6 +249,7 @@ input[type=text].valid:not(.browser-default){
 }
 .nav_bk h5 {
     
+    font-weight: 500;
     padding-top: 40px;
     font-size: 30px;
     
