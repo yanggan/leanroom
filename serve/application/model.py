@@ -138,8 +138,7 @@ class Course(Base):
         
         sess = Course.get_session(engine)
         # 先更新所有的课程的resource_size字段
-        Course.count_course_size()
-
+   
         # 根据ID查询
         course_case = (sess.query(Course).filter_by(id=course_id).one())
         print '分类ID',course_case.category_id
@@ -156,7 +155,7 @@ class Course(Base):
                 'resource_passwd':x.passwd
                 })
             passwd_dict[x.id] = x.passwd 
-
+        # 给模板的字典结构
         return_data = {
             "course_category":sess.query(Category).filter_by(id=course_case.category_id).one().name,
             'course_id':course_case.id,
@@ -278,7 +277,7 @@ class Category(Base):
         return "OK"
 
     @staticmethod
-    def get_category(where=''):
+    def get_category(where='',is_active_id=[]):
         # 直接全部
         sess = Category.get_session(engine)
 
@@ -286,19 +285,25 @@ class Category(Base):
         real_data = []
         # 查询分类 
         for instance in sess.query(Category).order_by(Category.id):
-            print(instance.id, instance.name,instance.category_course)
+            # print(instance.id, instance.name,instance.category_course)
             # instance.category_course 是cate对应的课程list
             cate_course = []
             for course_data in instance.category_course:
+                if is_active_id !=[]:
+                    # 判断激活id = 课程id
+                    is_active_flag = [1 if i==course_data.id else 0 for i in is_active_id]
+                    is_actvie_flag = 1 if 1 in is_active_flag  else 0
+                    
                 x = {
                     'course_id':course_data.id,
                     'course_name':course_data.name,
                     'course_img':course_data.img_url,
                     'course_size':course_data.course_size,
-                    'category_id':course_data.category_id
+                    'category_id':course_data.category_id,
+                    'is_active':is_actvie_flag
                 }
                 cate_course.append(x)
-
+            # 给模板的数据结构
             data = {
                 'category_id':instance.id,
                 'category_name':instance.name,
@@ -306,7 +311,7 @@ class Category(Base):
                 'category_course':cate_course
             }
             real_data.append(data)
-        print(real_data)
+        # print(real_data)
         return real_data
 
     @staticmethod

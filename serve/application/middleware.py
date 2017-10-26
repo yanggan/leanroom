@@ -23,26 +23,27 @@ class Data_Processor(object):
         return Category.get_category()
 
     @staticmethod
-    def category_add_status(old_category_data=None,cookies=None):
+    def get_category_has_status(cookies=None):
         #  前台显示已经兑换课程的功能,加工分类，返回带兑换状态的分类数据
-        pass
-        # # 前台显示已经兑换课程的功能
-        # active_courses_list = []
-        # if request.method == "GET":
-        #     # 把keys拿出来,判断哪些课程已经兑换过
-        #     cookies_keys_list = request.cookies.keys()
-        #     # for出来cookies里面保存的已经兑换的课程id
-        #     long_str = ''.join(cookies_keys_list)
-        #     print "test",long_str
-        #     active_courses_list = re.findall(r'course_(\d+)',long_str)
-        #     print active_courses_list
-        #     # 处理新的cate_data
-        #     new_cate_data = []
-        #     for cate in  cate_real_data:
-        #         for active_id in active_courses_list:
-        #             print cate.id,type(cate.id)
         new_category_data = []
-        return old_category_data
+        active_courses_list = []
+        
+        print "进入get_category_has_status功能"
+
+        # 把keys拿出来,判断哪些课程已经兑换过
+        cookies_keys_list = cookies.keys()
+        # for出来cookies里面保存的已经兑换的课程id
+        cookies_str = ''.join(cookies_keys_list)
+        # print "test",long_str
+        active_courses_list = re.findall(r'course_(\d+)',cookies_str)
+        active_courses_list = [ int(x) for x in active_courses_list ]
+        
+        print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
+        # 拿model带状态的分类数据
+        new_data = Category.get_category(is_active_id=active_courses_list)
+    
+
+        return new_data
 
     @staticmethod
     def verify_actcode(course_id,user_input_key):

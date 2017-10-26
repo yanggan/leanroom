@@ -17,14 +17,14 @@ sys.setdefaultencoding('utf-8')
 
 
 # 首页
-@app.route('/')
-@app.route('/index')
-@app.route('/course')
-@app.route('/course/')
+@app.route('/',methods=['GET'])
+@app.route('/index',methods=['GET'])
+@app.route('/course',methods=['GET'])
+@app.route('/course/',methods=['GET'])
 def index():
 
     # 获取分类和课程信息
-    cate_data = Data_Processor.category_add_status(Data_Processor.get_category(),request.cookies)
+    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
     return render_template("course.html",course=cate_data,dev_data=dev_data)
 
 

@@ -40,7 +40,7 @@
                                     <div class="card-image">
                                                                                 
                                         <a class=" waves-effect waves-brown waves-ripple" href="/course/{{i.course_id}}">
-                                        {%if i.is_exchange %}
+                                        {%if i.is_active  %}
                                         <span class="label label-success is_active-label">已兑换</span>
                                         {%endif%}
                                             <img src="{{i.course_img}}">
@@ -81,8 +81,19 @@
             更新时间: {{dev_data.git['time']}} <br>
         </div>
     </div>
+    {%endif%}
 
-    
+    {%if dev_data['flag']%}
+    <div class="container l-right-contents">  
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>页面数据：<br> </strong>
+            <strong>课程数据：<br> </strong>
+            {{course}} <br><br>
+            <strong>开发工具数据：<br> </strong>
+            {{dev_data}}<br>
+        </div>
+    </div>
     {%endif%}
 
 
