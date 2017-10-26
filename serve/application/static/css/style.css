@@ -468,7 +468,7 @@ input[type=text].valid:not(.browser-default){
 }
 
 .card.large {
-    height: 600px;
+    height: 500px;
 }
 .actpage_input{
     
