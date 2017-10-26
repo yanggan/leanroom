@@ -12,7 +12,7 @@
         
         <div class="nav_bk">
             <h5>LEA编程学院 课程库</h5>
-            <p>海量课程资源收集，好课任您挑选</p>
+            <p>海量课程资源整理收集，好课任您挑选</p>
             <div class="nav_bk_bk">
                 <img class="nav_bk_img" src="/static/img/other/homepage_bk.png" alt="">
             </div>
@@ -22,6 +22,12 @@
             <h1>LEA编程学院 课程库</h1>
             <p>海量课程资源收集，好课任您挑选</p>
         </div> #}
+        <!-- 已兑换的课程显示弹窗 触发按钮 -->
+        <a href="#" data-activates="is_active_course_nav" >
+            <button  title = "d"  type="button" class="btn btn-floating button-collapse z-depth-1  grey darken-1  tooltipped  active_btn"   aria-label="Right Align" data-activates="is_active_course_nav"  data-tooltip="已兑换成功的课程">
+            <img src="/static/img/other/actvie_btn.png" alt="">
+            </button>
+        </a>
         <div class="l-title-line"></div> 
 
 
@@ -172,12 +178,7 @@
         </div>
     </div>
     {%endif%} #}
-    <!-- 已兑换的课程显示弹窗 触发按钮 -->
-    <a href="#" data-activates="is_active_course_nav" >
-        <button title = "d"  type="button" class="btn  button-collapse z-depth-1  tooltipped"   aria-label="Right Align" data-activates="is_active_course_nav"  data-tooltip="已兑换成功的课程">
-            已兑换
-        </button>
-    </a>
+
 
 
 {% endblock %}
