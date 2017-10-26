@@ -20,7 +20,6 @@ sys.setdefaultencoding('utf-8')
 @app.route('/',methods=['GET'])
 @app.route('/index',methods=['GET'])
 @app.route('/course',methods=['GET'])
-@app.route('/course/',methods=['GET'])
 def index():
 
     # 获取分类和课程信息
