@@ -133,6 +133,12 @@ input[type=text].valid:not(.browser-default){
 .is_active_course_nav .user-view{
     
     height: 180px;
+    background: rgba(45, 45, 45, 0.86);
+
+}
+.user-view img{
+    
+    height: 300px;
 
 }
 .chip span{
