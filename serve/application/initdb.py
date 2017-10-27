@@ -224,7 +224,7 @@ def init_category():
 # 初始化兑换码
 def init_actcode():
     #初始化兑换码
-    return Actcode.init_actcode()
+    return Actcode.init_unique_actcode()
 
 def renew_course_size():
     # 更新课程文件大小

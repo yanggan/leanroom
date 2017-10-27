@@ -184,7 +184,6 @@ class Course(Base):
         pass
 
 
-
 class Category(Base):
 
     __tablename__ = 'Category'
@@ -468,14 +467,62 @@ class Actcode(Base):
 
                 code = "".join(random.choice(chars) for i in range(4)) #兑换码
                 print code
+                # 
                 new_code = Actcode(
                     # id = 100,
                     code = code,
                     course_id = course.id
                     )
+
                 new_code_list.append(new_code)
         
+        # 1、生成一定数量的 2、查重，避免重复，然后再插入数据
+
+
         sess.add_all(new_code_list)
+        sess.commit()
+        sess.close()
+        return "init actcode succeed"
+
+    @staticmethod
+    def init_unique_actcode(course_number=100):
+        # 1、生成一定数量的 2、查重，避免重复，然后再插入数据
+        sess = Actcode.get_session(engine)
+        all_course_list = sess.query(Course).all()
+
+        print len(all_course_list)
+        for_times = course_number *  len(all_course_list)
+        chars = string.digits
+        code_list = []
+        act_code_obj_list = []
+        # 用来判断不重复的函数
+        def check_code(code,code_list):
+            if code in code_list:
+                new_code = "".join(random.choice(chars) for i in range(4)) #兑换码   
+                new_code = check_code(new_code,code_list)
+                return new_code
+            else:
+                return code
+
+        for index in range(for_times):
+            code = "".join(random.choice(chars) for i in range(4)) #兑换码   
+            code = check_code(code,code_list)
+            code_list.append(code)
+        
+        # 插入数据,把code_list改为生成器,用code_gen.next()取值
+        code_gen = (code for code in code_list)
+        
+        for course in all_course_list:
+            for i in range(course_number):
+                # print (course.id,code_gen.next()) # 如(10013, '8386')
+                new_code = Actcode(
+                    # id = 100,
+                    code = code_gen.next(),
+                    course_id = course.id
+                    )
+                act_code_obj_list.append(new_code)
+                
+        sess.add_all(act_code_obj_list)
         sess.commit()
         sess.close()
         return "init actcode succeed"
@@ -573,6 +620,11 @@ class Actcode(Base):
                 return  {'flag':True,'error_code':200,'status':"find actcode and course succeed",'course_data':course_data}
         
 
+    @staticmethod
+    def check_actcode_unique():
+        # 查重
+        pass
+
 
 # 初始化数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
@@ -618,5 +670,8 @@ if __name__ == "__main__":
     # x = Actcode.verify_actcode(course_id=10000,act_code=2873)
     # print x
 
-    x = Actcode.verify_only_actcode(act_code=5128)
+    # x = Actcode.verify_only_actcode(act_code=5128)
+    # print x
+
+    x = Actcode.init_unique_actcode()
     print x
