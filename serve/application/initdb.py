@@ -75,35 +75,35 @@ def init_course():
             'name':u'Sqlite课程',
             'description':u'',
             'img_url':"/static/img/course/sqlite.jpg",
-            'category_id':1002
+            'category_id':1006
         },
         {
             'id':None,
             'name':u'Mysql课程',
             'description':u'',
             'img_url':"/static/img/course/mysql.jpg",
-            'category_id':1002
+            'category_id':1006
         },
         {
             'id':None,
             'name':u'Oracle课程',
             'description':u'',
             'img_url':"/static/img/course/oracle.jpg",
-            'category_id':1002
+            'category_id':1006
         },
         {
             'id':None,
             'name':u'SQLServer课程',
             'description':u'',
             'img_url':"/static/img/course/sqlserver.jpg",
-            'category_id':1002
+            'category_id':1006
         },        
         {
             'id':None,
             'name':u'MongoDB课程',
             'description':u'',
             'img_url':"/static/img/course/mongodb.jpg",
-            'category_id':1002
+            'category_id':1006
         }
 
     ])
@@ -171,7 +171,19 @@ def add_resouce():
 
 def init_category():
 
-    return Category.init_category()
+    x = [
+        u'Web前端',
+        u'Java开发',
+        u"PHP开发",
+        u'Python开发',
+        u'移动端开发',
+        u"运维开发",
+        u'数据库',
+        u'数据分析',
+        u'其他'
+        ] 
+
+    return Category.init_category(x)
 
 # # 这个部分先写方法 
 # class Course_Man(object):

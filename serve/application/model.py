@@ -211,10 +211,11 @@ class Category(Base):
         return sess
 
     @staticmethod
-    def init_category():
+    def init_category(cate_list=[]):
         #初始化分类  
         # 初始分类：
-        cate_list = [u'前端开发',u'后端开发',u"数据库",u'IOS开发',u'Android开发',u"运维开发",u'编程语言',u'数据结构和算法',u'网络安全',u'数据分析'] 
+        if cate_list == []:
+            cate_list = [u'前端开发',u'后端开发',u"数据库",u'IOS开发',u'Android开发',u"运维开发",u'编程语言',u'数据结构和算法',u'网络安全',u'数据分析'] 
         id_start_numbers = 1000
 
         # 创建session对象:

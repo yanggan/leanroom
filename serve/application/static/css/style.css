@@ -141,7 +141,10 @@ input[type=text].valid:not(.browser-default){
     color: #333!important;
 
 }
-
+.card .card-title {
+    font-size: 18px;
+    font-weight: 400;
+}
 
 /* 已兑换课程 */
 
