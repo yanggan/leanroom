@@ -17,7 +17,13 @@ body {
   font-size: 16px;
   color: #000;
 }
+h5{
 
+  margin: 32px auto;
+}
+p{
+  font-size: 12px;
+}
 a {
   color: #2F2D2E;
   -moz-transition: all 0.3s ease;
@@ -32,6 +38,7 @@ a:hover {
 
 .fh5co-container {
   margin-top: 50px;
+  height: 100vh;
 }
 
 .overlay {
@@ -91,7 +98,7 @@ a:hover {
 }
 
 .fh5co-copyright {
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 .btn-primary {
