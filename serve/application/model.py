@@ -526,6 +526,42 @@ class Actcode(Base):
             sess.close()
             return {'flag':True,'status':"兑换成功"}
 
+    @staticmethod
+    def verify_only_actcode(act_code=None):
+        # 通过验证码直接查询课程
+        # {'flag':True,'status':"find actcode and course succeed",'course_data':course_data}
+        if act_code == None:
+            return "no code pass in"
+        sess = Actcode.get_session(engine)
+        try:
+            # 没有找到返回none,多余一个则异常
+            result_actcode = sess.query(Actcode).filter_by(code=str(act_code)).one_or_none()
+        except Exception as e: #大于1个报错
+            x = 'this act code  more than one course'
+            print x
+            sess.close()
+            return  {'flag':False,'status':x,'course_data':None}
+        else:
+            if result_actcode == None: # 找不到
+                sess.close()
+                return  {'flag':False,'status':"no this actcode",'course_data':None}
+            else:
+                # 兑换码正确,统计次数
+                print result_actcode
+                print result_actcode.id,result_actcode.code,result_actcode.course_id,result_actcode.use_count
+                # 设置失效的兑换码也不可用
+                if result_actcode.is_invalid == True:
+                    sess.close()
+                    return  {'flag':False,'status':'act code invalid','course_data':None}
+                # 验证码有效，查找到，添加统计
+                result_actcode.is_use=True
+                result_actcode.use_count = result_actcode.use_count + 1
+                sess.commit()
+                # 附带课程数据
+                course_data = sess.query(Course).filter_by(id=result_actcode.course_id).first()
+                return  {'flag':True,'status':"find actcode and course succeed",'course_data':course_data}
+        
+
 
 # 初始化数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
@@ -551,159 +587,6 @@ Base.metadata.create_all(bind=engine)
 
 
 
-
-
-
-# 分类模拟
-fake_category = [
-{
-    'category_id':3213,
-    'category_name':"所有课程",
-    'category_count':12,
-    'category_course':[{
-        'course_id':'121',
-        'course_name':'Vue.js课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'139',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    {
-        'course_id':'121',
-        'course_name':'Vue.js课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'139',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    {
-        'course_id':'121',
-        'course_name':'Vue.js课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'139',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-        {
-        'course_id':'121',
-        'course_name':'Vue.js课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'139',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    ]
-},
-{
-    'category_id':4341,
-    'category_name':"前端开发",
-    'category_count':12,
-    'category_course':[{
-        'course_id':'121',
-        'course_name':'Vue.js课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'139',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    {
-        'course_id':'121',
-        'course_name':'python课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    ]
-},
-
-{'category_id':2131,'category_name':'后端开发'},
-{'category_id':1131,'category_name':'移动开发'},
-{
-    'category_id':9041,
-    'category_name':"大数据",
-    'category_count':12,
-    'category_course':[{
-        'course_id':'3912',
-        'course_name':'数据分析课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'3091',
-        'course_name':'CentOS服务器运维',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    {
-        'course_id':'0313',
-        'course_name':'python课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'0932',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    {
-        'course_id':'0984',
-        'course_name':'python课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    },
-    {
-        'course_id':'9301',
-        'course_name':'angular.js课程',
-        'course_img':r'http://img2.imgtn.bdimg.com/it/u=359120593,1637693053&fm=27&gp=0.jpg'
-    },
-    {
-        'course_id':'9842',
-        'course_name':'python课程',
-        'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg'
-    }
-    ]
-},
-]
-
-
-# 课程内页模拟数据
-
-fake_course_date = {
-    
-    "course_category":'前端开发',
-    'course_id':'121',
-    'course_name':'Vue.js课程',
-    'course_count':12,
-    'course_img':r'http://vue-js.org/images/vue-js-what-is-that.jpg',
-    'course_data':[
-
-        {'resource_id':'043','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':'120','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':'110','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':'129','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-        {'resource_id':'090','resource_name':"vue.js入门套课","update_time":'2017.9.11','resource_addr':"http://pan.baidu.com/dad3e",'resource_passwd':"AED3"},
-    
-    ]
-
-
-}
-
-# 模拟密码数据
-
-fake_passwd_data = {
-    
-    "043":"ek32",
-    "120":"09dk",    
-    "110":"od9d",    
-    "129":"0okc",    
-    "093":"crs4",
-    "090":"cds0"
-}
-
 if __name__ == "__main__":
 
     # 修改工作路径，方便直接python model
@@ -721,5 +604,8 @@ if __name__ == "__main__":
     # x = Actcode.init_actcode()
     # print x
 
-    x = Actcode.verify_actcode(course_id=10000,act_code=2873)
+    # x = Actcode.verify_actcode(course_id=10000,act_code=2873)
+    # print x
+
+    x = Actcode.verify_only_actcode(act_code=5128)
     print x

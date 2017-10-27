@@ -2,6 +2,8 @@
 from model import *
 from dev_tools import *
 
+import re
+
 class Data_Processor(object):
     """
     docstring for Data_Processor
@@ -45,8 +47,6 @@ class Data_Processor(object):
             return {'category_data':new_data,'has_active_course':has_active_course } 
         else:
             return {'category_data':Category.get_category(),'has_active_course':has_active_course }  
-
-
         
 
     @staticmethod
@@ -91,4 +91,21 @@ class Data_Processor(object):
 
         pass
         return course_data.get('course_is_free')
+
+    @staticmethod
+    def act_verify(request=None):
+        # 给验证码，验证对应课程
+        # 设置session/cookies
+        # 返回flash
+        
+        user_input_act = request.form.get('act_code')   
+        if user_input_act == None:
+            print "没有表单数据"
+            return {'flag':False,'status':'no act code','flash':'未输入兑换码'}
+        user_input_act = re.search(r'\d{4}',user_input_act).group() 
+        print "用户输入数据：",user_input_act
+        result = Actcode.verify_only_actcode(user_input_act)
+        print result
+
+        return result
 

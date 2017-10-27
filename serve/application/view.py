@@ -119,7 +119,13 @@ def course_activete():
     if request.method == 'GET':
         return render_template('act.html')
     elif request.method == 'POST':
-        return "%s" % str(request.form)
+        # 获取
+        result_dict = Data_Processor.act_verify(request)
+        
+        return "%s" % str(result_dict)
+
+
+
 
 @app.route('/test')
 def test():
