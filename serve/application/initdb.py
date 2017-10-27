@@ -229,6 +229,9 @@ def init_actcode():
 def renew_course_size():
     # 更新课程文件大小
     return Course.count_course_size()
+def add_actcode():
+
+    return Actcode.add_actcode(10000,20)
 
 if __name__ == "__main__":
 

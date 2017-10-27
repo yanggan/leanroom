@@ -521,15 +521,55 @@ class Actcode(Base):
                     course_id = course.id
                     )
                 act_code_obj_list.append(new_code)
-                
+
         sess.add_all(act_code_obj_list)
         sess.commit()
         sess.close()
         return "init actcode succeed"
 
     @staticmethod
-    def add_actcode(course_id,course_add_number=100):
-        pass
+    def add_actcode(course_id,course_add_number=50):
+        # 1、取出所有码 2、生成新的码，确保唯一性 3、写入新的码
+        sess = Actcode.get_session(engine)
+        course_case = sess.query(Course).filter_by(id=course_id).one()
+        all_actcode_obj_list = sess.query(Actcode).all()
+        chars = string.digits
+        # print course_case.id
+        # print len(all_actcode_obj_list)
+        # 现有的兑换码列表
+        db_actcode_list = [actcode.code for actcode in all_actcode_obj_list ]
+        new_actcode_list = []
+        new_actcode_obj_list = []
+        # 检察唯一性
+        def check_code(code,code_list):
+            if code in code_list:
+                new_code = "".join(random.choice(chars) for i in range(4)) #兑换码   
+                new_code = check_code(new_code,code_list)
+                return new_code
+            else:# 不重复，返回原来的code
+                return code
+        # 生成新的码，保证new_actcode_list是唯一的
+        for index in range(course_add_number):
+            code = "".join(random.choice(chars) for i in range(4)) #兑换码   
+            code = check_code(code,new_actcode_list)
+            new_actcode_list.append(code)
+        print new_actcode_list
+        # 对比db的码，有重复就重新生成,没重复就写入数据库
+        for code in new_actcode_list:
+            # 判断唯一
+            code = check_code(code,db_actcode_list)
+            # 写入数据
+            new_code = Actcode(
+                    # id = 100,
+                    code = code,
+                    course_id = course_case.id
+                    )
+            new_actcode_obj_list.append(new_code)
+        
+        sess.add_all(new_actcode_obj_list)
+        sess.commit()
+        sess.close()
+        return "add actcode succeed"
 
     @staticmethod
     def get_actcode():
@@ -673,5 +713,9 @@ if __name__ == "__main__":
     # x = Actcode.verify_only_actcode(act_code=5128)
     # print x
 
-    x = Actcode.init_unique_actcode()
+    # x = Actcode.init_unique_actcode()
+    # print x
+
+    x = Actcode.add_actcode(10000,20)
     print x
+   
