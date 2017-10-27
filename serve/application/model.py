@@ -139,9 +139,13 @@ class Course(Base):
         
         sess = Course.get_session(engine)
         # 先更新所有的课程的resource_size字段
-   
-        # 根据ID查询
-        course_case = (sess.query(Course).filter_by(id=course_id).one())
+    
+        try:
+            course_case = (sess.query(Course).filter_by(id=course_id).one())
+        except Exception as e:
+            return {'flag':False,'status':'This course is not found','course_data':None}
+
+        
         print '分类ID',course_case.category_id
         # 包含的资源和密码字典
         course_data = []
@@ -170,7 +174,7 @@ class Course(Base):
 
         }
 
-        return return_data
+        return {'flag':True,'status':'find the course succeed','course_data':return_data}
 
     @staticmethod
     def get_all_course():

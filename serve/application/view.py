@@ -1,6 +1,6 @@
 # coding:utf-8
 from application import app
-from flask import Flask,request,render_template,flash,redirect,url_for,session,make_response
+from flask import Flask,request,render_template,flash,redirect,url_for,session,make_response,abort
 from flask_restful import Resource, Api, abort, reqparse
 import re
 
@@ -37,8 +37,12 @@ def index():
 @app.route('/course/<int:course_id>',methods=['POST','GET'])
 def course_detail(course_id):
 
-    # 各种数据获取
+    # 各种数据获取 {'flag':True,'status':'find the course succeed','course_data':return_data}
     course_data = Data_Processor.get_course_data(course_id)
+    # 没有找到课程
+    if course_data.get('flag') == False:
+        abort(404)
+    course_data =  course_data.get('course_data')
     dev_data = Data_Processor.get_devtools_data()
     passwd_data = Data_Processor.get_passwd_data(course_data)
     is_free = Data_Processor.get_course_free_status(course_data)
