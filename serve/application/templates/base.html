@@ -74,7 +74,33 @@
     {% block contents %}
     {# 内容区域 #}
     {% endblock %}
-    
+   
+    <!-- footer -->
+    <footer class="page-footer"> 
+          <div class="footer-copyright">
+            <div class="container-fluid">
+            © 2017 learoom.com 版权所有.&nbsp  
+            <a class=" blue-text right" href="#copyright_modal"> 声明 </a>
+            </div>
+          </div>
+    </footer>
+
+
+          
+    {# 这里是版权声明弹窗 #}
+    <!-- modal内容，输入兑换码 -->
+    <div class="remodal" data-remodal-id="copyright_modal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h5>免责声明</h5>
+        <span>本站资源结果来自互联网信息整理，只提供信息整理和汇总分享服务。内容上如有侵犯的地方，请联系我们及时调整，感谢您的阅读</span>
+    </div>
+
+
+
+
+
+
+
 
     <!-- 统计代码 -->
     <script>
@@ -115,18 +141,15 @@
       draggable: true, // Choose whether you can drag to open on touch screens,
       
     });
-    
     </script>
+
     <!-- 提示的js设置 -->
     <script>
     $(document).ready(function(){
         $('.tooltipped').tooltip({delay:250,position:'top'});
     });
-        
-
     </script>
-    
-            
+
 
 </body>
 

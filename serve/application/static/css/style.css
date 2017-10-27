@@ -6,6 +6,7 @@ html{
     font-size: 15px;
     line-height: 25px;
     /* margin: 0px 0px 120px 120px !important; */
+
 }
 body{
     
@@ -15,7 +16,9 @@ body{
     font-family: "Raleway", Helvetica, Arial, sans-serif;
     font-size: 15px;
     line-height: 25px;
-    margin: 0px 0px 120px 120px !important;
+    margin: 0px 0px 0px 120px !important;
+    height: 100%;
+    width: 100%;
 
 }
 
@@ -122,6 +125,24 @@ input[type=text].valid:not(.browser-default){
     -webkit-box-shadow: 0 1px 0 0 #666;
     box-shadow: 0 1px 0 0 #666;
 }
+
+.page-footer {
+    position: relative;
+    bottom: 0px;
+    padding-top: 0px;
+
+    background-color: #fefefe;
+    font-size: 12px;
+    color: #666!important ;
+}
+.footer-copyright {
+    color: #666!important ;
+}
+.footer-copyright a {
+    color: #333!important;
+
+}
+
 
 /* 已兑换课程 */
 
@@ -276,6 +297,13 @@ input[type=text].valid:not(.browser-default){
 
 }
 
+
+/* === course_info==== */
+
+.course_info_centents{
+
+    height: 98vh;
+}
 
 /* 一级页面，标题组件样式 */
 .l-title{
@@ -438,6 +466,7 @@ input[type=text].valid:not(.browser-default){
     position: relative;
     width: 100%;
     height: 100vh;
+    min-height: 600px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.95);
 
