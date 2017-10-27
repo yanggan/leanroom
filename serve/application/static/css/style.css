@@ -253,8 +253,9 @@ input[type=text].valid:not(.browser-default){
 /* 右侧内容区域样式 */
 .l-right-contents{
     
-/*     margin-left: 120px !important;
-    padding-left: 120px; */
+
+ 
+    min-height: 970px;
 
 }
 .nav_bk{
@@ -301,7 +302,7 @@ input[type=text].valid:not(.browser-default){
 
 .course_info_centents{
 
-    height: 98vh;
+    min-height: 970px;
 }
 
 /* 一级页面，标题组件样式 */
