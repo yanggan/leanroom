@@ -16,7 +16,15 @@
 
 {# 内页标题栏目 + 右侧功能按钮 #}
 
-{% macro course_sub_title(course_name="课程名称",img_url="",course_category="类别",course_count="",course_size=0,course_passwd=None) %}
+{% macro course_sub_title(
+    course_id = '',
+    course_name="课程名称",
+    img_url="",
+    course_category="类别",
+    course_count="",
+    course_size=0,
+    course_passwd=None
+) %}
 
 <div class="l-sub-title-left row">
     
@@ -38,11 +46,22 @@
                 <a href="#" data-activates="slide-out" ><button title = "d"  type="button" class="btn btn-default grey darken-1  button-collapse tooltipped z-depth-0"   aria-label="Right Align" data-activates="slide-out"  data-tooltip="前往店铺购买此课程">
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                 </button></a>
-
-                <a href="#"><button type="button" class="btn btn-default grey darken-1 tooltipped z-depth-0" aria-label="Right Align" data-tooltip="导出为txt保持到本地">
-                    <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
-                </button></a>
-
+                
+                {%if course_passwd %}
+                <!-- 下载课程密码TEXT,需要兑换后才能下载 -->
+                    <a href="/get_course_txt/{{course_id}}">
+                        <button type="button" class="btn btn-default grey darken-1 tooltipped z-depth-0" aria-label="Right Align" data-tooltip="导出为txt保持到本地" onclick="Materialize.toast('导出成功,保存文件至本地!', 2000, 'rounded')">
+                            <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
+                        </button>
+                    </a>
+                {%else%} 
+                    <!-- 没有兑换的时候 -->
+                    <a href="#act_modal">
+                        <button type="button" class="btn btn-default grey darken-1 tooltipped z-depth-0" aria-label="Right Align" data-tooltip="导出为txt保持到本地" onclick="Materialize.toast('请先兑换课程~!', 1800,)">
+                        <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span>
+                        </button>
+                    </a>
+                {%endif%} 
             </div>
         </div>
     </div>

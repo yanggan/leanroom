@@ -24,7 +24,15 @@
         </div>
 
         {# 课程信息，操作区域 #}
-        {{ md.course_sub_title(course_name=course_data.course_name,img_url=course_data.course_img,course_category=course_data.course_category,course_count=course_data.course_count,course_passwd=passwd_dict,course_size=course_data.course_size)}}
+        {{ md.course_sub_title(
+            course_id=course_data.course_id,
+            course_name=course_data.course_name,
+            img_url=course_data.course_img,
+            course_category=course_data.course_category,
+            course_count=course_data.course_count,
+            course_passwd=passwd_dict,
+            course_size=course_data.course_size
+        )}}
 
         {# 背景 #}
         <div class="course_info_nav_bk">

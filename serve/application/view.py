@@ -154,3 +154,17 @@ def test():
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')
+
+# 用户下载课程和密码txt
+@app.route('/get_course_txt/<int:course_id>')
+def get_course_txt(course_id):
+    
+    content = "long text \ntest"
+
+    response = make_response(content)
+    response.headers["Content-Disposition"] = "attachment; filename=passwd.txt"
+    return response
+
+    
+
+
