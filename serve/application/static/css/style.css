@@ -30,14 +30,12 @@ h1,h2,h3,h4,h5{
 }
 
 a {
-    text-decoration:none
-}
-
-a:hover {
     text-decoration:none!important;
 }
 
-
+a:link,a:visited,a:hover,a:active {
+    text-decoration:none!important;
+}
 
 
 /* 强制覆盖掉第三方的样式 */
@@ -395,7 +393,7 @@ input[type=text].valid:not(.browser-default){
     
     padding: 0px 10px!important;
     font-size: 14px!important;
- 
+
 }
 
 /* 课程内容区域 */
