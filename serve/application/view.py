@@ -119,10 +119,30 @@ def course_activete():
     if request.method == 'GET':
         return render_template('act.html')
     elif request.method == 'POST':
-        # 获取
-        result_dict = Data_Processor.act_verify(request)
+        user_input_act = request.form.get('act_code',None) 
+        print user_input_act
+
+        # 输入空的验证码
+        if user_input_act == None or user_input_act == '':
+            print "没有表单数据"
+            flash(u'请输入4位数字兑换码', 'act_error')
+            result_dict = {'flag':False,'status':"actcode is empty",'course_data':None,'error_code':900}
+            return render_template("act.html",result_dict=result_dict)
+
+        user_input_act = re.search(r'\d{4}',user_input_act).group()  
+        # 返回 {'flag':True,'status':"find actcode and course succeed",'course_data':course_data,'error_code':200}
+        result_dict = Data_Processor.act_verify(user_input_act)
         
-        return "%s" % str(result_dict)
+        # 成功
+        if result_dict.get('flag') == True: #验证成功
+            course_id = str(result_dict.get('course_data').get('course_id'))
+            session['course_'+ course_id ] = user_input_act # 设置session
+            resp = make_response(redirect(url_for('course_detail',course_id=course_id)))
+            resp.set_cookie('course_'+course_id,user_input_act) # 设置cookies
+            return resp # 返回response让浏览器重定向Get访问
+        # 兑换失败
+        flash(u'兑换码错误,请核对后重新输入', 'act_error')
+        return render_template("act.html",result_dict=result_dict)
 
 
 

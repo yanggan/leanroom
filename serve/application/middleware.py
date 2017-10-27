@@ -93,12 +93,10 @@ class Data_Processor(object):
         return course_data.get('course_is_free')
 
     @staticmethod
-    def act_verify(request=None):
+    def act_verify(user_input_act=None):
         # 给验证码，验证对应课程
-        # 设置session/cookies
         # 返回flash
         
-        user_input_act = request.form.get('act_code')   
         if user_input_act == None:
             print "没有表单数据"
             return {'flag':False,'status':'no act code','flash':'未输入兑换码'}

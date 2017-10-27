@@ -537,29 +537,38 @@ class Actcode(Base):
             # 没有找到返回none,多余一个则异常
             result_actcode = sess.query(Actcode).filter_by(code=str(act_code)).one_or_none()
         except Exception as e: #大于1个报错
-            x = 'this act code  more than one course'
-            print x
+            # x = 'this act code  more than one course'
+            # print x
             sess.close()
-            return  {'flag':False,'status':x,'course_data':None}
+            return  {'flag':False,'error_code':600,'status':'this act code  more than one course','course_data':None}
         else:
             if result_actcode == None: # 找不到
                 sess.close()
-                return  {'flag':False,'status':"no this actcode",'course_data':None}
+                return  {'flag':False,'error_code':700,'status':"no this actcode",'course_data':None}
             else:
                 # 兑换码正确,统计次数
-                print result_actcode
-                print result_actcode.id,result_actcode.code,result_actcode.course_id,result_actcode.use_count
+                # print result_actcode
+                # print result_actcode.id,result_actcode.code,result_actcode.course_id,result_actcode.use_count
                 # 设置失效的兑换码也不可用
                 if result_actcode.is_invalid == True:
                     sess.close()
-                    return  {'flag':False,'status':'act code invalid','course_data':None}
+                    return  {'flag':False,'status':'act code invalid','error_code':800,'course_data':None}
                 # 验证码有效，查找到，添加统计
                 result_actcode.is_use=True
                 result_actcode.use_count = result_actcode.use_count + 1
                 sess.commit()
                 # 附带课程数据
                 course_data = sess.query(Course).filter_by(id=result_actcode.course_id).first()
-                return  {'flag':True,'status':"find actcode and course succeed",'course_data':course_data}
+                #  把对象转为dict
+                course_data = {
+                    'course_id':course_data.id,
+                    'course_name':course_data.name,
+                    'course_img':course_data.img_url,
+                    'course_size':course_data.course_size,
+                    'category_id':course_data.category_id,
+                    'course_is_free':course_data.is_free
+                }
+                return  {'flag':True,'error_code':200,'status':"find actcode and course succeed",'course_data':course_data}
         
 
 

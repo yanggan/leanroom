@@ -9,26 +9,14 @@
     {# 引入宏组件 #}
     {% import 'component.html' as md %}
     
-    {# 标题 #}
 
     <div class="container-fluid act">
-        <!-- 输入表单 -->
-<!--        <div class="row act_card">
-            <div class="act-user">
-                <div class="act_form">
-                    <form action="">
-                        
-                        <div class="input-field col s2 offset-s5">
-                            <span>请输入4位数字兑换码</span>
-                            <input placeholder="" id="first_name" type="text" class="validate text-center">
-                            <!~~  <label for="first_name" class="active text-center">请输入4位数字兑换码</label> ~~>
-                            <a class="btn  green lighten-1 z-depth-0 waves-effect waves-brown waves-ripple actpage_submit ">兑换课程</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
--->
+        
+
+   
+
+
+
         <div class="container">
             <div class="row">
                 <div class="card act_card large z-depth-2 col s8 offset-s2 ">
@@ -41,29 +29,50 @@
                     </div> -->
                         <form method ="Post" action="/act">
                             <div class="input-field actpage_input col s10 offset-s1 ">
-                                <input placeholder="" \
-                                    id="first_name" type="text" 
-                                    class="validate text-center"
-                                    onkeyup="value=value.replace(/[^\d]/g,'')" pattern="[0-9]{4}" 
-                                    title="请输入4位数字兑换码"
-                                    name = 'act_code'
 
-                                >
-                                    
-                                <label for="first_name" class="active ">请输入4位数字兑换码</label>
-                        
+                                <input 
+                                    name='act_code' 
+                                    onkeyup="value=value.replace(/[^\d]/g,'')" 
+                                    pattern="[0-9]{4}"   
+                                    id="actcode2" 
+                                    type="text" 
+                                    class="validate text-center " 
+                                    title="请输入4位数字兑换码"
+                                    data-length="4"
+                                />
+
+                                <label class="active text-center " for="actcode2">
+                                <!-- 用flash做错误提示 -->          
+                                {% with messages = get_flashed_messages(category_filter=["act_error"]) %}
+                                {% if messages %}
+                                        {% for message in messages %}
+                                          <i class='blue-text text-darken-1' >{{ message }}</i> 
+                                        {% endfor %}
+                                {% else %}
+                                          请输入4位数字兑换码
+                                {% endif %}
+                                {% endwith %}
+
+                                </label>
                             </div>
+
+
                             <div class="card-action actpage_card_action">
                                 <button class="btn  green lighten-1 z-depth-0 waves-effect waves-brown waves-ripple actpage_submit " type="submit">兑换课程</button>
                             
                             </div>
+
                         </form>
+
+
                 </div>
                 
             </div>
         </div>
 
+        
 
+     
 
         <!-- 背景图片 -->
         <div class="act_bk_bk">
