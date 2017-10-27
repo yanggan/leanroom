@@ -164,7 +164,8 @@ class Course(Base):
             'course_img':course_case.img_url,
             'course_data':course_data,
             'course_size':course_case.course_size,
-            'passwd_dict':passwd_dict
+            'passwd_dict':passwd_dict,
+            'course_is_free':course_case.is_free
 
         }
 
@@ -295,7 +296,6 @@ class Category(Base):
                
                 if is_active_id !=[]:
 
-                    cate_has_active_course = True
                     # 判断激活id = 课程id
                     is_active_flag = [1 if i==course_data.id else 0 for i in is_active_id]
                     is_active_flag = 1 if 1 in is_active_flag  else 0
@@ -306,7 +306,8 @@ class Category(Base):
                         'course_img':course_data.img_url,
                         'course_size':course_data.course_size,
                         'category_id':course_data.category_id,
-                        'is_active':is_active_flag
+                        'is_active':is_active_flag,
+                        'course_is_free':course_data.is_free
                     }
                     is_active_course_data.append(x) if is_active_flag == 1 else None
                     is_active_flag = 0
@@ -318,6 +319,7 @@ class Category(Base):
                         'course_img':course_data.img_url,
                         'course_size':course_data.course_size,
                         'category_id':course_data.category_id,
+                        'course_is_free':course_data.is_free,
                         'is_active':0
                     }
                
@@ -331,6 +333,7 @@ class Category(Base):
                 'category_count':len(instance.category_course),
                 'category_course':cate_course,
                 'category_active_course': is_active_course_data if is_active_course_data != [] else None
+            
             }
             real_data.append(data)
         # print(real_data)

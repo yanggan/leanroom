@@ -5,7 +5,7 @@ class DevelopmentConfig():
     DEBUG = True
     SECRET_KEY='123456'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///./application/db/learoom.db'
-    GIT_VERSION_DISPLAY = False
+    GIT_VERSION_DISPLAY = True
     pass
 
 

@@ -39,13 +39,14 @@
                     <!-- <div class="card-content">
                         <p>请输入4位数字兑换码，兑换课程，如有疑问请联系客服。</p>
                     </div> -->
-                        <form method ="Post" action="/index">
+                        <form method ="Post" action="/act">
                             <div class="input-field actpage_input col s10 offset-s1 ">
                                 <input placeholder="" \
                                     id="first_name" type="text" 
-                                    class="validate"
+                                    class="validate text-center"
                                     onkeyup="value=value.replace(/[^\d]/g,'')" pattern="[0-9]{4}" 
                                     title="请输入4位数字兑换码"
+                                    name = 'act_code'
 
                                 >
                                     

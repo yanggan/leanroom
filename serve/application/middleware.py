@@ -86,3 +86,9 @@ class Data_Processor(object):
         # 获取课程id+密码的dict
         pass
         return course_data.get('passwd_dict')
+    @staticmethod
+    def get_course_free_status(course_data):
+
+        pass
+        return course_data.get('course_is_free')
+

@@ -41,16 +41,23 @@ def course_detail(course_id):
     course_data = Data_Processor.get_course_data(course_id)
     dev_data = Data_Processor.get_devtools_data()
     passwd_data = Data_Processor.get_passwd_data(course_data)
+    is_free = Data_Processor.get_course_free_status(course_data)
+
+    print "is free " , is_free 
 
     if request.method == "GET":
 
-        # 2种情况，1、第一次访问，2、输入兑换码后，重定向访问，这时候需要返回带密码页面
+        # 3种情况，1、第一次访问，2、输入兑换码后，重定向访问，这时候需要返回带密码页面
+        # 0、限免课程，直接返回数据
         # 1、读取用户的cookies和session，把兑换码拿出来，匹配是否是这门课程的对缓慢
         # 2、如果是这门课程的兑换码，则返回带提取密码数据的页面
         # 3、如果不是，则返回普通的页面
         # 判断session,如果有key,value就不用验证了
+        if is_free == True:
+            
+            return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
         
-        if session.get('course_'+str(course_id)) != None:
+        elif session.get('course_'+str(course_id)) != None:
 
             user_input_key =  session.get('course_'+str(course_id))
             print user_input_key
@@ -106,11 +113,13 @@ def course_detail(course_id):
 
 
 # 通过激活码激活课程
-@app.route("/act")
+@app.route("/act",methods=['POST','GET'])
 def course_activete():
     # pass
-    return render_template('act.html')
-
+    if request.method == 'GET':
+        return render_template('act.html')
+    elif request.method == 'POST':
+        return "%s" % str(request.form)
 
 @app.route('/test')
 def test():
