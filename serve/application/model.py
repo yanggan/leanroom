@@ -92,7 +92,8 @@ class Course(Base):
                 name = cate.get('name'),
                 description = cate.get('description'),
                 img_url = cate.get('img_url'),
-                category_id = cate.get('category_id')
+                category_id = cate.get('category_id'),
+                is_free=cate.get('is_free')
                 )
             add_cate_list.append(new_cate)
 

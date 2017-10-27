@@ -168,6 +168,7 @@ def get_course_txt(course_id):
                 (resource.get('resource_name'),resource.get('resource_addr'),resource.get('resource_passwd'))
     content = content + '\n\n--------------------\nLEA编程学院,更多课程资源请访问:http://www.learoom.com' 
     response = make_response(content)
+    response.headers["Accept-Language"] = "zh-CN,zh;q=0.8,en;q=0.6"
     response.headers["Content-Disposition"] = "attachment; filename=passwd.txt"
     return response
 

@@ -11,7 +11,8 @@ def init_course():
             'name':u'HTML/CSS课程',
             'description':u'WEB最基础的内容学习',
             'img_url':"/static/img/course/html.jpg",
-            'category_id':1000
+            'category_id':1000,
+            'is_free':True
         },
         {
             'id':None,
