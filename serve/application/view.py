@@ -159,12 +159,18 @@ def welcome():
 @app.route('/get_course_txt/<int:course_id>')
 def get_course_txt(course_id):
     
-    content = "long text \ntest"
+    content = "课程导出:\n--------------------\n"
+    course_data = Data_Processor.get_course_data(course_id)
+    content = content + '\n课程集: 《' + str(course_data.get('course_name')) + "》"
 
+    for resource in course_data.get('course_data'):
+        content = content + '\n课程: %s 链接: %s 密码: %s ' % \
+                (resource.get('resource_name'),resource.get('resource_addr'),resource.get('resource_passwd'))
+    content = content + '\n\n--------------------\nLEA编程学院,更多课程资源请访问:http://www.learoom.com' 
     response = make_response(content)
     response.headers["Content-Disposition"] = "attachment; filename=passwd.txt"
     return response
 
-    
+
 
 
