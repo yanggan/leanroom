@@ -164,7 +164,7 @@ def welcome():
 def get_course_txt(course_id):
     
     content = "课程导出:\n--------------------\n"
-    course_data = Data_Processor.get_course_data(course_id)
+    course_data = Data_Processor.get_course_data(course_id).get('course_data')
     content = content + '\n课程集: 《' + str(course_data.get('course_name')) + "》"
 
     for resource in course_data.get('course_data'):
