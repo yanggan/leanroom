@@ -154,6 +154,7 @@ class Course(Base):
             course_data.append({
                 'resource_id':x.id,
                 'resource_name':x.name,
+                'content_type':x.content_type,
                 "update_time":x.update_time,
                 'resource_addr':x.url,
                 'resource_size':x.size,
@@ -368,6 +369,8 @@ class Resource(Base):
     size = Column('size',Float)
     update_time = Column('update_time',String)
 
+    # 1：视频，2：视频+源码 3：视频+项目实战 4：书籍
+    content_type = Column('content_type',Integer,default=False)
 
     # 外键，一个课程对应多个资源
     course_id = Column(Integer, ForeignKey('Course.id'))
@@ -400,6 +403,7 @@ class Resource(Base):
                 passwd = res.get('passwd'),
                 size = res.get('size'),  
                 update_time = datetime.datetime.now().strftime('%Y-%m-%d'),
+                content_type = res.get('content_type'),
                 course_id = res.get('course_id')
                 )
             add_res_list.append(new_res)

@@ -115,6 +115,7 @@ def init_resouce():
             {
                 'id':600000,
                 'name':u'Html入门到精通视频合集',
+                'content_type':1,
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
                 'passwd':'yhaa',
                 'size':'3.2',
@@ -132,6 +133,7 @@ def add_resouce():
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'content_type':2,
                 'size':'3.2',
                 'passwd':'dead',
                 'course_id':10001
@@ -141,6 +143,7 @@ def add_resouce():
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'content_type':2,
                 'size':'3.2',
                 'passwd':'dead',
                 'course_id':10001
@@ -150,6 +153,7 @@ def add_resouce():
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'content_type':2,
                 'size':'3.2',
                 'passwd':'dead',
                 'course_id':10001
@@ -159,6 +163,7 @@ def add_resouce():
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'content_type':2,
                 'size':'3.2',
                 'passwd':'dead',
                 'course_id':10001
