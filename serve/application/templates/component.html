@@ -18,6 +18,7 @@
 
 {% macro course_sub_title(
     course_id = '',
+    course_is_free = false,
     course_name="课程名称",
     img_url="",
     course_category="类别",
@@ -33,7 +34,14 @@
     <div class=" col s5">
         <h5>{{course_name}}</h5>
         <span>{{course_category}} | 共有 {{course_count}} 门课程 | 共计 {{course_size}} G</span> &nbsp
-        {%if course_passwd != None %}<span class="label label-success">已兑换</span>{%endif%}
+        {%if course_passwd != None %}
+            {%if course_is_free == True %}
+                <span class="label label-success">限免课程</span>
+            {% else %}
+                <span class="label label-success">已兑换</span>
+                
+            {%endif%}
+        {%endif%}
     </div>
     {# 右边是操作，返回上一页，兑换课程，导出地址和提取码 #}
     <div class="col s6">
