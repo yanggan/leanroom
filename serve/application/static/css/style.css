@@ -6,10 +6,11 @@ html{
     font-size: 12px;
     line-height: 25px;
     /* margin: 0px 0px 120px 120px !important; */
-
+    
 }
 body{
     
+    font-family: 'Droid Sans Fallback','PingFang SC','Microsoft YaHei','Hiragino Sans GB','Heiti SC','WenQuanYi Micro Hei',sans-serif;
     top: 0px;
     bottom: 0px;
     margin: 0px;  
