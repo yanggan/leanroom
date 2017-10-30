@@ -8,102 +8,170 @@ def init_course():
     print Course.add_course([
         {
             'id':10000,
-            'name':u'HTML/CSS课程',
+            'name':u'Html/CSS/Bootstarp免费课程包',
             'description':u'WEB最基础的内容学习',
-            'img_url':"/static/img/course/html.jpg",
+            'img_url':"/static/img/course/html.png",
             'category_id':1000,
             'is_free':True
         },
         {
             'id':None,
-            'name':u'Bootstrap框架课程',
-            'description':u'高效简单的必学框架',
-            'img_url':"/static/img/course/bootstrap.jpg",
-            'category_id':1000
-        },
-        {
-            'id':None,
-            'name':u'Javascript课程',
+            'name':u'Javascript/JQuery课程包',
             'description':u'前端开发的必学语言',
-            'img_url':"/static/img/course/js.jpg",
-            'category_id':1000
-        },
-        {
-            'id':None,
-            'name':u'jQuery库课程',
-            'description':u'一个JavaScript库,极大简化了JavaScript编程',
-            'img_url':"/static/img/course/jq.jpg",
+            'img_url':"/static/img/course/js.png",
             'category_id':1000
         },        
         {
             'id':None,
-            'name':u'Vue.js前端框架课程',
+            'name':u'Vue.js框架汇总课程包',
             'description':u'轻量级的前端JS框架',
-            'img_url':"/static/img/course/vue.jpg",
+            'img_url':"/static/img/course/vue2.png",
             'category_id':1000
         },
         {
             'id':None,
-            'name':u'React前端框架课程',
+            'name':u'React/RNative框架汇总课程包',
             'description':u'来自Facebook的JS框架',
             'img_url':"/static/img/course/react.jpg",
             'category_id':1000
         },
         {
             'id':None,
-            'name':u'AngularJS前端框架课程',
+            'name':u'Angular1-4框架汇总课程包',
             'description':u'来自Google开发的前端JS框架',
             'img_url':"/static/img/course/angular.jpg",
             'category_id':1000
         },
         {
             'id':None,
-            'name':u'Node.Js课程',
-            'description':u'前端必学的Javascript运行环境',
-            'img_url':"/static/img/course/nodejs.jpg",
-            'category_id':1000
-        },
-        {
-            'id':None,
-            'name':u'前端Photoshop课程',
+            'name':u'前端Photoshop入门课程包',
             'description':u'前端切图必学必会',
             'img_url':"/static/img/course/ps.jpg",
-            'category_id':1000
+            'category_id':1000,
+            'is_free':True
         },
         {
             'id':None,
-            'name':u'Sqlite课程',
-            'description':u'',
-            'img_url':"/static/img/course/sqlite.jpg",
+            'name':u'Java基础&Web汇总课程包',
+            'description':u'Java所有课程包',
+            'img_url':"/static/img/course/java.png",
+            'category_id':1001,
+        },
+        {
+            'id':None,
+            'name':u'PHP基础&Laravel框架汇总课程包',
+            'description':u'PHP基础&laravel框架汇总课程包',
+            'img_url':"/static/img/course/php.png",
+            'category_id':1001,
+        },
+
+        # python / 全栈
+
+        {
+            'id':None,
+            'name':u'Python基础&框架全栈课程包',
+            'description':u'Python基础&框架全栈课程包',
+            'img_url':"/static/img/course/python.png",
+            'category_id':1002,
+        },
+
+        {
+            'id':None,
+            'name':u'Node.js基础&全栈课程包',
+            'description':u'Node.js基础&全栈课程包',
+            'img_url':"/static/img/course/nodejs.jpg",
+            'category_id':1002,
+        },
+
+        # 移动端开发
+
+        {
+            'id':None,
+            'name':u'Android入门&项目汇总课程包',
+            'description':u'Android入门&项目汇总课程包',
+            'img_url':"/static/img/course/android.png",
+            'category_id':1003,
+        },
+        {
+            'id':None,
+            'name':u'iOS开发入门&项目汇总课程包',
+            'description':u'iOS开发入门&项目汇总课程包',
+            'img_url':"/static/img/course/ios.png",
+            'category_id':1003,
+        },
+
+        # 运维开发
+        {
+            'id':None,
+            'name':u'linux入门&运维汇总课程包',
+            'description':u'linux入门汇总课程包',
+            'img_url':"/static/img/course/linux.png",
+            'category_id':1004,
+        },
+        {
+            'id':None,
+            'name':u'OpenStack/hadoop等汇总课程包',
+            'description':u'OpenStack/hadoop等框架课程包',
+            'img_url':"/static/img/course/opdev.png",
+            'category_id':1004,
+        },
+
+        # linux
+
+        {
+            'id':None,
+            'name':u'Mysql/Sqlserver/Orache/Postgre课程包',
+            'description':u'Mysql/Sqlserver/Orache/Postgre课程包',
+            'img_url':"/static/img/course/sql.png",
+            'category_id':1005,
+        },
+
+        {
+            'id':None,
+            'name':u'Mongodb非关系型汇总课程包',
+            'description':u'Mongodb非关系型汇总课程包',
+            'img_url':"/static/img/course/nosql.jpg",
+            'category_id':1005,
+        },
+
+        # 数据分析
+
+        {
+            'id':None,
+            'name':u'R语言学习汇总课程包',
+            'description':u'R语言学习汇总课程包',
+            'img_url':"/static/img/course/r.png",
             'category_id':1006
         },
         {
             'id':None,
-            'name':u'Mysql课程',
-            'description':u'',
-            'img_url':"/static/img/course/mysql.jpg",
+            'name':u'数据结构/编程算法课程包',
+            'description':u'数据结构/编程算法课程包',
+            'img_url':"/static/img/course/alg.png",
             'category_id':1006
         },
         {
             'id':None,
-            'name':u'Oracle课程',
-            'description':u'',
-            'img_url':"/static/img/course/oracle.jpg",
-            'category_id':1006
-        },
-        {
-            'id':None,
-            'name':u'SQLServer课程',
-            'description':u'',
-            'img_url':"/static/img/course/sqlserver.jpg",
+            'name':u'深度学习理论汇总课程包',
+            'description':u'深度学习理论汇总课程包',
+            'img_url':"/static/img/course/deep.png",
             'category_id':1006
         },        
         {
             'id':None,
-            'name':u'MongoDB课程',
-            'description':u'',
-            'img_url':"/static/img/course/mongodb.jpg",
+            'name':u'C/C++基础&项目课程包',
+            'description':u'C/C++基础&项目课程包',
+            'img_url':"/static/img/course/c.png",
             'category_id':1006
+        },
+        # 其他
+        {
+            'id':None,
+            'name':u'限免分享课程',
+            'description':u'C/C++基础&项目课程包',
+            'img_url':"/static/img/course/c.png",
+            'category_id':1007,
+            'is_free':True
         }
 
     ])
@@ -132,6 +200,7 @@ def add_resouce():
             {
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
+                'description':'',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
                 'content_type':2,
                 'size':'3.2',
@@ -143,6 +212,7 @@ def add_resouce():
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
+                'description':'',
                 'content_type':2,
                 'size':'3.2',
                 'passwd':'dead',
@@ -152,6 +222,7 @@ def add_resouce():
             {
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
+                'description':'',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
                 'content_type':2,
                 'size':'3.2',
@@ -162,6 +233,7 @@ def add_resouce():
             {
                 'id':None,
                 'name':u'Bootstrap入门到精通视频合集',
+                'description':'',
                 'url':"http://pan.baidu.com/s/1c1OgW3A",
                 'content_type':2,
                 'size':'3.2',
@@ -178,13 +250,12 @@ def init_category():
 
     x = [
         u'Web前端',
-        u'Java开发',
-        u"PHP开发",
-        u'Python开发',
+        u'Java&PHP开发',
+        u'Python&全栈',
         u'移动端开发',
         u"运维开发",
         u'数据库',
-        u'数据分析',
+        u'数据&算法',
         u'其他'
         ] 
 

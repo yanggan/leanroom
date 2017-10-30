@@ -154,6 +154,7 @@ class Course(Base):
             course_data.append({
                 'resource_id':x.id,
                 'resource_name':x.name,
+                'resource_description':x.description,
                 'content_type':x.content_type,
                 "update_time":x.update_time,
                 'resource_addr':x.url,
@@ -364,6 +365,7 @@ class Resource(Base):
 
     id = Column('id',Integer, primary_key=True,autoincrement=True)
     name = Column('name',String(100))
+    description = Column('description',String)
     url = Column('url',String(100))
     passwd = Column('passwd',String(100))
     size = Column('size',Float)
@@ -399,6 +401,7 @@ class Resource(Base):
             new_res = Resource( 
                 id = res.get('id'),
                 name = res.get('name'),
+                description = res.get('description'),
                 url = res.get('url'),
                 passwd = res.get('passwd'),
                 size = res.get('size'),  

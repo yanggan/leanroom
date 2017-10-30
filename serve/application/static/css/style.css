@@ -3,7 +3,7 @@ html{
     top: 0px;
     bottom: 0px;
     font-family: "Raleway", Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 25px;
     /* margin: 0px 0px 120px 120px !important; */
 
@@ -142,8 +142,9 @@ input[type=text].valid:not(.browser-default){
 
 }
 .card .card-title {
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
 }
 .label-default-tags {
     
@@ -395,7 +396,10 @@ input[type=text].valid:not(.browser-default){
     float: right;
 }
 
+.tooltipped{
 
+    background-color: #fff!important;
+}
 
 /* 课程导航 */
 

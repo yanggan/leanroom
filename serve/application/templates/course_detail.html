@@ -75,17 +75,19 @@
                     <tr>
                         <td>《{{i.resource_name}}》</td>
                         <td> 
-                            <!-- 代表：1：视频，2：视频+源码 3：视频+项目实战 4：书籍  -->
+                            <!-- 代表：1：视频，2：视频+源码 3：视频+项目实战 4：书籍 5：源码  -->
                             {% if i.content_type == 1 %}
-                                <span class="label label-default label-default-tags ">视频</span>
+                                <span class="label  tooltipped label-default label-default-tags " data-position="top" data-delay="50"data-tooltip="{{i.resource_description}}">视频</span>
                             {% elif i.content_type == 2 %}
-                                <span class="label label-default label-default-tags">视频 + 源码</span>
+                                <span class="label tooltipped label-default label-default-tags"  data-position="top" data-delay="50"data-tooltip="{{i.resource_description}}">视频 + 源码</span>
                             {% elif i.content_type == 3%}
-                                <span class="label label-default label-default-tags">视频 + 项目实战</span>
-                            {% elif i.content_type == 4 %}
-                            <span class="label label-default label-default-tags">书籍</span>
+                                <span class="label tooltipped  label-default label-default-tags"  data-position="top" data-delay="50"data-tooltip="{{i.resource_description}}">视频 + 项目实战</span>
+                            {% elif i.content_type == 4 %}  
+                                <span class="label  tooltipped  label-default label-default-tags"  data-position="top" data-delay="50"data-tooltip="{{i.resource_description}}">书籍</span>
+                            {% elif i.content_type == 5 %}
+                                <span class="label  tooltipped  label-default label-default-tags" data-position="top" data-delay="50"data-tooltip="{{i.resource_description}}">源码</span>
                             {% else  %}
-                                <span class="label label-default label-default-tags">视频</span>
+                                <span class="label tooltipped  label-default label-default-tags" data-position="top" data-delay="50"data-tooltip="{{i.resource_description}}">视频</span>
                             {%endif%}
                         </td>
                         <td>{{i.update_time}}</td>
