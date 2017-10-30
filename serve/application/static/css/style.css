@@ -17,7 +17,7 @@ body{
     font-size: 15px;
     line-height: 25px;
     margin: 0px 0px 0px 120px !important;
-
+    
 
 }
 
@@ -26,11 +26,13 @@ h1,h2,h3,h4,h5{
     top: 0px!important;
     bottom: 0px!important;
     line-height: 1.2!important;
-
+    text-transform:capitalize;
 }
 
 a {
     text-decoration:none!important;
+    text-transform:capitalize!important;
+
 }
 
 a:link,a:visited,a:hover,a:active {
