@@ -10,7 +10,7 @@ html{
 }
 body{
     
-    font-family: 'Droid Sans Fallback','PingFang SC','Microsoft YaHei','Hiragino Sans GB','Heiti SC','WenQuanYi Micro Hei',sans-serif;
+    font-family: 'Droid Sans Fallback','PingFang SC','Microsoft YaHei','Hiragino Sans GB','Heiti SC','WenQuanYi Micro Hei',sans-serif!important;
     top: 0px;
     bottom: 0px;
     margin: 0px;  
