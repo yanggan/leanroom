@@ -8,7 +8,7 @@ def init_course():
     print Course.add_course([
         {
             'id':10000,
-            'name':u'Html/CSS/Bootstarp免费课程包',
+            'name':u'Html/CSS/Bootstrap免费课程包',
             'description':u'WEB最基础的内容学习',
             'img_url':"/static/img/course/html.png",
             'category_id':1000,
@@ -120,7 +120,7 @@ def init_course():
 
         {
             'id':None,
-            'name':u'Mysql/Sqlserver/Orache/Postgre课程包',
+            'name':u'Mysql/Sqlserver/Orache课程包',
             'description':u'Mysql/Sqlserver/Orache/Postgre课程包',
             'img_url':"/static/img/course/sql.png",
             'category_id':1005,
