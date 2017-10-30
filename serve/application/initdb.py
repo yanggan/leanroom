@@ -167,7 +167,7 @@ def init_course():
         # 其他
         {
             'id':None,
-            'name':u'限免分享课程',
+            'name':u'限免课程包',
             'description':u'限免分享课程',
             'img_url':"/static/img/course/free.png",
             'category_id':1007,
