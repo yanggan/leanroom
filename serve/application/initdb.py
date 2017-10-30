@@ -168,8 +168,8 @@ def init_course():
         {
             'id':None,
             'name':u'限免分享课程',
-            'description':u'C/C++基础&项目课程包',
-            'img_url':"/static/img/course/c.png",
+            'description':u'限免分享课程',
+            'img_url':"/static/img/course/free.png",
             'category_id':1007,
             'is_free':True
         }
