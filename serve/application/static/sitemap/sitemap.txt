@@ -3,3 +3,6 @@ http://www.looncode.com/act
 http://www.looncode.com/course/10000
 http://www.looncode.com/welcome
 http://www.learoom.com/index
+
+http://dev.learoom.com
+http://dev.looncode.com
