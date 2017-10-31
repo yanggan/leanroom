@@ -311,10 +311,10 @@ def add_actcode():
 
 if __name__ == "__main__":
 
-    print init_category()
-    print init_course()
-    print init_resouce()
-    print add_resouce()
-    print init_actcode()
+    # print init_category()
+    # print init_course()
+    # print init_resouce()
+    # print add_resouce()
+    # print init_actcode()
     print renew_course_size()
     pass

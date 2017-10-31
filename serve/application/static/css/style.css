@@ -157,7 +157,7 @@ input[type=text].valid:not(.browser-default){
 .code-passwd {
 
     padding: 6px 16px;
-    font-size: 120%;
+    font-size: 110%;
     font-weight: 500;
     color: #c7254e;
     /* color: #fff; */
@@ -166,7 +166,11 @@ input[type=text].valid:not(.browser-default){
 }
 
 
+.update_time{
 
+    font-size: 12px;
+    color: ##666;
+}
 
 
 /* 已兑换课程 */
