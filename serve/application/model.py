@@ -620,7 +620,7 @@ class Actcode(Base):
                 sess.commit()
                 sess.close()
                 return  {'flag':False,'status':'兑换码已失效'}
-            result.is_use=True
+            result.is_use= True
             result.use_count = result.use_count + 1
             sess.commit()
             sess.close()
