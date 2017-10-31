@@ -496,7 +496,7 @@ class Actcode(Base):
         return "init actcode succeed"
 
     @staticmethod
-    def init_unique_actcode(course_number=100):
+    def init_unique_actcode(course_number=30):
         # 1、生成一定数量的 2、查重，避免重复，然后再插入数据
         sess = Actcode.get_session(engine)
         all_course_list = sess.query(Course).all()
