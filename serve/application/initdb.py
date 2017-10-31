@@ -316,5 +316,5 @@ if __name__ == "__main__":
     # print init_resouce()
     # print add_resouce()
     print init_actcode()
-    # print renew_course_size()
+    print renew_course_size()
     pass
