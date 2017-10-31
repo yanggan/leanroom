@@ -75,7 +75,7 @@
                     {%for i in course_data.course_data %}
                     <tr>
                         <td class="update_time" >{{loop.index}}</td>
-                        <td class="resouce_name">《{{i.resource_name}}》</td>
+                        <td class="resouce_name">{{i.resource_name}}</td>
                         <td> 
                             <!-- 代表：1：视频，2：视频+源码 3：视频+项目实战 4：书籍 5：源码  -->
                             {% if i.content_type == 1 %}
