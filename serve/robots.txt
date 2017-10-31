@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://looncode.com/static/img/sitemap/site.txt
+Sitemap: http://looncode.com/static/sitemap/sitemap.txt
