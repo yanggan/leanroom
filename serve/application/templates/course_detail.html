@@ -61,19 +61,21 @@
             <table class="highlight bordered">
                 <thead>
                     <tr>
+                        <th>序</th>
                         <th>课程名称</th>
                         <th>内容包含</th>
                         <th>更新日期</th>
                         <th>资源链接</th>
                         <th>资源大小</th>
                         <th>提取密码</th>
-                    </tr>
+                    </tr>    
                 </thead>
                 <tbody>
                     {# 需要填充的地方 #}
                     {%for i in course_data.course_data %}
                     <tr>
-                        <td>《{{i.resource_name}}》</td>
+                        <td class="update_time" >{{loop.index}}</td>
+                        <td class="resouce_name">《{{i.resource_name}}》</td>
                         <td> 
                             <!-- 代表：1：视频，2：视频+源码 3：视频+项目实战 4：书籍 5：源码  -->
                             {% if i.content_type == 1 %}
@@ -92,7 +94,7 @@
                         </td>
                         <td class="update_time">{{i.update_time}}</td>
                         <td><a target="_blank" href="{{i.resource_addr}}">{{i.resource_addr}}</a></td>
-                        <td>{{i.resource_size}} G</td>
+                        <td class="update_time" >{{i.resource_size}} G</td>
                         <td>
                             {% if passwd_dict %}
                                 <code class='code-passwd'> {{ passwd_dict.get(i.resource_id) }}  </code>

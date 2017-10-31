@@ -169,9 +169,13 @@ input[type=text].valid:not(.browser-default){
 .update_time{
 
     font-size: 12px;
-    color: ##666;
+    color: #999;
 }
+.resouce_name{
+    
+    font-weight: 400;
 
+}
 
 /* 已兑换课程 */
 
