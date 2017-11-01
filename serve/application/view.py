@@ -177,6 +177,25 @@ def get_course_txt(course_id):
     return response
 
 
+
+# SEO推广相关的
+@app.route('/rebots.txt',methods=['GET'])
+def get_rebots():
+    # 返回reboots文件
+    rebots_txt = "User-agent: * \nDisallow: \nSitemap: http://looncode.com/static/sitemap/sitemap.txt"
+    response = make_response(rebots_txt)
+    response.headers["Accept-Language"] = "zh-CN,zh;q=0.8,en;q=0.6"
+    response.headers["Content-Disposition"] = "attachment; filename=rebots.txt"
+    return response
+
+@app.route('/sitemap.txt',methods=['GET'])
+def get_sitemap():
+    # 返回reboots文件
+    sitemap_txt_path = r'sitemap/sitemap.txt' 
+    return  app.send_static_file(sitemap_txt_path)
+
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
