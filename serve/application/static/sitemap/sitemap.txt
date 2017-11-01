@@ -1,8 +1,11 @@
 http://www.looncode.com/
 http://www.looncode.com/act
 http://www.looncode.com/course/10000
+http://www.looncode.com/course/10001
+http://www.looncode.com/course/10002
+http://www.looncode.com/course/10003
+http://www.looncode.com/course/10004
+http://www.looncode.com/course/10005
+http://www.looncode.com/course/10006
 http://www.looncode.com/welcome
 http://www.learoom.com/index
-
-http://dev.learoom.com
-http://dev.looncode.com
