@@ -288,9 +288,11 @@ class Category(Base):
     def get_category(where='',is_active_id=[]):
         # 直接全部
         sess = Category.get_session(engine)
-
-        
         real_data = []
+
+        # 统计课程大小
+        Course.count_course_size()
+
         # 查询分类 
         for instance in sess.query(Category).order_by(Category.id):
             # print(instance.id, instance.name,instance.category_course)
