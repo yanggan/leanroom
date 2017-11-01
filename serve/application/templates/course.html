@@ -107,15 +107,16 @@
         {% for cate in category %} 
             {% if cate.category_active_course %}
                 {% for course in cate.category_active_course %} 
-                    <li><a class=" waves-effect waves-brown waves-ripple" href="/course/{{course.course_id}}" ><i class="material-icons"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></i>
+                    <li>
+                        <a class=" waves-effect waves-brown waves-ripple" href="/course/{{course.course_id}}" >
+                            <i class="material-icons"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></i>
                         
-                        <div class="chip"><img src="{{course.course_img}}" alt="Contact Person">
-                        {{course.course_name}} &nbsp 
-                        <span> 
-                            {{course.course_size}}G
-                        </span>  
-                        
-                        </div></a></li>
+                            <div class="chip is_active_text">
+                               <!--  <img src="{{course.course_img}}" alt="ico" \> -->
+                                {{course.course_name}} &nbsp<span>{{course.course_size}}G</span>  
+                            </div>
+                        </a>
+                    </li>
                 {%endfor%}
             {%endif%}
         {%endfor%}
