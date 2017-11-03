@@ -208,6 +208,12 @@ input[type=text].valid:not(.browser-default){
 
 }
 
+.course_span{
+    
+    font-size: 14px;
+    color: #666;
+
+}
 
 /* PC端导航栏 */
 

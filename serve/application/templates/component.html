@@ -33,7 +33,7 @@
     <div class="col s1 lstl-img"><img src="{{img_url}}"></div>
     <div class=" col s5">
         <h5>{{course_name}}</h5>
-        <span>{{course_category}} | 共有 {{course_count}} 门课程 | 共计 {{course_size}} G</span> &nbsp
+        <span class="course_span">{{course_category}} | {{course_count}}套课程 | {{course_size}}G</span> &nbsp
         {%if course_passwd != None %}
             {%if course_is_free == True %}
                 <span class="label label-success">限免课程</span>
