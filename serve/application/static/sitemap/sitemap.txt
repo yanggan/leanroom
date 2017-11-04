@@ -1,5 +1,6 @@
 http://www.looncode.com/
 http://www.looncode.com/act
+http://www.looncode.com/welcome
 http://www.looncode.com/course/10000
 http://www.looncode.com/course/10001
 http://www.looncode.com/course/10002
@@ -16,5 +17,9 @@ http://www.looncode.com/course/10012
 http://www.looncode.com/course/10013
 http://www.looncode.com/course/10014
 http://www.looncode.com/course/10015
-http://www.looncode.com/welcome
+http://www.looncode.com/course/10016
+http://www.looncode.com/course/10017
+http://www.looncode.com/course/10018
+http://www.looncode.com/course/10019
+
 
