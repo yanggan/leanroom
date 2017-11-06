@@ -80,8 +80,8 @@
                                     <a class=" waves-effect waves-brown waves-ripple" class="waves-effect waves-light" href="/course/{{i.course_id}}"><span class="card-title">{{i.course_name}}</span></a>
                                     </div>
                                     <div class="card-action">
-                                        <a class="waves-effect waves-brown waves-ripple" href="/course/{{i.course_id}}">点击查看</a>
-                                        
+                                        <a class="waves-effect waves-brown waves-ripple" href="/course/{{i.course_id}}">查看</a>
+                                        {%if i.course_count %}<div class="chip size_chip">{{i.course_count}}套课程 </div>{%endif%}
                                         {%if i.course_size %}<div class="chip size_chip">共 {{i.course_size}} G</div>{%endif%}
                                     </div>
                                 </div>

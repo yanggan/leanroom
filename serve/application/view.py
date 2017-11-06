@@ -24,6 +24,7 @@ def index():
 
     # 获取分类和课程信息
     cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
+    dev_data = Data_Processor.get_devtools_data()
     return render_template(
         "course.html",
         category=cate_data.get('category_data'),
@@ -199,4 +200,37 @@ def get_sitemap():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+
+
+# 移动端站点的view
+
+@app.route('/m/course',methods=['GET'])
+@app.route('/m/home',methods=['GET'])
+def mobile_home():
+    # 
+    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
+    dev_data = Data_Processor.get_devtools_data()
+    return render_template(
+        "/mobile/m_home.html",
+        category=cate_data.get('category_data'),
+        has_active_course=cate_data.get('has_active_course'),
+        dev_data=dev_data
+        )
+
+@app.route('/m/course/<int:course_id>',methods=['POST','GET'])
+def mobile_course_detail(course_id):
+    # 获取数据
+    course_data = Data_Processor.get_course_data(course_id)
+    # 没有找到课程
+    if course_data.get('flag') == False:
+        abort(404)
+    course_data =  course_data.get('course_data')
+    dev_data = Data_Processor.get_devtools_data()
+    passwd_data = Data_Processor.get_passwd_data(course_data)
+    is_free = Data_Processor.get_course_free_status(course_data)
+
+    
+    return render_template('/mobile/m_course_detail.html',course_data=course_data,passwd_dict=None,dev_data=dev_data)
+    pass
 

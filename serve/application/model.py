@@ -53,7 +53,7 @@ class Course(Base):
     taobao_id = Column('taobao_id',Integer)
     taobao_price = Column('taobao_price',Float)
     is_free = Column('is_free',Boolean,default=False)
-
+    read_count = Column('read_count',Integer,default=0)
 
     # 和兑换码的关系,1个课程对应n个兑换码
     course_actcode = relationship("Actcode")
@@ -61,6 +61,8 @@ class Course(Base):
 
     course_resouce = relationship("Resource")
     course_size = Column('couse_size',Float,default=0)
+
+
 
     # 和分类的关系，1个课程对应多个分类，定义外键
     category_id = Column(Integer, ForeignKey('Category.id'))
@@ -93,7 +95,8 @@ class Course(Base):
                 description = cate.get('description'),
                 img_url = cate.get('img_url'),
                 category_id = cate.get('category_id'),
-                is_free=cate.get('is_free')
+                is_free=cate.get('is_free'),
+                read_count = cate.get('read_count')
                 )
             add_cate_list.append(new_cate)
 
@@ -143,11 +146,20 @@ class Course(Base):
         try:
             course_case = (sess.query(Course).filter_by(id=course_id).one())
         except Exception as e:
+            sess.commit()
+            sess.close()
             return {'flag':False,'status':'This course is not found','course_data':None}
 
         
         print '分类ID',course_case.category_id
         # 包含的资源和密码字典
+
+        # 增加阅读量
+        if course_case.read_count == None:
+            course_case.read_count = 1
+        else:
+            course_case.read_count = course_case.read_count + 1
+
         course_data = []
         passwd_dict = {}
         for x in course_case.course_resouce:
@@ -175,7 +187,8 @@ class Course(Base):
             'course_is_free':course_case.is_free
 
         }
-
+        sess.commit()
+        sess.close()
         return {'flag':True,'status':'find the course succeed','course_data':return_data}
 
     @staticmethod
@@ -316,7 +329,9 @@ class Category(Base):
                         'course_size':course_data.course_size,
                         'category_id':course_data.category_id,
                         'is_active':is_active_flag,
-                        'course_is_free':course_data.is_free
+                        'course_is_free':course_data.is_free,
+                        'course_count':len(course_data.course_resouce),
+                        'read_count':course_data.read_count
                     }
                     is_active_course_data.append(x) if is_active_flag == 1 else None
                     is_active_flag = 0
@@ -329,7 +344,9 @@ class Category(Base):
                         'course_size':course_data.course_size,
                         'category_id':course_data.category_id,
                         'course_is_free':course_data.is_free,
-                        'is_active':0
+                        'is_active':0,
+                        'course_count':len(course_data.course_resouce),
+                        'read_count':course_data.read_count
                     }
                
                 cate_course.append(x)

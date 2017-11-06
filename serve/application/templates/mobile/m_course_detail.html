@@ -1,0 +1,48 @@
+{% extends "/mobile/m_base.html" %}
+
+{% block title%} {{course_data.course_name}}  {%endblock%}
+
+
+
+{% block contents %}
+
+    {# 内页顶部导航 #}
+    <div class="header_nav">
+        
+        <div class="header_nav_back am-u-sm-1">
+            <a href="/m/home">
+                <i class="am-icon-chevron-left"></i>
+            </a>
+        </div>
+         <div class="header_nav_info am-u-sm-11">
+            <p> {{course_data.course_name}} </p>
+         </div> 
+    </div>
+    {# 课程信息 #}
+    <div class="course_detail">
+        
+        <div class="course_detail_img">
+            <img src="{{course_data.course_img}}" alt="">
+        </div>
+        <div class="course_detail_about">
+            
+            <div class="course_detail_about_data am-u-sm-4 ">
+                <h3>{{course_data.course_count}}</h3>
+                <p>套课程包</p> 
+            </div>
+            <div class="course_detail_about_data am-u-sm-4 ">
+                <h3>{{course_data.course_size}}</h3>
+                <p>G累计大小</p> 
+            </div>
+            <div class="course_detail_about_data am-u-sm-4 ">
+                <h3>{{course_data.course_count}}</h3>
+                <p>浏览量</p> 
+            </div>
+        </div>
+
+    </div>
+
+    {# 课程资源详情 #}
+
+
+{% endblock %}
