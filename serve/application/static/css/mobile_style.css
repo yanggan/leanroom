@@ -473,7 +473,8 @@ ul.am-dropdown-content>li>a {
     
     height: 15rem;
     line-height: 5rem;
-    padding-top: 3rem;
+    padding-top: 2rem;
+    padding-left: 0rem;
 }
 
 
@@ -564,7 +565,7 @@ ul.am-dropdown-content>li>a {
 }
 .act_input input{ 
     
-    height: 10rem;
+    height: 11rem;
     font-size: 3.2rem;
     width: 80%;
 
@@ -586,4 +587,12 @@ ul.am-dropdown-content>li>a {
 
     background-color: rgba(0,0,0,.75)!important;
 }
+.act_success{
 
+    font-size: 3.2rem;
+
+}
+.save_all{
+
+    background-color:#50A750!important;
+}
