@@ -312,9 +312,9 @@ ul.am-dropdown-content>li>a {
     
  
     display: block;
-    font-size: 4rem;
+    font-size: 1.6rem;
     color: #999;
-    padding: 4.4rem 1rem;
+    padding: 1.6rem 0.6rem;
 }
   
 
@@ -327,10 +327,10 @@ ul.am-dropdown-content>li>a {
 }
 .header_nav_info p{
     
-    height: 100%;    
-    font-size: 3.8rem;
+    height: 100%;
+    font-size: 1.6rem;
     color: #666;
-    padding: 5.0rem 0rem;
+    padding: 2.4rem 0rem;
 
 }
 .course_detail_logo{
@@ -344,9 +344,10 @@ ul.am-dropdown-content>li>a {
     
     margin-top: 0rem;
     width: 100%;
-    height: 60rem;
+    height: 26rem;
     box-shadow: 0 0 2rem 0.1rem rgba(7,17,27,.1);
-    margin-bottom: 5rem;
+    /* margin-bottom: 5rem; */
+
 }
 
 .course_detail_img{
@@ -367,28 +368,28 @@ ul.am-dropdown-content>li>a {
     width: 100%;
     height: 30%;
     background: #fff;
-
-    padding-bottom: 4rem;
-    padding-top: 3rem;
-    border-top: 0.3rem solid #f2f2f2;
+    padding-bottom: 0rem;
+    padding-top: 2rem;
+    border-top: 0.1rem solid #f2f2f2;
 }
 .course_detail_about_data{
 
     text-align: center;
-    border-right: 1px solid #d9dde1;
+    border-right: 1px solid #f2f2f2;
 }
 .course_detail_about_data h3{
     
     text-align: center;
-    font-size: 7rem;
+    font-size: 2.4rem;
     color: #666;
-    line-height: 6rem;
+    line-height: 1.3rem;
+
 
     
 }
 .course_detail_about_data p{
 
-    font-size: 2.8rem;
+    font-size: 1.2rem;
     color: #999;
     text-align: center;
 }
@@ -409,11 +410,11 @@ ul.am-dropdown-content>li>a {
 }
 .resource_accordion dt{
     
-    font-size: 3.1rem;
-    line-height: 6.4rem;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
     color: #666;
     display: block;
-    padding: 3rem 1rem!important;
+    padding: 1rem 1rem!important;
     border: 1px solid #f2f2f2!important;
     border-width: 1px 0px !important;
 
@@ -426,9 +427,9 @@ ul.am-dropdown-content>li>a {
 }
 .resource_accordion li{
     
-    font-size: 3.3rem;
-    line-height: 4.4rem;
-    padding: 2rem 1rem!important;
+    font-size: 1.2rem;
+    line-height: 2.4rem;
+    padding: 0.1rem 1rem!important;
     border: 0px solid #f2f2f2!important;
     border-width: 0px 0px !important;
     background: #F9F9F9;
@@ -446,15 +447,18 @@ ul.am-dropdown-content>li>a {
 .resource_accordion a{
     
     display: inline-block!important;
-    font-size: 3.3rem;
-    line-height: 4.4rem;
+    font-size: 1.3rem;
+    line-height: 2.4rem;
     padding: 0rem 0rem!important;
 
 }
 .resource_accordion code{
     
-    font-size: 3.3rem;
-    line-height: 4.4rem;
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.2rem;
+    background: #E9EEEF;
     
 
 }
@@ -462,27 +466,27 @@ ul.am-dropdown-content>li>a {
 
 .resource_size{
     float: right;
-    font-size: 2rem;
-    line-height: 4rem;
-    padding: 0.5rem 2rem;
-    margin-right: 1rem;
-    border-radius: 4rem;
+    font-size: 0.9rem;
+    line-height: 1rem;
+    padding: 0.3rem 1rem;
+    margin-right: -1rem;
+    border-radius: 1rem;
     margin-top: 0.5rem;
 }
 
 /* 工具栏 */
 .tools_buy{
     
-    height: 15rem;
-    line-height: 5rem;
-    padding-top: 2rem;
+    height: 6rem;
+    line-height: 2rem;
+    padding-top: 0.2rem;
     padding-left: 0rem;
 }
 
 
 .tools_act{
 
-    height: 15rem;
+    height: 6rem;
     padding: 0px;
     margin: 0px;
     text-align: center;
@@ -492,13 +496,12 @@ ul.am-dropdown-content>li>a {
 
     margin: 0px;
     padding: 0px;
-
     width: 100%;
-    height: 15rem;
-
-    font-size: 3.5rem;
+    /* height: 4rem; */
+    font-size: 1.5rem;
     color: #999;
-    padding-left: 3rem;
+    padding-left: 2rem;
+    padding-top: 0.7rem;
 
 }
 .tools_buy  p a {
@@ -513,12 +516,10 @@ ul.am-dropdown-content>li>a {
     display: block;
     margin: 0px;
     padding: 0px;
-
     width: 100%;
-    height: 15rem;
-
-    font-size: 3.5rem;
-    line-height: 15rem;
+    height: 6rem;
+    font-size: 1.5rem;
+    line-height: 6.2rem;
     background-color: #E44234;
     color: #fff;
 }
@@ -526,11 +527,11 @@ ul.am-dropdown-content>li>a {
 /* 兑换窗口 */
 .act_model{
     
-    width: 91%;
+    width: 90%;
     padding: 0px;
-    top: 40%;
-    left: 37%;
-    height: 78rem;
+    top: 13%;
+    left: 5%;
+    height: 34rem;
     z-index: 99999;
 }
 
@@ -561,16 +562,15 @@ ul.am-dropdown-content>li>a {
 
 .act_input{
     
-    height: 40rem;
+    /* height: 17rem; */
     text-align: center;
-    padding-top: 20rem;
+    padding-top: 6rem;
 }
 .act_input input{ 
     
-    height: 11rem;
-    font-size: 3.2rem;
-    width: 80%;
-
+    height: 6rem;
+    font-size: 1.8rem;
+    width: 69%;
     margin: 0px auto;
 }
 
@@ -581,9 +581,11 @@ ul.am-dropdown-content>li>a {
 }
 .act_btn button{
 
-    height: 10rem;
-    width: 41rem;
-    font-size: 4.2rem;
+    height: 4rem;
+    width: 15rem;
+    font-size: 1.4rem;
+    line-height: 1rem;
+    margin-top: 4rem;
 }
 .am-dimmer{
 
@@ -591,7 +593,7 @@ ul.am-dropdown-content>li>a {
 }
 .act_success{
 
-    font-size: 3.2rem;
+    font-size: 1.2rem;
 
 }
 .save_all{
@@ -601,28 +603,34 @@ ul.am-dropdown-content>li>a {
 
 .sava_list{
 
-    font-size: 3.2rem;
-    line-height: 5rem;
+/*     font-size: 1.2rem;
+    line-height: 5rem; */
     /* padding: 2rem 1rem; */
     margin: 0px;
 
 }
 .sava_list li{
 
-    font-size: 3.2rem;
-    line-height: 5rem;
-    padding: 4.5rem 3rem;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    padding: 0.4rem 2rem;
     margin: 0px;
+    border: none;
+    margin-top: 1.5rem;
     
 }
 .sava_list li code{
 
-    font-size: 3.2rem;
-    padding: 2rem 3rem;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
     color: #c7254e;
     background-color: #f8f8f8;
     white-space: nowrap;
-    border-radius: 1rem;
+    border-radius: 0.1rem;
     
 }
+.sava_list li a{
 
+    padding: 0px;
+    
+}
