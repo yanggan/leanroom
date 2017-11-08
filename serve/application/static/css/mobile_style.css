@@ -113,7 +113,8 @@ body{
 .course_category{
     
     font-size: 1.6rem;
-    margin: 0.8rem auto;
+    margin-top: 2rem;
+    margin-bottom: 0rem;
     
 }
 
@@ -398,7 +399,7 @@ ul.am-dropdown-content>li>a {
 
     background: #fff;
     margin-bottom: 30rem;
-    margin-top: 2rem;
+    margin-top: 0.3rem;
     padding: 0rem 0rem;
     box-shadow: 0 0 2rem 0.1rem rgba(7,17,27,.1);
 }
