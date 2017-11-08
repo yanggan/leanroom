@@ -157,11 +157,7 @@ class Course(Base):
         print '分类ID',course_case.category_id
         # 包含的资源和密码字典
 
-        # 增加阅读量
-        if course_case.read_count == None:
-            course_case.read_count = 1
-        else:
-            course_case.read_count = course_case.read_count + 1
+
 
         course_data = []
         passwd_dict = {}
@@ -192,6 +188,12 @@ class Course(Base):
             'course_share_passwd':course_case.course_passwd
 
         }
+        # 增加阅读量
+        if course_case.read_count == None or course_case.read_count == 0 :
+            course_case.read_count = 1
+        else:
+            course_case.read_count = course_case.read_count + 1
+        
         sess.commit()
         sess.close()
         return {'flag':True,'status':'find the course succeed','course_data':return_data}
@@ -341,6 +343,8 @@ class Category(Base):
                     is_active_course_data.append(x) if is_active_flag == 1 else None
                     is_active_flag = 0
                     
+  
+                    
                 else:
                     x = {
                         'course_id':course_data.id,
@@ -353,9 +357,14 @@ class Category(Base):
                         'course_count':len(course_data.course_resouce),
                         'read_count':course_data.read_count
                     }
-               
+                
                 cate_course.append(x)
-
+                # 增加阅读量
+                if course_data.read_count == None:
+                    course_data.read_count = 1
+                else:
+                    course_data.read_count = course_data.read_count + 1
+                sess.commit()
 
             # 给模板的数据结构
             data = {
@@ -368,6 +377,7 @@ class Category(Base):
             }
             real_data.append(data)
         # print(real_data)
+        sess.close()
         return real_data
 
     @staticmethod
@@ -657,6 +667,8 @@ class Actcode(Base):
         if act_code == None:
             return "no code pass in"
         sess = Actcode.get_session(engine)
+        
+
         try:
             # 没有找到返回none,多余一个则异常
             result_actcode = sess.query(Actcode).filter_by(code=str(act_code)).one_or_none()
@@ -678,11 +690,21 @@ class Actcode(Base):
                     sess.close()
                     return  {'flag':False,'status':'act code invalid','error_code':800,'course_data':None}
                 # 验证码有效，查找到，添加统计
-                result_actcode.is_use=True
-                result_actcode.use_count = result_actcode.use_count + 1
-                sess.commit()
+
+
                 # 附带课程数据
                 course_data = sess.query(Course).filter_by(id=result_actcode.course_id).first()
+
+                # 给课程添加访问量
+                # 增加阅读量
+                if course_data.read_count == None or course_data.read_count == 0 :
+                    course_data.read_count = 1
+                else:
+                    course_data.read_count = course_data.read_count + 1
+
+                if course_data == None:
+                    sess.close()
+                    return  {'flag':False,'status':'act code cannot find course ','error_code':1000,'course_data':None}
                 #  把对象转为dict
                 course_data = {
                     'course_id':course_data.id,
@@ -692,6 +714,12 @@ class Actcode(Base):
                     'category_id':course_data.category_id,
                     'course_is_free':course_data.is_free
                 }
+                # 统计code的使用
+                result_actcode.is_use=True
+                result_actcode.use_count = result_actcode.use_count + 1
+
+                sess.commit()
+                sess.close()
                 return  {'flag':True,'error_code':200,'status':"find actcode and course succeed",'course_data':course_data}
         
 
