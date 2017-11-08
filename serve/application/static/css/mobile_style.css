@@ -596,3 +596,31 @@ ul.am-dropdown-content>li>a {
 
     background-color:#50A750!important;
 }
+
+.sava_list{
+
+    font-size: 3.2rem;
+    line-height: 5rem;
+    /* padding: 2rem 1rem; */
+    margin: 0px;
+
+}
+.sava_list li{
+
+    font-size: 3.2rem;
+    line-height: 5rem;
+    padding: 4.5rem 3rem;
+    margin: 0px;
+    
+}
+.sava_list li code{
+
+    font-size: 3.2rem;
+    padding: 2rem 3rem;
+    color: #c7254e;
+    background-color: #f8f8f8;
+    white-space: nowrap;
+    border-radius: 1rem;
+    
+}
+

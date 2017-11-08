@@ -67,13 +67,35 @@
                             {%if passwd_dict %}
                                 <li>提取密码：<code>{{ passwd_dict.get(i.resource_id) }} </code></li>
                             {% else %}
-                                <li>提取密码：<code>兑换课程后显示提取码{{passwd_dict}} </code></li>
+                                <li>提取密码：<code>兑换课程后显示提取码</code></li>
                             {% endif %}
                         </ul>
                     </div>
                 </dd>
             </dl>
             {%endfor%}
+            <dl class="am-accordion-item ">
+                <dt class="am-accordion-title">
+                    <span class="am-badge  resource_size">{{course_data.course_size}}G</span>
+                    [ALL].所有课程打包一次转存,空间占用较多，建议选择性保存
+                </dt>
+                <dd class="am-accordion-bd am-collapse ">
+                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                    <div class="am-accordion-content">
+                        <ul class="am-list">
+                            <li>简介:以上课程打包一次转存,空间占用较多，建议选择性保存  </li>
+                            <li>提示:更新课程如有遗漏请手动保存新课程 </li>
+                            <li>百度云链接 <a href="{{course_data.course_share_url}}">{{course_data.course_share_url}}</a></li>
+                            
+                            {%if passwd_dict %}
+                                <li>提取密码：<code>{{course_data.course_share_passwd}} </code></li>
+                            {% else %}
+                                <li>提取密码：<code>兑换课程后显示提取码 </code></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </dd>
+            </dl>
         </section>
     
     
@@ -98,28 +120,25 @@
         </div>
 
     </div>
+
     {# 转存课程弹窗 #}
-    <div class="am-popup act_model" id="my-popup">
+    {%if passwd_dict %}
+    <div class="am-popup act_model" id="sava-popup">
             
         <div class="act_model_img">
             <img src="../../static/img/other/act_card_bk.png" alt="" />
         </div>
         <div class="act_model_form">
-            <form  method="POST" action="/m/course/{{course_data.course_id}}" >
-                
-                <div class="act_input">
-                    <input type="text" name='key' onkeyup="value=value.replace(/[^\d]/g,'')" pattern="[0-9]{4}" class="am-form-field am-round" placeholder=" &nbsp输入4位数字课程兑换码"/>
-                </div>
-                <div class="act_btn">
-                    <button type="submit" class="am-btn am-btn-success am-round">兑换课程</button>
-                </div>
-              
-              
-            </form>
+            <ul class="am-list sava_list">
+                <li>所有课程打包链接,空间占用比较大,建议选择性保存:<br> {{course_data.course_count}}套课程共{{course_data.course_size}}G</li>
+                <li>网盘地址：<a href="{{course_data.course_share_url}}">{{course_data.course_share_url}}</a></li>
+                <li>提取密码：<code>{{course_data.course_share_passwd}}</code> </li>
+
+            </ul>
         </div>
 
     </div>
-
+    {% endif %}
     
 
 
@@ -130,7 +149,7 @@
             
         <div class="tools_buy am-u-sm-8">
             <p>
-                累计{{course_data.course_count}}套课程共{{course_data.course_size}}G
+                {{course_data.course_count}} 套课程共{{course_data.course_size}}G
                 <br>
 
                 {%if passwd_dict %}
@@ -149,7 +168,7 @@
         </div>
         <div class="tools_act am-u-sm-4">
             {%if passwd_dict %}
-                <a href="javascript:void(0)" data-am-modal="{target: '#my-popup'}" class="save_all" >转存所有课程</a>
+                <a href="javascript:void(0)" data-am-modal="{target: '#sava-popup'}" class="save_all" >转存所有课程</a>
             {%else%}
                 <a href="javascript:void(0)" data-am-modal="{target: '#my-popup'}"  >兑换课程</a>
             {%endif%}

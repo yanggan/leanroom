@@ -104,8 +104,23 @@
                         </td>
                     </tr>
                     {%endfor%}
+                    <!-- 所有课程打包转存功能 -->
                     
+                    <tr>
+                        <td class = "update_time" >all</td>
+                        <td >[ALL].所有课程打包一次转存,空间占用较多，建议选择性保存</td>
+                        <td class = "update_time"><span class="label tooltipped  label-default label-default-tags" >汇总</span></td>
+                        <td class = "update_time" >-</td>
+                        <td><a target="_blank" href="{{course_data.course_share_url}}">{{course_data.course_share_url}}</a></td>
+                        <td class = "update_time" >{{course_data.course_size}} G</td>
+                        {%if passwd_dict %}
+                        <td><code class='code-passwd'>{{course_data.course_share_passwd}}</code></td>
+                        {%else%}
+                        <td><a class="waves-effect waves-light z-depth-0 small btn grey darken-3" href="#act_modal" >显示提取密码</a><td>
+                        {%endif%}
+                    </tr>
 
+                   
                     <!-- 提示用户内容 -->
                     <tr>
                         <td></td>

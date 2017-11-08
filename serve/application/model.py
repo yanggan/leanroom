@@ -55,13 +55,16 @@ class Course(Base):
     is_free = Column('is_free',Boolean,default=False)
     read_count = Column('read_count',Integer,default=0)
 
+    # 课程的打包资源url链接
+    course_url = Column('course_url',String)
+    course_passwd = Column('course_passwd',String)
+
     # 和兑换码的关系,1个课程对应n个兑换码
     course_actcode = relationship("Actcode")
     # 当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。
 
     course_resouce = relationship("Resource")
     course_size = Column('couse_size',Float,default=0)
-
 
 
     # 和分类的关系，1个课程对应多个分类，定义外键
@@ -184,7 +187,9 @@ class Course(Base):
             'course_data':course_data,
             'course_size':course_case.course_size,
             'passwd_dict':passwd_dict,
-            'course_is_free':course_case.is_free
+            'course_is_free':course_case.is_free,
+            'course_share_url':course_case.course_url,
+            'course_share_passwd':course_case.course_passwd
 
         }
         sess.commit()
