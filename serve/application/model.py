@@ -185,7 +185,8 @@ class Course(Base):
             'passwd_dict':passwd_dict,
             'course_is_free':course_case.is_free,
             'course_share_url':course_case.course_url,
-            'course_share_passwd':course_case.course_passwd
+            'course_share_passwd':course_case.course_passwd,
+            'course_read_count':round(float(course_case.read_count)/1000,2)
 
         }
         # 增加阅读量
