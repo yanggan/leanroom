@@ -194,6 +194,10 @@ body{
     padding: 1.6rem;
 
 }
+.card-action a{
+
+    color: #999;
+}
 .course_read{
 
     display: inline-block;

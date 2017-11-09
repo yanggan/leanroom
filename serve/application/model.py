@@ -339,7 +339,7 @@ class Category(Base):
                         'is_active':is_active_flag,
                         'course_is_free':course_data.is_free,
                         'course_count':len(course_data.course_resouce),
-                        'read_count':course_data.read_count
+                        'course_read_count':round(float(course_data.read_count)/1000,2)
                     }
                     is_active_course_data.append(x) if is_active_flag == 1 else None
                     is_active_flag = 0

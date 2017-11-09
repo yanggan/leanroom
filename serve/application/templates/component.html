@@ -19,6 +19,7 @@
 {% macro course_sub_title(
     course_id = '',
     course_is_free = false,
+    course_read_count = None,
     course_name="课程名称",
     img_url="",
     course_category="类别",
@@ -33,7 +34,7 @@
     <div class="col s1 lstl-img"><img src="{{img_url}}"></div>
     <div class=" col s5">
         <h5>{{course_name}}</h5>
-        <span class="course_span">{{course_category}} | {{course_count}}套课程 | {{course_size}}G</span> &nbsp
+        <span class="course_span">{{course_category}} | {{course_count}}套课程 | {{course_size}}G | {{course_read_count}} k+次查看</span> &nbsp
         {%if course_passwd != None %}
             {%if course_is_free == True %}
                 <span class="label label-success">限免课程</span>
