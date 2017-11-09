@@ -161,8 +161,19 @@
                     {%endif%}
                 {%else%}
                     
-                    <a href="http://shop131223524.m.taobao.com">购买兑换码</a>
-                
+                   
+                    
+                    <!-- 用flash做错误提示 -->
+                    {% with messages = get_flashed_messages(category_filter=["act_error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <a data-am-modal="{target: '#my-popup'}" class="code_error">{{ message }}</a>
+                            {% endfor %}
+                        {%else%}
+                            <a href="http://shop131223524.m.taobao.com">购买兑换码</a>
+                        {% endif %}
+                    {% endwith %}
+
                 {%endif%}
             </p>
         </div>
@@ -170,7 +181,8 @@
             {%if passwd_dict %}
                 <a href="javascript:void(0)" data-am-modal="{target: '#sava-popup'}" class="save_all" >转存所有课程</a>
             {%else%}
-                <a href="javascript:void(0)" data-am-modal="{target: '#my-popup'}"  >兑换课程</a>
+                <a href="javascript:void(0)"   data-am-modal="{target: '#my-popup'}" >兑换课程</a>
+
             {%endif%}
         </div>
         
@@ -178,3 +190,10 @@
 
 
 {% endblock %}
+
+
+
+<!-- 这个页面集成美洽客服 -->
+{%block meiqia%}
+   
+{%endblock%}

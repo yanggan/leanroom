@@ -286,7 +286,7 @@ def mobile_course_detail(course_id):
 
             session['course_'+str(course_id)] = user_input_key # 设置session
             print session
-            flash(verity_result_dict['status'])
+            flash(verity_result_dict['status'],'success')
             redirect_to_course = redirect(url_for('mobile_course_detail',course_id=course_id))
             resp = make_response(redirect_to_course)
             resp.set_cookie('course_'+str(course_id),user_input_key) # 设置cookies
@@ -294,7 +294,7 @@ def mobile_course_detail(course_id):
 
         else: #验证失败
 
-            flash(verity_result_dict['status'])
+            flash("兑换码错误,请核对后重新输入",'act_error')
             return redirect(url_for('mobile_course_detail',course_id=course_id))
 
 

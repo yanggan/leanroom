@@ -516,6 +516,11 @@ ul.am-dropdown-content>li>a {
 
 }
 
+.code_error{
+    
+    color: #E44234;
+}
+
 .tools_act a{
     
     display: block;

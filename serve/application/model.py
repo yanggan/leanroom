@@ -356,7 +356,7 @@ class Category(Base):
                         'course_is_free':course_data.is_free,
                         'is_active':0,
                         'course_count':len(course_data.course_resouce),
-                        'read_count':course_data.read_count
+                        'course_read_count':round(float(course_data.read_count)/1000,2)
                     }
                 
                 cate_course.append(x)
