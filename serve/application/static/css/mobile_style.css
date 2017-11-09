@@ -701,3 +701,62 @@ ul.am-dropdown-content>li>a {
     margin-top: 3rem!important;
 }
 
+/* mypage */
+
+.mypage_is_active{
+
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px #c1c1c1;
+    list-style: none;
+    min-height: 100rem;
+    padding-top: 2rem;
+    padding-left: 1rem;
+}
+.mypage_is_active h3{
+
+    font-size: 1.6rem;
+    color: #666;
+    line-height: 3rem;
+}
+
+.mypage_is_active_ul{
+
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.mypage_is_active_li{
+
+    list-style: none;
+    background-color: #fff;
+    height: 48px;
+    width: 100%;
+    border: 1px solid #f2f2f2;
+    border-width: 1px 0;
+    margin: 0px;
+    padding: 0px;
+    
+}
+.mypage_is_active_li a{
+
+    line-height: 48px;
+    list-style: none;
+    background-color: #fff;
+    display: block;
+    font-size: 1.3rem;
+    color: #444;
+}
+.mypage_is_active_li a i{
+
+    margin-right: 2rem;
+    color: #999;
+}
+.pull-right-i{
+    
+    display: inline-block;
+    float: right;
+    margin-right: 1rem;
+}
+
+
