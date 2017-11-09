@@ -1,8 +1,11 @@
 # coding:utf-8
 from application import app
 from flask import Flask,request,render_template,flash,redirect,url_for,session,make_response,abort
+from flask import send_file, send_from_directory
 from flask_restful import Resource, Api, abort, reqparse
-import re
+
+import re,shutil,os,datetime
+from werkzeug import secure_filename
 
 from model import *
 from dev_tools import * 
@@ -197,11 +200,59 @@ def get_sitemap():
     sitemap_txt_path = r'sitemap/sitemap.txt' 
     return  app.send_static_file(sitemap_txt_path)
 
+@app.route('/api/db',methods=['GET'],strict_slashes=False)
+@app.route('/api/getdb',methods=['GET'],strict_slashes=False)
+def api_get_db():
+    # 返回db文件
+    directory = os.getcwd()
+    print "打印目录",directory # /Users/yg/Documents/code/Project/learoom/serve
+    sitemap_txt_path = directory + '/application/db' 
+    print sitemap_txt_path
+    return  send_from_directory(sitemap_txt_path,filename=r'learoom.db',as_attachment=True)
+
+
+# 用于验证文件后缀合法
+def allowed_file(filename,all_list):
+    return '.' in filename and filename.rsplit('.', 1)[1] in all_list
+
+@app.route('/api/upload',methods=['POST',"GET"],strict_slashes=False)
+@app.route('/api/uploaddb',methods=['POST',"GET"],strict_slashes=False)
+def api_upload_db():
+    
+    directory = os.getcwd()
+    db_path = directory + '/application/db'
+    file_path = db_path + "/learoom.db"
+    all_list = ['db']
+    # 用于更新db文件
+    if request.method == "GET":
+        return render_template('pc/upload.html')
+    elif request.method == "POST":
+        f=request.files['dbfile']
+        print "文件对象的属性" ,dir(f),f.filename
+        if file and allowed_file(f.filename,all_list = ['db']):  #判断文件后缀合法
+            filename = secure_filename(f.filename)
+            # 老文件备份保存
+            liststr = [db_path,'/', 'learoom_bk_', str(datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')),'.db'] 
+            bk_file_path = "".join(liststr)
+            print directory
+            print "db_path ",db_path
+            print "file_path",file_path
+            print "bk_file_path",bk_file_path
+            shutil.move(file_path, bk_file_path )
+            # 保存新文件
+            f.save(file_path)
+            return "upload success"
+        return "upload error"
 
 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
+
+
+
+
 
 
 
