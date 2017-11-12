@@ -124,14 +124,29 @@ def course_detail(course_id):
 @app.route("/act",methods=['POST','GET'])
 def course_activete():
     # pass
+    
+    # session增加计时器，错误超过5次就不进行验证了，直接返回错误（防爆破解）
+    
+    
+    
     if request.method == 'GET':
         return render_template('act.html')
     elif request.method == 'POST':
         user_input_act = request.form.get('act_code',None) 
         print user_input_act
 
+        if session.get('error_try_count',None) == None:
+            session['error_try_count'] = 0
+        print "session",session['error_try_count']
+
+        if session['error_try_count'] > 5:
+
+            flash(u'验证错误超过5次，请30分钟后重试', 'act_error')
+            result_dict = {'flag':False,'status':"actcode error 5 times",'course_data':None,'error_code':1000}
+            return render_template("act.html",result_dict=result_dict)
+
         # 输入空的验证码
-        if user_input_act == None or user_input_act == '':
+        elif user_input_act == None or user_input_act == '':
             print "没有表单数据"
             flash(u'请输入4位数字兑换码', 'act_error')
             result_dict = {'flag':False,'status':"actcode is empty",'course_data':None,'error_code':900}
@@ -148,8 +163,10 @@ def course_activete():
             resp = make_response(redirect(url_for('course_detail',course_id=course_id)))
             resp.set_cookie('course_'+course_id,user_input_act) # 设置cookies
             return resp # 返回response让浏览器重定向Get访问
+        
         # 兑换失败
         flash(u'兑换码错误,请核对后重新输入', 'act_error')
+        session['error_try_count'] += 1 # 错误一次就计数，超过5次就不能再验证
         return render_template("act.html",result_dict=result_dict)
 
 
@@ -248,8 +265,6 @@ def api_upload_db():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-
-
 
 
 
@@ -359,6 +374,15 @@ def mobile_course_activete():
         user_input_act = request.form.get('act_code',None) 
         print "测试用户输入数据",user_input_act
 
+        # 错误一次就计数，超过5次就不能再验证
+        if session.get('error_try_count',None) == None:
+            session['error_try_count'] = 0
+        # print "session",session['error_try_count']
+        if session['error_try_count'] > 5:
+            flash(u'验证错误超过5次，请30分钟后重试', 'act_error')
+            result_dict = {'flag':False,'status':"actcode error 5 times",'course_data':None,'error_code':1000}
+            return render_template("/mobile/m_act.html",result_dict=result_dict)
+
         # 输入空的验证码
         if user_input_act == None or user_input_act == '':
             print "没有表单数据"
@@ -380,6 +404,7 @@ def mobile_course_activete():
             return resp # 返回response让浏览器重定向Get访问
         # 兑换失败
         flash(u'兑换码错误,请核对后重新输入', 'act_error')
+        session['error_try_count'] += 1 # 错误一次就计数，超过5次就不能再验证
         return render_template("/mobile/m_act.html",result_dict=result_dict)
 
 
