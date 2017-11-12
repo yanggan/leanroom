@@ -2,10 +2,12 @@ __pycache__/
 *.py[cod]
 !serve/virtualenv/*.py[cod]
 
+
 *$py.class
 
 # db file
-#*.db
+*.db
+
 #./serve/application/db/*.db
 
 # system
