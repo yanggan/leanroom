@@ -1,3 +1,4 @@
+
 #coding:utf-8
 
 # 1、需要定义数据库（初始化）
@@ -478,7 +479,8 @@ class Actcode(Base):
     code = Column('code',String)
     use_count = Column('use_count',Integer,default=0)
     is_use =  Column('is_use',Boolean,default=False)
-    is_invalid = Column('is_use',Boolean,default=False) # 为ture则兑换码不可用
+    is_invalid = Column('is_invalid',Boolean,default=False) # 为ture则兑换码不可用
+    max_use = Column('max_use',Integer,default=100)
     # 和course的关系
     course_id = Column(Integer, ForeignKey('Course.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
@@ -648,15 +650,17 @@ class Actcode(Base):
             return  {'flag':False,'status':x}
         else:
             # 兑换码正确,统计次数
-            print result
-            print result.id,result.code,result.course_id,result.use_count
+            print "打印测试"
+            print result.course_id,result.use_count
             # 设置失效的兑换码也不可用
             if result.is_invalid == True:
                 sess.commit()
                 sess.close()
                 return  {'flag':False,'status':'兑换码已失效'}
             result.is_use= True
-            result.use_count = result.use_count + 1
+            result.use_count = int(result.use_count) + 1
+            print "测试使用次数:"
+            print result_actcode.use_count
             sess.commit()
             sess.close()
             return {'flag':True,'status':"兑换成功"}
@@ -686,10 +690,13 @@ class Actcode(Base):
                 # 兑换码正确,统计次数
                 # print result_actcode
                 # print result_actcode.id,result_actcode.code,result_actcode.course_id,result_actcode.use_count
+                
                 # 设置失效的兑换码也不可用
                 if result_actcode.is_invalid == True:
                     sess.close()
                     return  {'flag':False,'status':'act code invalid','error_code':800,'course_data':None}
+                
+
                 # 验证码有效，查找到，添加统计
 
 
@@ -703,6 +710,7 @@ class Actcode(Base):
                 else:
                     course_data.read_count = course_data.read_count + 1
 
+                # 有兑换码，但是课程找不到
                 if course_data == None:
                     sess.close()
                     return  {'flag':False,'status':'act code cannot find course ','error_code':1000,'course_data':None}
@@ -716,8 +724,9 @@ class Actcode(Base):
                     'course_is_free':course_data.is_free
                 }
                 # 统计code的使用
-                result_actcode.is_use=True
+                result_actcode.is_use= True
                 result_actcode.use_count = result_actcode.use_count + 1
+                print "测试使用次数:",result_actcode.use_count
 
                 sess.commit()
                 sess.close()
