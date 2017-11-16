@@ -659,8 +659,6 @@ class Actcode(Base):
                 return  {'flag':False,'status':'兑换码已失效'}
             result.is_use= True
             result.use_count = int(result.use_count) + 1
-            print "测试使用次数:"
-            print result_actcode.use_count
             sess.commit()
             sess.close()
             return {'flag':True,'status':"兑换成功"}
