@@ -250,7 +250,7 @@ input[type=text].valid:not(.browser-default){
     
     display: block;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
 
 }
@@ -258,7 +258,7 @@ input[type=text].valid:not(.browser-default){
 
     max-width: 28px;
     display: block;
-    margin: 8px auto;
+    margin: 6px auto;
     padding: 0px;
 
 }
@@ -286,7 +286,7 @@ input[type=text].valid:not(.browser-default){
 }
 .l-left-nav p{
 
-    font-size: 12px;
+    font-size: 10px;
 
 }
 
@@ -600,4 +600,113 @@ input[type=text].valid:not(.browser-default){
 }
 
 
+/* books页面 */
+.books-container{
+    
+    height: 100vh;
+    background-color: rgba(239, 241, 245, 0.32); 
+/*     background: url('../img/books/bookbk.jpg') no-repeat fixed top; */
 
+}
+
+.books-card-panel{
+    /* box-shadow: 0px 1px 1px #c1c1c1; */
+    box-shadow: none;
+
+    height: 420px;
+    background-color: rgba(239, 241, 245, 0.0); 
+}
+.books-card-panel h1,h2,h3,h4{
+     
+     color: #333;
+     font-size: 16px;
+     font-weight: 400;
+}
+.books-card-panel h5{
+     
+     color: #333;
+     font-size: 14px;
+     font-weight: 500;
+}
+.books_cate{
+    
+    display: inline-block;
+
+
+}
+.books_more{
+    
+    display: inline-block;
+    font-size: 12px;
+    line-height: 30px;
+    margin: 5px 8px;
+    
+}
+.books_list{
+
+    float: left;
+    width: 108px;
+    font-size: 12px;
+    margin: 0 4% 0 0;
+    color: #666;
+    height: 360px;
+    line-height: 20px;
+}
+.books_list a{
+
+    color: #666;
+
+}
+.books_list a:hover{
+
+    color: rgba(231, 76, 60, 1.00)!important;
+
+}
+.books_list a:hover h5{
+
+    color: rgba(231, 76, 60, 1.00)!important;
+
+}
+.books_list a:hover img{
+
+    box-shadow: 1px 4px 7px rgba(0,0,0,.35);
+    -webkit-transform:translateY(-5px);
+    -moz-transform:translateY(-5px);
+    -ms-transform:translateY(-5px);
+    -o-transform:translateY(-5px);
+    transform:translateY(-5px);
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+
+.books_img{
+    
+    max-width: 108px;
+    max-height: 142px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.25);
+    border-radius: 3px;
+    display: block;
+    margin: 8px auto;
+
+}
+.books_read_count{
+    
+    display: block;
+    margin: 0px 2px 2px 0px;
+    font-size: 10px;
+}
+.books-chip{
+    
+    display: inline-block;
+    font-size: 10px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 10px;
+    margin-top: 4px;
+    color: rgba(231, 76, 60, 0.6);
+
+}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{%block title%} 书籍库 {%endblock%}
+
+
+{% block contents %}
+    
+    <div class="nav_bk">
+            <h5>懒人编程 书籍库</h5>
+            <p>自家慢诩便便腹，开卷方知未读书</p>
+            <div class="nav_bk_bk">
+                <img class="nav_bk_img" src="/static/img/other/homepage_bk.png" alt="">
+            </div>
+            
+    </div>
+    <div class="l-title-line"></div> 
+    <div class="books-container">
+        <div class="container">
+            
+
+            {# 内容卡片 #}
+            <div class="card-panel  books-card-panel col s12 ">
+                <h4 class="books_cate"><span class="card-title">Python书籍推荐</span></h4>
+                <a class="books_more" href="">查看全部</a>
+                <ul>
+                    <li class="books_list">
+                        <a href="">      
+                            <img src="https://img3.doubanio.com/lpic/s3140466.jpg" alt="" class="books_img">
+                            <h5 class="books_name">Python核心编程（第二版)</h5>
+                            <span class="books_description">本书是Python开发者的完全指南</span>
+                        </a>
+                        <div class="books_operation">
+                            <span class="books_read_count">
+                                评分7.8(豆瓣)
+                                <a href="">买正版 ></a>
+                            </span>
+                            <span class="books_hot"><a href=""></span></a>
+                            <span class="books_down">
+                                <div class="chip books-chip">PDF下载 </div>
+                            </span>
+                        </div>
+                    </li>
+                    <li class="books_list">
+                        <a href="">      
+                            <img src="https://img3.doubanio.com/lpic/s4180565.jpg" alt="" class="books_img">
+                            <h5 class="books_name">Python学习手册</h5>
+                            <span class="books_description">《Python学习手册(第3版)》讲述了：Python可移植...</span>
+                        </a>
+                        <div class="books_operation">
+                            <span class="books_read_count">
+                                评分7.8(豆瓣)
+                                <a href="">买正版 ></a>
+                            </span>
+                            <span class="books_hot"><a href=""></span></a>
+                            <span class="books_down">
+                                <div class="chip books-chip">PDF下载 </div>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            
+            </div>
+        </div>
+    </div>
+
+{%endblock%}

@@ -170,6 +170,15 @@ def course_activete():
         return render_template("act.html",result_dict=result_dict)
 
 
+# 书架列表
+
+@app.route('/books')
+def books():
+    print "in books"
+    return render_template('/pc/books.html')
+
+# 书架详情
+
 
 
 @app.route('/test')
