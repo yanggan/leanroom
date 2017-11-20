@@ -19,7 +19,7 @@
         {# 这里是分类菜单，从数据库读取 #}
        
         <div class="col s12 books_tabs">
-            <ul class="tabs ">
+            <ul class="tabs  ">
                 {% for cate in all_books_data %}
                     <li class="tab">
                         <a class="{%if loop.first %} active {%endif%}" href="#{{cate.category_id}}">{{cate.category_name}}</a>
@@ -41,8 +41,12 @@
                 {# 书单信息，这里就需要循环了 #}
                 {% for bookslist in cate.category_bookslist %}
                 <div class="container-fluid">
-                    <h4 class="books_cate"><span class="card-title">{{bookslist.bookslist_name}}</span></h4>
-                    <span class="books_more" href="#">{{bookslist.bookslist_count}}</span>
+
+                    <i class="material-icons"><span class="glyphicon glyphicon-book " aria-hidden="true"></span></i>
+                    <h4 class="books_cate">
+                        <span class="card-title">{{bookslist.bookslist_name}}</span>
+                    </h4>
+                    <span class="books_more" href="#">{{bookslist.bookslist_count}}本</span>
                     <ul>
                         {# 书本，需要循环 #}
                         {%for book in bookslist.books_contents%}

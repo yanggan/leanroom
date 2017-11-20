@@ -619,9 +619,9 @@ input[type=text].valid:not(.browser-default){
 }
 .books-card-panel h1,h2,h3,h4{
      
-     color: #333;
-     font-size: 16px;
-     font-weight: 400;
+     color: #555;
+     font-size: 15px;
+     font-weight: 300;
 }
 .books-card-panel h5{
      
@@ -709,11 +709,22 @@ input[type=text].valid:not(.browser-default){
     border-radius: 10px;
     margin-top: 4px;
     color: rgba(231, 76, 60, 0.6);
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; 
 
 }
 .books_tabs ul{
     
     background-color: rgba(239, 241, 245, 0.0);
     margin-left: 30px;
+   
 }
+.books_tabs ul li a{
+
+    color: #666!important;
+    font-size: 12px;
+}
+.books_tabs ul li a:link, a:visited, a:hover, a:active{
+
+    font-size: 12px;
+}
+
