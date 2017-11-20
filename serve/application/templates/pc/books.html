@@ -14,53 +14,85 @@
             
     </div>
     <div class="l-title-line"></div> 
-    <div class="books-container">
-        <div class="container">
-            
+    <div class="books-container  container">
+        {# 书籍分类 #}
+        {# 这里是分类菜单，从数据库读取 #}
+       
+        <div class="col s12 books_tabs">
+            <ul class="tabs ">
+                {% for cate in all_books_data %}
+                    <li class="tab">
+                        <a class="{%if loop.first %} active {%endif%}" href="#{{cate.category_id}}">{{cate.category_name}}</a>
+                    </li>
+                {% endfor %}
+ 
+            </ul>
+ 
+        </div>
 
-            {# 内容卡片 #}
-            <div class="card-panel  books-card-panel col s12 ">
-                <h4 class="books_cate"><span class="card-title">Python书籍推荐</span></h4>
-                <a class="books_more" href="">查看全部</a>
-                <ul>
-                    <li class="books_list">
-                        <a href="">      
-                            <img src="https://img3.doubanio.com/lpic/s3140466.jpg" alt="" class="books_img">
-                            <h5 class="books_name">Python核心编程（第二版)</h5>
-                            <span class="books_description">本书是Python开发者的完全指南</span>
-                        </a>
-                        <div class="books_operation">
-                            <span class="books_read_count">
-                                评分7.8(豆瓣)
-                                <a href="">买正版 ></a>
-                            </span>
-                            <span class="books_hot"><a href=""></span></a>
-                            <span class="books_down">
-                                <div class="chip books-chip">PDF下载 </div>
-                            </span>
-                        </div>
-                    </li>
-                    <li class="books_list">
-                        <a href="">      
-                            <img src="https://img3.doubanio.com/lpic/s4180565.jpg" alt="" class="books_img">
-                            <h5 class="books_name">Python学习手册</h5>
-                            <span class="books_description">《Python学习手册(第3版)》讲述了：Python可移植...</span>
-                        </a>
-                        <div class="books_operation">
-                            <span class="books_read_count">
-                                评分7.8(豆瓣)
-                                <a href="">买正版 ></a>
-                            </span>
-                            <span class="books_hot"><a href=""></span></a>
-                            <span class="books_down">
-                                <div class="chip books-chip">PDF下载 </div>
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+
+        {# 书籍内容 #}
+        <div class="container-fluid">
             
+            {%for cate in all_books_data%}
+            {# 内容卡片 #}
+            <div class="card-panel books-card-panel col s12 " id='{{cate.category_id}}'>
+                
+                {# 书单信息，这里就需要循环了 #}
+                {% for bookslist in cate.category_bookslist %}
+                <div class="container-fluid">
+                    <h4 class="books_cate"><span class="card-title">{{bookslist.bookslist_name}}</span></h4>
+                    <span class="books_more" href="#">{{bookslist.bookslist_count}}</span>
+                    <ul>
+                        {# 书本，需要循环 #}
+                        {%for book in bookslist.books_contents%}
+                        <li class="books_list">
+                            <a href="">
+                                <img src="{{book.book_img}}" alt="" class="books_img">
+                                <h5 class="books_name">{{book.book_name}}</h5>
+                                <span class="books_description">{{book.book_desc}}</span>
+                            </a>
+                            <div class="books_operation">
+                                <span class="books_read_count">
+                                    评分{{book.book_grade}}(豆瓣)
+                                    <a href="{{book.buy_url}}">买正版 ></a>
+                                </span>
+                                <span class="books_hot"><a href=""></span></a>
+                                <span class="books_down">
+                                    <a href="{{book.download_url}}"><div class="chip books-chip">PDF下载 </div></a>
+                                </span>
+                            </div>
+                        </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+
+                
+                {%endfor%}
             </div>
+            {%endfor%}
+            {#  #}
+            {# <div class="card-panel books-card-panel col s12 " id='2'>开篇2</div> #}
+        </div>
+
+
+
+    </div>
+    
+
+    {# 开发信息 #}
+
+        <!-- 开发信息展示 -->
+    {%if dev_data['flag']%}
+    
+    <div class="container l-right-contents">  
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>开发调试信息：<br> </strong>
+            {{all_books_data}}
         </div>
     </div>
+    {%endif%}
+
 
 {%endblock%}

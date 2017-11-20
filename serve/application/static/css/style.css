@@ -604,7 +604,8 @@ input[type=text].valid:not(.browser-default){
 .books-container{
     
     height: 100vh;
-    background-color: rgba(239, 241, 245, 0.32); 
+    /* background-color: rgba(239, 241, 245, 0.32);  */
+    background-color: rgba(231, 76, 60,0.01);
 /*     background: url('../img/books/bookbk.jpg') no-repeat fixed top; */
 
 }
@@ -649,7 +650,7 @@ input[type=text].valid:not(.browser-default){
     font-size: 12px;
     margin: 0 4% 0 0;
     color: #666;
-    height: 360px;
+    height: 290px;
     line-height: 20px;
 }
 .books_list a{
@@ -708,5 +709,11 @@ input[type=text].valid:not(.browser-default){
     border-radius: 10px;
     margin-top: 4px;
     color: rgba(231, 76, 60, 0.6);
+    background-color: #f2f2f2;
 
+}
+.books_tabs ul{
+    
+    background-color: rgba(239, 241, 245, 0.0);
+    margin-left: 30px;
 }
