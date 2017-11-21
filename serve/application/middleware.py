@@ -106,4 +106,9 @@ class Data_Processor(object):
         print result
 
         return result
-
+    @staticmethod
+    def get_category_has_bookdata():
+        # 查询分类
+        x =  Category.get_bookslist_category()
+        print x
+        return x

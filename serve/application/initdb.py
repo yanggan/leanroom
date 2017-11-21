@@ -309,12 +309,78 @@ def add_actcode():
 
     return Actcode.add_actcode(10000,20)
 
+
+# 添加书单
+
+def add_bookslist():
+
+    x = [
+
+        {'id':800,'name':u'HMTL小白零基础书单推荐','category_id':1000},
+        {'name':u'Javascript入门书籍合集','category_id':1000}
+
+    ]
+    return Bookslist.add_bookslist(x)
+
+def add_book_with_isbn():
+
+    book_data = Book.get_bookinfo_with_api(9787111436737)
+    book_data["book_buy_url"] = u"www.baiud.com"
+    book_data["book_download_url"] = u""   
+    book_data["bookslist_id"] = 800   
+
+
+    print Book.add_book([book_data])
+
+    return ""
+
+# 添加书本 
+def add_book():
+
+    # book_id = book.get('book_id'),
+    # book_name = book.get('book_name'),
+    # book_isbn = book.get('book_isbn'),
+    # book_author = book.get('book_author'),
+    # book_mark = book.get('book_mark'),
+    # book_img_url = book.get('book_img_url'),
+    # book_download_url = book.get('book_download_url'),
+    # book_buy_url = book.get('book_buy_url'),
+    # bookslist_id= book.get('bookslist_id'),
+    x = [
+        {
+            'book_id':None,
+            'book_name':u"html必知必会",
+            'book_desc':u'这里是介绍'[:16] + u"...",
+            'book_isbn':u'320392031',
+            'book_author':u'张大仙',
+            'book_mark':u'7.0',
+            'book_img_url':u'https://img3.doubanio.com/lpic/s3140466.jpg',    
+            'book_download_url':u'http://booksobject-1253118766.file.myqcloud.com/bookbk.jpg',
+            'book_buy_url':u'http://www.baidu.com',
+            'bookslist_id':800,
+        }
+    ]
+
+    return Book.add_book(x)
+
+def test_get_cate_with_bookslist():
+
+    x =  Category.get_bookslist_category()
+    print x
+    return x
+
+
 if __name__ == "__main__":
 
     # print init_category()
     # print init_course()
     # print init_resouce()
     # print add_resouce()
-    print init_actcode()
-    print renew_course_size()
+    # print init_actcode()
+    # print renew_course_size()
+    
+    # print add_bookslist()
+    # print add_book()
+    # print add_book_with_isbn()
+    print test_get_cate_with_bookslist()
     pass

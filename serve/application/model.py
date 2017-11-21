@@ -39,6 +39,9 @@ import datetime
 
 import random,string,uuid
 
+# urllib用于通过api完善书籍信息
+import urllib2,re
+
 # 定义数据库和表
 class Course(Base):
 
@@ -226,7 +229,8 @@ class Category(Base):
     # 和分类的关系,1个课程对应多个分类，定义关系属性
     category_course = relationship("Course")
 
-
+    # 和书籍的关系
+    category_bookslist = relationship("Bookslist")
 
     # 增删改查使用静态方法      
     @staticmethod
@@ -306,6 +310,7 @@ class Category(Base):
         
         return "OK"
 
+    # 首页分类，带课程数据
     @staticmethod
     def get_category(where='',is_active_id=[]):
         # 直接全部
@@ -376,6 +381,62 @@ class Category(Base):
                 'category_course':cate_course,
                 'category_active_course': is_active_course_data if is_active_course_data != [] else None
             
+            }
+            real_data.append(data)
+        # print(real_data)
+        sess.close()
+        return real_data
+
+    # 书单分类，带书单所有数据
+    @staticmethod
+    def get_bookslist_category():
+        # 直接全部
+        sess = Category.get_session(engine)
+
+        real_data = []
+        # 查询分类,利用1对多关系
+        for instance in sess.query(Category).order_by(Category.id):
+            # print(instance.id, instance.name,instance.category_course)
+            # instance.category_course 是cate对应的课程list
+            bookslist_list = []
+
+            # 遍历，书单ABCDEF
+            for bookslist_data in instance.category_bookslist:
+               
+                # 遍历，书ABCDEF
+                book_data = []
+                for book in bookslist_data.bookslist_book:
+
+                    y = {
+
+                        'book_id':book.book_id,
+                        'book_name':book.book_name,
+                        'book_desc':book.book_desc,
+                        'book_isbn':book.book_isbn,
+                        'book_author':book.book_author,
+                        'book_mark':book.book_mark,
+                        'book_img_url':book.book_img_url,
+                        'book_download_url':book.book_download_url,
+                        'book_buy_url':book.book_buy_url,
+                        'bookslist_id':book.bookslist_id,
+                    }
+                    # 放入列表
+                    book_data.append(y)
+
+                x = {
+                    'bookslist_id':bookslist_data.bookslist_id,
+                    'bookslist_name':bookslist_data.bookslist_name,
+                    'bookslist_count':len(book_data),
+                    'bookslist_book':book_data
+                }
+                bookslist_list.append(x)
+
+
+            # 给模板的数据结构
+            data = {
+                'category_id':instance.id,
+                'category_name':instance.name,
+                'category_bookslist': bookslist_list
             }
             real_data.append(data)
         # print(real_data)
@@ -737,6 +798,187 @@ class Actcode(Base):
         pass
 
 
+
+
+class Bookslist(Base):
+
+    # 资源表
+    __tablename__ = 'Bookslist'
+
+    # 表
+    bookslist_id = Column('bookslist_id',Integer, primary_key=True,autoincrement=True)
+    bookslist_name = Column('bookslist_name',String)
+    bookslist_count = Column('bookslist_count',Integer,default=0)
+
+    # 一个bookslist包含多个book的关系
+    bookslist_book = relationship("Book")
+    
+    # 一个书单有一个分类
+    category_id = Column(Integer, ForeignKey('Category.id'))
+
+    # 增删改查的方法
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
+    @staticmethod
+    def add_bookslist(add_list=[]):
+    # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx','img_url':'','category_id':id},{}]
+        if add_list == [] or add_list == None:
+            
+            return "No bookslist add data"
+
+        # 获取sess/插入
+        sess = Bookslist.get_session(engine)
+
+        add_cate_list = []
+        # 插入
+        for bookslist in add_list:
+            new_bookslist = Bookslist( 
+                bookslist_id = bookslist.get('id'),
+                bookslist_name = bookslist.get('name'),
+                bookslist_count = bookslist.get('count'),
+                category_id = bookslist.get('category_id'),
+                )
+            add_cate_list.append(new_bookslist)
+
+        sess.add_all(add_cate_list)
+        sess.commit()
+        sess.close()
+
+        return "bookslist add OK"
+
+class Book(Base):
+
+    # 资源表
+    __tablename__ = 'Book'
+
+    # 表 
+    book_id = Column('book_id',Integer, primary_key=True,autoincrement=True)
+    
+    # 基本信息
+    book_name = Column('book_name',String)
+    book_desc = Column('book_desc',String)
+    book_isbn = Column('book_isbn',Integer)
+    book_author = Column('book_author',String)
+    book_mark = Column('book_mark',String)
+    book_img_url = Column('book_img_url',String)
+
+    # 下载链接
+    book_download_url = Column('book_download_url',String)
+    book_buy_url = Column('book_buy_url',String)
+
+
+    # 和course的关系
+    bookslist_id = Column(Integer, ForeignKey('Bookslist.bookslist_id'))
+    # 在子表类中通过 foreign key (外键)引用父表的参考字段
+
+    # 增删改查的方法
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
+    # 添加书本
+    @staticmethod
+    def add_book(add_list=[]):
+
+    # 传入参数：[{'id':1000,'name':'xxx','descripiton':'xxx','img_url':'','category_id':id},{}]
+        if add_list == [] or add_list == None:
+    
+            return "No data"
+
+        # 获取sess/插入
+        sess = Book.get_session(engine)
+
+        add_book_list = []
+        # 插入
+        for book in add_list:
+            new_books = Book( 
+                book_id = book.get('book_id'),
+                book_name = book.get('book_name'),
+                book_desc = book.get('book_desc'),
+                book_isbn = book.get('book_isbn'),
+                book_author = book.get('book_author'),
+                book_mark = book.get('book_mark'),
+                book_img_url = book.get('book_img_url'),
+                book_download_url = book.get('book_download_url'),
+                book_buy_url = book.get('book_buy_url'),
+                bookslist_id= book.get('bookslist_id'),
+                )
+            add_book_list.append(new_books)
+
+        sess.add_all(add_book_list)
+        sess.commit()
+        sess.close()
+
+        return "book add OK"
+
+    # 从豆瓣API，通过ISBN，获取到书本的详细信息
+    @staticmethod
+    def get_bookinfo_with_api(isbn=None):
+            
+        if isbn == None or type(isbn) != int:
+            return "no isbn data"
+        
+        raw_url = r" https://api.douban.com/v2/book/isbn/" + str(isbn)
+        # 通过urllib请求豆瓣api
+        response = urllib2.urlopen(raw_url)
+        html = response.read()
+        print html
+
+        # 正则表达式取数据
+
+        x = re.findall(r'"author":\["(.*?)"\],',unicode(html)) 
+        book_author = unicode("NoneDATA" if x == [] else  " ".join(x))
+
+        x = re.findall(r'"isbn13":"(.*?)",',unicode(html)) 
+        book_isbn = unicode("NoneDATA" if x == [] else  " ".join(x))
+
+        x = re.findall(r'"title":"([^,]+)",',unicode(html)) 
+        book_name = unicode("NoneDATA" if x == [] else  " ".join(x))
+
+        x = re.findall(r'"summary":"([^",]+)",',unicode(html)) 
+        book_desc = unicode("NoneDATA" if x == [] else  " ".join(x))
+
+        x = re.findall(r'"summary":"([^",]+)",',unicode(html)) 
+        book_desc = unicode("NoneDATA" if x == [] else  " ".join(x))
+        book_sesc = unicode(book_desc[:40] + "...")
+
+        x = re.findall(r'"average":"([^",]+)",',unicode(html)) 
+        book_mark = unicode("NoneDATA" if x == [] else  " ".join(x))
+
+        
+        x = re.findall(r'"large":"([^",]+?)",',unicode(html)) 
+        book_img_url = unicode("NoneDATA" if x == [] else  " ".join(x))
+       
+        x = re.findall(r'"price":"([^",]+?)"',unicode(html)) 
+        book_price = unicode("NoneDATA" if x == [] else  " ".join(x))
+
+        book_data = {
+
+            'book_id':None,
+            'book_name':book_name,
+            'book_desc':book_sesc,
+            'book_isbn': book_isbn,
+            'book_author':book_author,
+            'book_mark':book_mark,
+            'book_img_url':book_img_url, 
+            'book_price':book_price
+        }
+
+        return book_data
+
+
+
+
 # 初始化数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
 
@@ -787,6 +1029,5 @@ if __name__ == "__main__":
     # x = Actcode.init_unique_actcode()
     # print x
 
-    x = Actcode.add_actcode(10000,20)
-    print x
+
    

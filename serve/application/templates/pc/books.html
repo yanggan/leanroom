@@ -49,21 +49,21 @@
                     <span class="books_more" href="#">{{bookslist.bookslist_count}}本</span>
                     <ul>
                         {# 书本，需要循环 #}
-                        {%for book in bookslist.books_contents%}
+                        {%for book in bookslist.bookslist_book%}
                         <li class="books_list">
-                            <a href="">
-                                <img src="{{book.book_img}}" alt="" class="books_img">
+                            <a href="javascript:void(0);">
+                                <img src="{{book.book_img_url}}" alt="" class="books_img">
                                 <h5 class="books_name">{{book.book_name}}</h5>
                                 <span class="books_description">{{book.book_desc}}</span>
                             </a>
                             <div class="books_operation">
                                 <span class="books_read_count">
-                                    评分{{book.book_grade}}(豆瓣)
-                                    <a href="{{book.buy_url}}">买正版 ></a>
+                                    评分{{book.book_mark}}
+                                    <a href="{{book.book_buy_url}}">买正版 ></a>
                                 </span>
                                 <span class="books_hot"><a href=""></span></a>
                                 <span class="books_down">
-                                    <a href="{{book.download_url}}"><div class="chip books-chip">PDF下载 </div></a>
+                                    <a href="{{book.book_download_url}}"><div class="chip books-chip">PDF下载 </div></a>
                                 </span>
                             </div>
                         </li>
@@ -93,7 +93,7 @@
         <div class="alert alert-info alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>开发调试信息：<br> </strong>
-            {{all_books_data}}
+            {{test}}
         </div>
     </div>
     {%endif%}

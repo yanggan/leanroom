@@ -235,11 +235,12 @@ def books():
     ]
 
     # 获取分类和课程信息
-    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
+    cate_data = Data_Processor.get_category_has_bookdata()
     dev_data = Data_Processor.get_devtools_data()
     return render_template( \
         '/pc/books.html',
-        all_books_data = fake_all_books_data,
+        all_books_data = cate_data,
+        test = cate_data,
         # all_books_data=cate_data.get('category_data'),
         dev_data=dev_data 
         )
