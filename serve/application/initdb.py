@@ -324,10 +324,10 @@ def add_bookslist():
 
 def add_book_with_isbn():
 
-    book_data = Book.get_bookinfo_with_api(9787111436737)
+    book_data = Book.get_bookinfo_with_api(9787111436731)
     book_data["book_buy_url"] = u"www.baiud.com"
     book_data["book_download_url"] = u""   
-    book_data["bookslist_id"] = 800   
+    book_data["bookslist_id"] = 800 
 
 
     print Book.add_book([book_data])
@@ -381,6 +381,6 @@ if __name__ == "__main__":
     
     # print add_bookslist()
     # print add_book()
-    # print add_book_with_isbn()
-    print test_get_cate_with_bookslist()
+    print add_book_with_isbn()
+    # print test_get_cate_with_bookslist()
     pass

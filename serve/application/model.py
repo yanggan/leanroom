@@ -950,7 +950,7 @@ class Book(Base):
 
         x = re.findall(r'"summary":"([^",]+)",',unicode(html)) 
         book_desc = unicode("NoneDATA" if x == [] else  " ".join(x))
-        book_sesc = unicode(book_desc[:40] + "...")
+        book_sesc = unicode(book_desc[:16] + "...")
 
         x = re.findall(r'"average":"([^",]+)",',unicode(html)) 
         book_mark = unicode("NoneDATA" if x == [] else  " ".join(x))

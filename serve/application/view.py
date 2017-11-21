@@ -175,64 +175,6 @@ def course_activete():
 @app.route('/books')
 def books():
 
-    fake_all_books_data = [
-    {
-
-        'category_id': 1007,
-        'category_name':u"前端开发",
-        'category_bookslist':[
-            {'bookslist_id':'45009','bookslist_name':'python入门书单','bookslist_count':10,
-                'books_contents':[
-
-                    {'book_id':'093223','book_name':u"Python入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'}
-                ]
-            },
-            {'bookslist_id':'45009','bookslist_name':'HTML入门书单','bookslist_count':10,
-                'books_contents':[
-                    {'book_id':'093223','book_name':u"Python入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg','book_grade':'7,4'},
-                    {'book_id':'093223','book_name':u"Python入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg','book_grade':'7,4'}
-                ]
-            },
-           
-        ]
-
-    },
-    {
-
-        'category_id': 1008,
-        'category_name':u"后端开发",
-        'category_bookslist':[
-            {'bookslist_id':'45009','bookslist_name':'程序员终极书单','bookslist_count':10,
-                'books_contents':[
-                    {'book_id':'093223','book_name':u"颈椎康复指南(第三版)",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s5982720.jpg'},
-                    {'book_id':'093223','book_name':u"腰间盘突出康复指南",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s5885642.jpg'},
-                    {'book_id':'093223','book_name':u"如何避免通宵猝死",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"JAVA入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'}
-                ]
-            },
-            {'bookslist_id':'45009','bookslist_name':'PYTHON入门书单','bookslist_count':10,
-                'books_contents':[
-                    {'book_id':'093223','book_name':u"Python入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'},
-                    {'book_id':'093223','book_name':u"Python入门经典",'book_desc':u'这里是简洁','download_url':r'http://www.baidu.com','buy_url':r'http://','book_img':'https://img3.doubanio.com/lpic/s3140466.jpg'}
-                ]
-            },
-           
-        ]
-
-    },
-    
-
-    ]
 
     # 获取分类和课程信息
     cate_data = Data_Processor.get_category_has_bookdata()
@@ -240,8 +182,6 @@ def books():
     return render_template( \
         '/pc/books.html',
         all_books_data = cate_data,
-        test = cate_data,
-        # all_books_data=cate_data.get('category_data'),
         dev_data=dev_data 
         )
 
