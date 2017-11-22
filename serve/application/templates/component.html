@@ -14,6 +14,81 @@
 
 {%- endmacro %}
 
+
+<!--登录注册组件 -->
+{% macro login_links() %}
+    
+    <!-- 入口 -->
+    <div class="user_login ">
+        <div class="login_links">
+            <a href="#login_modal">注册 | 登录</a>
+        </div>
+    </div>
+
+    <!-- 弹出层 -->
+        {# 这里是弹出层，输入购买验证码 #}
+    <!-- modal内容，输入兑换码 -->
+    <div class="remodal login_register_modal z-depth-2 " data-remodal-id="login_modal">
+        
+
+        <div class="row">
+            
+            <div class="register_div col s6">
+                <h5>用户注册</h5>
+                <form action="" class="login_register_form">
+                    
+
+                    <input placeholder="请输入用户名" id="user_name" type="text" class="login_register_input">
+ 
+
+                    <input placeholder="设置您的密码" id="password" type="password" class="login_register_input hideShowPassword-hidden login-field">
+<!--                     <div class="my-toggle-class hideShowPassword-toggle-show">Show</div> -->
+
+                    <input placeholder="VIP会员激活码(选填)" id="super_code" type="text" class="login_register_input">
+                    
+                    <div class="row">
+                        <a href="" class=" col s6 supercode_links ">了解VIP会员特权</a>
+                        <a class="waves-effect  z-depth-0 waves-light btn login_register_btn login_btn ">立即注册</a>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="login_div col s6" class="login_register_form" >
+                <h5>登录</h5>
+
+                <form action="">
+
+                    <input placeholder="请输入用户名" id="first_name" type="text" class="login_register_input" >
+  
+
+                    <input  placeholder="请输入您的密码" id="password" type="password" class="login_register_input">
+                    <div class="row">
+                        <p>
+                            <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked">
+                            <label for="filled-in-box" class="user_remember_label">记住登录状态</label>
+                        </p>
+                        <a class="waves-effect z-depth-0 waves-light btn login_register_btn">登录</a>
+                    </div>
+
+
+                </form>
+            </div>
+
+
+        </div>
+
+        
+    </div>
+
+{% endmacro %}
+
+
+
+
+
+
+
 {# 内页标题栏目 + 右侧功能按钮 #}
 
 {% macro course_sub_title(
