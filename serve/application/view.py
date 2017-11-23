@@ -3,6 +3,8 @@ from application import app
 from flask import Flask,request,render_template,flash,redirect,url_for,session,make_response,abort
 from flask import send_file, send_from_directory
 from flask_restful import Resource, Api, abort, reqparse
+from flask.ext.login import LoginManager, login_required
+from flask.ext.login import login_user,current_user,logout_user
 
 import re,shutil,os,datetime
 from werkzeug import secure_filename
@@ -19,6 +21,126 @@ sys.setdefaultencoding('utf-8')
 
 
 
+# Flask-login 模块 =======
+app.secret_key = app.config['SECRET_KEY']
+login_manager = LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'login'
+# 设置当未登录用户请求一个只有登录用户才能访问的视图时，闪现的错误消息的内容，
+# 默认的错误消息是：Please log in to access this page.。
+login_manager.login_message = u'请先登录'
+# 设置闪现的错误消息的类别
+login_manager.login_message_category = "login_info"
+login_manager.init_app(app)
+
+
+
+
+# 用户记录表
+users = [
+    {'username': 'yg', 'password': '1'},
+    {'username': 'Michael', 'password': '123456'}
+]
+ 
+# 通过用户名，获取用户记录，如果不存在，则返回None
+def query_user(username):
+    for user in users:
+        if user['username'] == username:
+            return user
+def add_user(username,password):
+    if query_user(username) == None:
+        users.append({'username':username,'password':password}) 
+
+    # 用户已经存在
+    else:
+        return False
+
+
+# 如果用户名存在则构建一个新的用户类对象，并使用用户名作为ID
+# 如果不存在，必须返回None
+@login_manager.user_loader
+def load_user(username):
+    if query_user(username) is not None:
+        # 需要一个这样的对象
+        curr_user = User()
+        curr_user.id = username
+        return curr_user
+
+
+
+# 注册登录
+
+@app.route('/login',methods=['POST','GET'])
+@app.route('/register',methods=['POST','GET'])
+def login():
+
+    
+    if request.method == 'GET':
+        return render_template('/pc/login.html')
+    elif request.method == 'POST':
+        print "表单数据"
+        # 拿出来用户登录密码
+        # 用户为登录
+        if request.form.get('login_username',None) != None:
+
+            login_username = request.form.get('login_username')
+            login_password = request.form.get('login_password')
+            print request.form
+            user = query_user(login_username)
+            # 通过username查找服务端的用户信息
+            if user is not None and login_password == user['password']:
+            # 这里改成用中间件来验证。
+
+                curr_user = User()
+                curr_user.id = login_username
+     
+                # 通过Flask-Login的login_user方法登录用户
+                login_user(curr_user)
+
+                # 如果请求中有next参数，则重定向到其指定的地址，
+                # 没有next参数，则重定向到"index"视图
+                next = request.args.get('next')
+                return "登录成功"
+                # return redirect(next or url_for('index'))
+            
+            flash('用户名或者密码错误','login_error')
+            return redirect(url_for('login'))
+        # 用户提交的是注册表单
+        elif request.form.get('register_username',None) != None:
+            
+            # 拿出来数据
+            register_username = request.form.get('register_username')
+            register_password = request.form.get('register_password')
+            register_vipcode = request.form.get('register_vipcode')            
+            print  "" + register_username + register_password + register_vipcode
+
+            # 添加到
+            # 这里改成用中间件来
+            if add_user(register_username,register_password) == False:
+
+                flash('用户名已被注册','register_error')
+                return redirect(url_for('login'))
+            else:
+                # 注册成功，免登陆
+                curr_user = User()
+                curr_user.id = register_username
+     
+                # 通过Flask-Login的login_user方法登录用户
+                login_user(curr_user)
+
+                return "注册成功"
+
+ 
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+                                                                                            
+
 # 首页
 @app.route('/',methods=['GET'])
 @app.route('/index',methods=['GET'])
@@ -28,11 +150,13 @@ def index():
     # 获取分类和课程信息
     cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
     dev_data = Data_Processor.get_devtools_data()
+    print current_user
     return render_template(
         "course.html",
         category=cate_data.get('category_data'),
         has_active_course=cate_data.get('has_active_course'),
-        dev_data=dev_data
+        dev_data=dev_data,
+        current_user =current_user
         )
 
 
@@ -185,7 +309,15 @@ def books():
         dev_data=dev_data 
         )
 
-# 书架详情
+
+
+@app.route('/ways')
+@login_required
+def ways():
+    return "WAYS"
+
+
+
 
 
 

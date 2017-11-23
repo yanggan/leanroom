@@ -16,15 +16,26 @@
 
 
 <!--登录注册组件 -->
-{% macro login_links() %}
+{% macro login_panel(current_user=None) %}
     
-    <!-- 入口 -->
+
+    <!-- 注册登录、我的面板 -->
+    {# 用户信息 #}
+    {% if (current_user.is_authenticated) %}
     <div class="user_login ">
         <div class="login_links">
-            <a href="#login_modal">注册 | 登录</a>
+            <a href="#" class=" button-collapse" data-activates="is_active_course_nav" >  欢迎您,{{ current_user.id }}!<i class="material-icons dp48">arrow_drop_down</i></a>
         </div>
     </div>
 
+    {%else%}
+        <!-- 注册登录 -->
+        <div class="user_login ">
+            <div class="login_links">
+                <a href="#login_modal">注册 | 登录</a>
+            </div>
+        </div>
+    {% endif %}
     <!-- 弹出层 -->
         {# 这里是弹出层，输入购买验证码 #}
     <!-- modal内容，输入兑换码 -->

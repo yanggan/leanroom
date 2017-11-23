@@ -18,7 +18,7 @@
         <div class="nav_bk">
             
             <!-- 注册登录入口 -->
-            {{md.login_links()}}
+            {{md.login_panel(current_user=current_user)}}
 
             <h5>懒人编程IT学院 资源库</h5>
             <p>海量课程精心整理,长期更新资源,学习编程不发愁</p>
@@ -38,7 +38,13 @@
         {# 判断是否有兑换的课程 #}
         {% if has_active_course %}
         <a href="#" data-activates="is_active_course_nav" >
-            <button  title = "d"  type="button" class="btn btn-floating button-collapse z-depth-1  grey darken-1  tooltipped  active_btn"   aria-label="Right Align" data-activates="is_active_course_nav"  data-tooltip="已兑换成功的课程">
+            
+            <!-- 按钮，登录用户之后就隐藏 -->
+            {% if (current_user.is_authenticated) %}
+                
+            {%else%}
+                <button  title = "d"  type="button" class="btn btn-floating button-collapse z-depth-1  grey darken-1  tooltipped  active_btn"   aria-label="Right Align" data-activates="is_active_course_nav"  data-tooltip="已兑换成功的课程">
+            {%endif%}
             <img src="/static/img/other/actvie_btn.png" alt="">
             </button>
         </a>
@@ -121,6 +127,21 @@
                 <img src="/static/img/other/active_course_bk.png">
             </div>
         </div></li>
+        <!-- 注册用户出现的按钮 -->
+        {% if (current_user.is_authenticated) %}
+        <!-- 会员操作区域 -->
+        <li>
+            <a class="subheader">我的</a>
+            <li><a href="/logout" class=" waves-effect waves-brown waves-ripple" ><i class="material-icons"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></i>会员类型：普通会员</a></li>
+
+        </li>
+        <li>
+            <li><a href="/logout" class=" waves-effect waves-brown waves-ripple" ><i class="material-icons"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></i>有效期：永久会员</a></li>
+
+        </li>
+        {%endif%}
+
+        <!-- 课程显示区域 -->
         <li><a class="subheader">已兑换课程集</a></li>
         {% for cate in category %} 
             {% if cate.category_active_course %}
@@ -140,8 +161,11 @@
         {%endfor%}
         <li><a class="subheader">更多</a></li>
         <li><a href="https://shop131223524.taobao.com/search.htm?spm=a1z10.3-c-s.0.0.374398cdncEOPx&search=y" class=" waves-effect waves-brown waves-ripple" ><i class="material-icons"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></i>前往店铺</a></li>
-        <li><a href="/course" class=" waves-effect waves-brown waves-ripple" ><i class="material-icons"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></i>返回</a></li>
-
+        
+        <!-- 注册用户出现的按钮 -->
+        {% if (current_user.is_authenticated) %}
+            <li><a href="/logout" class=" waves-effect waves-brown waves-ripple" ><i class="material-icons"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></i>退出登录</a></li>
+        {%endif%}
         <!-- <li><div class="divider"></div></li>
         <li><a class="subheader">操作</a></li>
         <li><a class="waves-effect blue-text text-darken-2 " href="#!">去电脑版店铺</a></li>

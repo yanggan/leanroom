@@ -112,3 +112,14 @@ class Data_Processor(object):
         x =  Category.get_bookslist_category()
         print x
         return x
+
+    @staticmethod
+    def user_login():
+        pass
+
+    @staticmethod
+    def user_register():
+        pass
+
+
+

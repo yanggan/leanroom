@@ -839,4 +839,42 @@ input::-ms-input-placeholder {
  .user_remember_label{
     color: #666;
     font-weight: 300;
+    padding-left: 24px;
+    height: 14px;
+    line-height: 18px;
+ }
+[type="checkbox"].filled-in:checked+label:after {
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #666666;
+    background-color: #666666;
+    z-index: 0;
+
+}
+ /* login.html */
+.login-container{
+
+    background-color: rgba(255,255,255,0.96);
+    height: 100vh;
+
+}
+ .login_card{
+    
+    border-top:4px solid rgba(231, 76, 60, 0.98);
+    border-bottom:2px solid rgba(231, 76, 60, 0.8);
+    padding-top: 8rem!important;
+    margin-top: 10rem  !important;
+ } 
+ .register_login_error{
+    
+    color: rgba(231, 76, 60, 0.98);
+    font-size: 12px;
+    font-weight: 200;
+    background-color: rgba(244,244,244,0.99);
+    border-radius: 2px;
+ }
+ .login_links i{
+    
+    line-height: 10px;
  }

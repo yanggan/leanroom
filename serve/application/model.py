@@ -25,6 +25,9 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+
+from flask.ext.login import UserMixin
+
 # 基类：
 Base = declarative_base()
 
@@ -978,6 +981,33 @@ class Book(Base):
 
 
 
+class Userlist(Base):
+    """Represents Proected users."""
+
+    # Set the name for table
+    __tablename__ = 'users'
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
+    user_id =  Column('user_id',String(255))
+    username = Column('username',String(255))
+    password = Column('password',String(255))
+    user_type = Column('user_type',Integer,default=0)
+    vip_time = Column('vip_time',String(255))
+
+    phone = Column('phone',String(255))
+    email = Column('email',String(255))
+
+
+
+    # 用户表的增删改，增加、验证、修改密码、
+
+
+
+
+# 用于注册登录的用户类
+class User(UserMixin):
+    pass
+ 
+
 
 # 初始化数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
@@ -991,14 +1021,6 @@ engine.raw_connection().connection.text_factory = str  # 解决中文插入乱�
 
 # 创建数据库和表结构（目前不支持自动更新表结构，智能删库重新）
 Base.metadata.create_all(bind=engine)
-
-
-
-# 初始化category表
-# print Category.init_category()
-# print Category.add_category([{'id':None,'name':u'科学计算','descripiton':'xxx'}])
-
-
 
 
 
