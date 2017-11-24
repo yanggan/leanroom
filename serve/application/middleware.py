@@ -114,12 +114,27 @@ class Data_Processor(object):
         return x
 
     @staticmethod
-    def user_login():
+    def user_login(username,password):
         pass
+        # 检查用户名
+        # 插件是否有此用户,没有找到就返回
+        if Userlist.check_useranme(username) == True:
+            return {'flag':False,'status':'username or password is error'}
+        # 验证账户密码
+        result = Userlist.verify_user(username,password)
+
+        return result
 
     @staticmethod
-    def user_register():
-        pass
+    def user_register(username=None,password=None,vipcode=None):
+        # 交给model
+        vip_code_flag = False
+        # 验证VIP兑换码有效性
+        if vip_code_flag == True:
+            result =  Userlist.add_user(username,password,user_type=1)
+        else:
+            result = Userlist.add_user(username,password,user_type=1)
 
+        return result
 
 

@@ -29,7 +29,7 @@
                             {% if messages %}
                                         {% for message in messages %}
                                             <div class="row">
-                                                <div class="chip register_login_error">用户名已被占用,请重试 <i class="close material-icons">close</i> </div>
+                                                <div class="chip register_login_error">{{message}} <i class="close material-icons">close</i> </div>
                                             </div>
                                         {% endfor %}
                                 {% else %}

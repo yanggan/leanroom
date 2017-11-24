@@ -60,13 +60,15 @@ def add_user(username,password):
 # 如果不存在，必须返回None
 @login_manager.user_loader
 def load_user(username):
-    if query_user(username) is not None:
-        # 需要一个这样的对象
-        curr_user = User()
-        curr_user.id = username
-        return curr_user
+    # if query_user(username) is not None:
+    #     # 需要一个这样的对象
+    #     curr_user = User()
+    #     curr_user.id = username
+    #     return curr_user
 
-
+    curr_user = User()
+    curr_user.id = username
+    return curr_user
 
 # 注册登录
 
@@ -85,14 +87,18 @@ def login():
 
             login_username = request.form.get('login_username')
             login_password = request.form.get('login_password')
-            print request.form
+
+            # 判断交给user_login方法，返回 {'flag':True,"status":''}
+            result = Data_Processor.user_login(login_username,login_password)
+
             user = query_user(login_username)
-            # 通过username查找服务端的用户信息
-            if user is not None and login_password == user['password']:
+
+            # 通过认证，账户密码正确
+            if result.get('flag') == True:
             # 这里改成用中间件来验证。
 
                 curr_user = User()
-                curr_user.id = login_username
+                curr_user.id = login_username # 给用户名
      
                 # 通过Flask-Login的login_user方法登录用户
                 login_user(curr_user)
@@ -100,10 +106,11 @@ def login():
                 # 如果请求中有next参数，则重定向到其指定的地址，
                 # 没有next参数，则重定向到"index"视图
                 next = request.args.get('next')
-                return "登录成功"
+                return redirect(url_for('index'))
                 # return redirect(next or url_for('index'))
             
-            flash('用户名或者密码错误','login_error')
+            # 没有通过认证
+            flash(result.get('status'),'login_error')
             return redirect(url_for('login'))
         # 用户提交的是注册表单
         elif request.form.get('register_username',None) != None:
@@ -112,25 +119,31 @@ def login():
             register_username = request.form.get('register_username')
             register_password = request.form.get('register_password')
             register_vipcode = request.form.get('register_vipcode')            
-            print  "" + register_username + register_password + register_vipcode
+            
 
-            # 添加到
-            # 这里改成用中间件来
-            if add_user(register_username,register_password) == False:
+            # 判断交给user_login方法，返回 {'flag':True,"status":''}
+            result = Data_Processor.user_register(register_username,register_password,register_vipcode)
+            
+            if result.get('flag') == False:
 
-                flash('用户名已被注册','register_error')
+                flash(result.get('status'),'register_error')
                 return redirect(url_for('login'))
-            else:
+            elif result.get('flag') == True:
+               
                 # 注册成功，免登陆
                 curr_user = User()
                 curr_user.id = register_username
      
                 # 通过Flask-Login的login_user方法登录用户
                 login_user(curr_user)
+                return redirect(url_for('index'))
 
-                return "注册成功"
-
- 
+#针对前端登录模态的登录入口
+@app.route('/fast_register', methods=['GET', 'POST'])
+@app.route('/fast_login', methods=['GET', 'POST'])
+def fast_login():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.route('/logout', methods=['GET', 'POST'])

@@ -979,27 +979,281 @@ class Book(Base):
 
         return book_data
 
+class Bookscode(Base):
+    """用于激活高级会员的激活码"""
+    __tablename__ = 'Bookscode'
+
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
+    code = Column('code',String)
+    is_use =  Column('is_use',Boolean,default=False)
+    is_invalid = Column('is_invalid',Boolean,default=False) # 为ture则兑换码不可用
+    expiration_time = Column('expiration_time',String)
+
+    # 一个激活码可以兑换所有书籍
+    taobao_order = Column('taobao_order',String)
+
+    # 增删改查的方法
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
+    # 查、增、验证、修改密码、
+    @staticmethod
+    def get_code(code=None):
+        sess = Bookscode.get_session(engine)
+        pass
+
+    # 增加
+    @staticmethod
+    def add_code(code=None):
+        pass
+    
+    # 验证是否有效
+    @staticmethod
+    def verify_code(code=None):
+        pass
+
+    # 添加淘宝订单号
+    @staticmethod
+    def add_taobao_order(code=None,taobao_order=None):
+        pass
+
+    # 删除兑换码
+    @staticmethod
+    def del_code(code=None):
+        pass
+
 
 
 class Userlist(Base):
     """Represents Proected users."""
 
     # Set the name for table
-    __tablename__ = 'users'
-    id = Column('id',Integer, primary_key=True,autoincrement=True)
-    user_id =  Column('user_id',String(255))
+    __tablename__ = 'Userlist'
+
+
+    user_id = Column('user_id',Integer, primary_key=True,autoincrement=True)
+    user_id_str =  Column('user_id_str',String(255))
     username = Column('username',String(255))
     password = Column('password',String(255))
     user_type = Column('user_type',Integer,default=0)
     vip_time = Column('vip_time',String(255))
+    is_invalid = Column('is_invalid',Boolean,default=False) # 为ture则用户不可用
 
     phone = Column('phone',String(255))
     email = Column('email',String(255))
 
+    # 和兑换码一对一的关系
+    vip_code = relationship("Vipcode", uselist=False, back_populates="active_user")
 
 
-    # 用户表的增删改，增加、验证、修改密码、
+    # 增删改查的方法
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
 
+    # 查、增、验证、修改密码、
+    @staticmethod
+    def check_useranme(username=None):
+        sess = Userlist.get_session(engine)
+        # 如果0个返回none，多于一个报错
+        try:
+            result_user = sess.query(Userlist).filter_by(username=unicode(username)).one_or_none()
+        except Exception as e:
+            sess.close()
+            return False # 找到多余一个的
+        if result_user == None:
+            sess.close()
+            return True #没有一样的用户名
+
+        else:
+            sess.close()
+            return False # 找到一样的名字
+    
+
+    @staticmethod
+    def add_user(username=None,password=None,user_type=0):
+        
+        sess = Userlist.get_session(engine)
+        # 插件是否有此用户
+        if Userlist.check_useranme(username) == False:
+            return {'flag':False,'status':'username is use'}
+
+        add_user_list = []
+        
+        # 保存用户密码
+        new_user = Userlist( 
+            username = unicode(username),
+            password = unicode(password),
+            user_type = int(user_type)
+            )
+        add_user_list.append(new_user)
+        sess.add_all(add_user_list)
+        sess.commit()
+        sess.close()
+        
+        return {'flag':True,'status':'add  user succeed'} # 如果无重复可用就返回True
+
+
+    # 验证
+    @staticmethod
+    def verify_user(username=None,password=None):
+
+        # 拿到用户
+        result_user = Userlist.get_user(username)
+
+        # 找不到用户
+        if result_user.get('flag') == False:
+            return  {'flag':False,'status':'no this user'}
+        else: # 找到用户
+            
+            sess = result_user.get('session')
+            user = result_user.get('obj')
+            # 验证用户是否已经被禁用
+            if user.is_invalid == True:
+                sess.close()
+                return  {'flag':False,'status':'The user is illegally are disabled'}
+            # 验证密码
+            if password == user.password:
+                # 密码对比
+                sess.close()
+                return {'flag':True,'status':'verify succeed'}
+            else:
+                sess.close()
+                return  {'flag':False,'status':'username or password error'}
+
+    # 获取用户的所有信息
+    @staticmethod
+    def get_user_info(username=None):
+
+        pass
+
+        return
+
+
+    # 查找
+    @staticmethod
+    def get_user(username=None):
+        sess = Userlist.get_session(engine)
+
+        try:
+            result_user = sess.query(Userlist).filter_by(username=unicode(username)).one_or_none()
+        except Exception as e:
+            sess.close()
+            return {'flag':False,'obj':None,'status':'find more than one username'}  # 找到多余一个的
+        if result_user == None:
+            sess.close()
+            return {'flag':False,'obj':None,'status':'can not find user'}  # 找到多余一个的
+
+        return {'flag':True,'obj':result_user,'status':'find succeed','session':sess}
+
+    # 修改密码
+    @staticmethod
+    def new_password(username=None,old_password=None,new_password=None):
+        
+        if username == None or old_password == None or new_password ==None:
+            return {'flag':False,'status':'no password pass in'}
+
+        # 拿到用户
+        result_user = Userlist.get_user(username)
+        # 找不到用户
+        if result_user.get('flag') == False:
+            return  {'flag':False,'status':'no this user'}
+        else: 
+            # 找到用户
+            sess = result_user.get('session')
+            user = result_user.get('obj')
+            if old_password == user.password:
+                # 密码对比
+                user.password = unicode(new_password)
+                sess.add(user)
+                sess.commit()
+                sess.close()
+                return {'flag':True,'status':'mod password succeed'}
+            else:
+                sess.close()
+                return {'flag':False,'status':'old password error'}
+
+        
+    # 删除用户
+    @staticmethod
+    def del_user(username=None):
+
+        # 拿到用户
+        result_user = Userlist.get_user(username)
+        # 找不到用户
+        if result_user.get('flag') == False:
+
+            return  {'flag':False,'status':'no this user'}
+        else: 
+            # 找到用户
+            sess = result_user.get('session')
+            user = result_user.get('obj')
+            # 伪删除用户
+            user.username = u"del_"+ unicode(username)
+            sess.add(user)
+            sess.commit()
+            sess.close()
+            return {'flag':True,'status':'del user succeed'}
+
+class Vipcode(Base):
+    """用于激活高级会员的激活码"""
+    __tablename__ = 'Vipcode'
+
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
+    code = Column('code',String)
+    is_use =  Column('is_use',Boolean,default=False)
+    is_invalid = Column('is_invalid',Boolean,default=False) # 为ture则兑换码不可用
+    expiration_time = Column('expiration_time',String)
+
+    # 一个激活码对应一个用户
+    active_userid = Column('active_userid',Integer,ForeignKey('Userlist.user_id'))
+    active_user = relationship("Userlist", back_populates="vip_code")
+
+    taobao_order = Column('taobao_order',String)
+
+    # 增删改查的方法
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
+
+    # 查、增、验证、修改密码、
+    @staticmethod
+    def get_code(code=None):
+        pass
+
+    # 增加
+    @staticmethod
+    def add_code(code=None):
+        pass
+    
+    # 验证是否有效
+    @staticmethod
+    def verify_code(code=None):
+        pass
+
+    # 添加淘宝订单号
+    @staticmethod
+    def add_taobao_order(code=None,taobao_order=None):
+        pass
+
+    # 删除兑换码
+    @staticmethod
+    def del_code(code=None):
+        pass
 
 
 
@@ -1050,6 +1304,10 @@ if __name__ == "__main__":
 
     # x = Actcode.init_unique_actcode()
     # print x
+
+    print Userlist.add_user(username='ygg',password='1')
+    print "修改密码",Userlist.new_password(username='ygg',old_password='1xxx',new_password='928038123821903')
+    print "删除用户",Userlist.del_user(username='ygg')
 
 
    
