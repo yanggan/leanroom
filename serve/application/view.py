@@ -116,18 +116,24 @@ def login():
         elif request.form.get('register_username',None) != None:
             
             # 拿出来数据
-            register_username = request.form.get('register_username')
-            register_password = request.form.get('register_password')
-            register_vipcode = request.form.get('register_vipcode')            
+            register_username = request.form.get('register_username').strip().lower()  
+            register_password = request.form.get('register_password').strip().lower() 
+            register_vipcode = request.form.get('register_vipcode').strip().lower()         
             
-
-            # 判断交给user_login方法，返回 {'flag':True,"status":''}
-            result = Data_Processor.user_register(register_username,register_password,register_vipcode)
-            
+            # 不给输入为空,密码不能6位数以下            
+            if register_username =='' or  register_password == '':
+                result = {'flag':False,"status":'不能输入为空,请重试'}
+            elif len(register_password) < 6:
+                result = {'flag':False,"status":'密码小于6位数,请重试'}
+            else: 
+                # 判断交给user_login方法，返回 {'flag':True,"status":''}
+                result = Data_Processor.user_register(register_username,register_password,register_vipcode)
+                
             if result.get('flag') == False:
 
                 flash(result.get('status'),'register_error')
                 return redirect(url_for('login'))
+
             elif result.get('flag') == True:
                
                 # 注册成功，免登陆
@@ -137,6 +143,7 @@ def login():
                 # 通过Flask-Login的login_user方法登录用户
                 login_user(curr_user)
                 return redirect(url_for('index'))
+
 
 #针对前端登录模态的登录入口
 @app.route('/fast_register', methods=['GET', 'POST'])
