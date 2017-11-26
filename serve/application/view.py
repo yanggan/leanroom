@@ -36,38 +36,20 @@ login_manager.init_app(app)
 
 
 
-# 用户记录表
-users = [
-    {'username': 'yg', 'password': '1'},
-    {'username': 'Michael', 'password': '123456'}
-]
- 
-# 通过用户名，获取用户记录，如果不存在，则返回None
-def query_user(username):
-    for user in users:
-        if user['username'] == username:
-            return user
-def add_user(username,password):
-    if query_user(username) == None:
-        users.append({'username':username,'password':password}) 
 
-    # 用户已经存在
-    else:
-        return False
 
 
 # 如果用户名存在则构建一个新的用户类对象，并使用用户名作为ID
 # 如果不存在，必须返回None
 @login_manager.user_loader
 def load_user(username):
-    # if query_user(username) is not None:
-    #     # 需要一个这样的对象
-    #     curr_user = User()
-    #     curr_user.id = username
-    #     return curr_user
+
+    # 回调，把信息放到这里，这样所有页面current_user可以传输用户的数据了
 
     curr_user = User()
-    curr_user.id = username
+    user_info = Data_Processor.get_user_info(username)
+    curr_user.id = user_info.get('user_data').get('username') # 给用户名
+    curr_user.data = user_info.get('user_data')
     return curr_user
 
 # 注册登录
@@ -75,10 +57,10 @@ def load_user(username):
 @app.route('/login',methods=['POST','GET'])
 @app.route('/register',methods=['POST','GET'])
 def login():
-
     
     if request.method == 'GET':
         return render_template('/pc/login.html')
+
     elif request.method == 'POST':
         print "表单数据"
         # 拿出来用户登录密码
@@ -87,21 +69,27 @@ def login():
 
             login_username = request.form.get('login_username')
             login_password = request.form.get('login_password')
+            #记住我功能
+            remember_me_flag = True if request.form.get('remember_me_flag') == u'on' else  False
+
+            print '表单提交数据',request.form
+            print login_username,login_password,remember_me_flag
 
             # 判断交给user_login方法，返回 {'flag':True,"status":''}
             result = Data_Processor.user_login(login_username,login_password)
-
-            user = query_user(login_username)
 
             # 通过认证，账户密码正确
             if result.get('flag') == True:
             # 这里改成用中间件来验证。
 
                 curr_user = User()
-                curr_user.id = login_username # 给用户名
-     
+                #  返回用户数据{'status':xxx, 'flag': False, 'user_data': {'username': u'yanggan', 'phone': None, 'email': None, 'id': 5, 'user_type': 1}}
+                user_info = Data_Processor.get_user_info(login_username)
+                curr_user.id = user_info.get('user_data').get('username') # 给用户名
+                # 用用户数据传给data
+                curr_user.data =user_info.get('user_data')
                 # 通过Flask-Login的login_user方法登录用户
-                login_user(curr_user)
+                login_user(curr_user,remember=remember_me_flag)
 
                 # 如果请求中有next参数，则重定向到其指定的地址，
                 # 没有next参数，则重定向到"index"视图
@@ -149,8 +137,86 @@ def login():
 @app.route('/fast_register', methods=['GET', 'POST'])
 @app.route('/fast_login', methods=['GET', 'POST'])
 def fast_login():
-    logout_user()
-    return redirect(url_for('index'))
+      
+    if request.method == 'GET':
+        return render_template('/pc/login.html')
+    elif request.method == 'POST':
+        print "表单数据"
+        # 拿出来用户登录密码
+        
+        # 用户为登录
+        if request.form.get('login_username',None) != None:
+
+            login_username = request.form.get('login_username')
+            login_password = request.form.get('login_password')
+            #记住我功能
+            remember_me_flag = True if request.form.get('remember_me_flag') == u'on' else  False
+
+            print '表单提交数据',request.form
+            print login_username,login_password,remember_me_flag
+
+            # 判断交给user_login方法，返回 {'flag':True,"status":''}
+            result = Data_Processor.user_login(login_username,login_password)
+
+            # 通过认证，账户密码正确
+            if result.get('flag') == True:
+            # 这里改成用中间件来验证。
+
+                curr_user = User()
+                #  返回用户数据{'status':xxx, 'flag': False, 'user_data': {'username': u'yanggan', 'phone': None, 'email': None, 'id': 5, 'user_type': 1}}
+                user_info = Data_Processor.get_user_info(login_username)
+                curr_user.id = user_info.get('user_data').get('username') # 给用户名
+                # 用用户数据传给data
+                curr_user.data =user_info.get('user_data')
+                # 通过Flask-Login的login_user方法登录用户
+                login_user(curr_user,remember=remember_me_flag)
+
+                # 如果请求中有next参数，则重定向到其指定的地址，
+                # 没有next参数，则重定向到"index"视图
+                next = request.args.get('next')
+                return redirect(url_for('index'))
+                # return redirect(next or url_for('index'))
+            
+            # 没有通过认证
+            flash(result.get('status'),'login_error')
+            return redirect(url_for('login'))
+        
+        # 用户提交的是注册表单
+        elif request.form.get('register_username',None) != None:
+            
+            # 拿出来数据
+            register_username = request.form.get('register_username').strip().lower()  
+            register_password = request.form.get('register_password').strip().lower() 
+            register_vipcode = request.form.get('register_vipcode').strip().lower()         
+            
+
+            print "注册表单数据",request.__dict__
+            print "注册时候url给的参数",request.args
+            # 不给输入为空,密码不能6位数以下            
+            if register_username =='' or  register_password == '':
+                result = {'flag':False,"status":'不能输入为空,请重试'}
+            elif len(register_password) < 6:
+                result = {'flag':False,"status":'密码小于6位数,请重试'}
+            else: 
+                # 判断交给user_login方法，返回 {'flag':True,"status":''}
+                result = Data_Processor.user_register(register_username,register_password,register_vipcode)
+                
+            if result.get('flag') == False:
+
+                flash(result.get('status'),'register_error')
+                current_url = request.args.get('current_url') 
+                return redirect('login')
+
+            elif result.get('flag') == True:
+               
+                # 注册成功，免登陆
+                curr_user = User()
+                curr_user.id = register_username
+     
+                # 通过Flask-Login的login_user方法登录用户
+                login_user(curr_user)
+                next_url = request.args.get('next_url') 
+                return redirect(next_url or url_for('index'))
 
 
 @app.route('/logout', methods=['GET', 'POST'])

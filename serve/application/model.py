@@ -78,6 +78,10 @@ class Course(Base):
     category_id = Column(Integer, ForeignKey('Category.id'))
     # 在子表类中通过 foreign key (外键)引用父表的参考字段
 
+    # 和用户的兑换关系，
+     # 用的兑换记录
+    user_course_record = relationship("User_Course")
+
     # 增删改查使用静态方法
     @staticmethod
     def get_session(engine):
@@ -1050,6 +1054,8 @@ class Userlist(Base):
     # 和兑换码一对一的关系
     vip_code = relationship("Vipcode", uselist=False, back_populates="active_user")
 
+    # 用的兑换记录
+    user_course_record = relationship("User_Course")
 
     # 增删改查的方法
     @staticmethod
@@ -1135,8 +1141,25 @@ class Userlist(Base):
     def get_user_info(username=None):
 
         pass
+        # 拿到用户
+        result_user = Userlist.get_user(username)
+        # 找不到用户
+        if result_user.get('flag') == False:
+            return  {'flag':False,'status':'no this user'}
+        # 
+        else: # 找到用户  
+            sess = result_user.get('session')
+            user = result_user.get('obj')
+            data = {
 
-        return
+                'id' : user.user_id,
+                'username' : user.username,
+                'user_type' : user.user_type,
+                'phone' : user.phone,
+                'email' : user.email
+            }
+            return {'flag':False,'status':'find succeed','user_data':data}
+
 
 
     # 查找
@@ -1203,6 +1226,30 @@ class Userlist(Base):
             sess.commit()
             sess.close()
             return {'flag':True,'status':'del user succeed'}
+
+class User_Course(Base):
+    """用于关联用户和已经兑换课程的"""
+    __tablename__ = 'User_Course'
+
+    id = Column('id',Integer, primary_key=True,autoincrement=True)
+    
+    # 外键 都是1对多的关系
+    user_id = Column('user_id',Integer,ForeignKey('Userlist.user_id'))
+    course_id = Column('course_id',Integer,ForeignKey('Course.id')) 
+
+    # 增加绑定、查询绑定
+
+    # 增加绑定
+    @staticmethod
+    def add_binding(username=None,course_code_list=[]):
+        pass
+
+    # 删除绑定
+    @staticmethod 
+    def del_binding(username=None,course_code_list=[]):
+        pass
+
+
 
 class Vipcode(Base):
     """用于激活高级会员的激活码"""

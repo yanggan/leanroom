@@ -25,13 +25,11 @@ class Data_Processor(object):
         return Category.get_category()
 
     @staticmethod
-    def get_category_has_status(cookies=None):
-        #  前台显示已经兑换课程的功能,加工分类，返回带兑换状态的分类数据
+    def get_category_has_status(cookies=None,user_obj=None):
+        #  前台显示已经兑换课程的功能,加工分类,获取所有课程数据（带激活标识）+激活的课程数据
         new_category_data = []
         active_courses_list = []
-        
-        print "进入get_category_has_status功能"
-
+    
         # 把keys拿出来,判断哪些课程已经兑换过
         cookies_keys_list = cookies.keys()
         # for出来cookies里面保存的已经兑换的课程id
@@ -39,12 +37,20 @@ class Data_Processor(object):
         # print "test",long_str
         active_courses_list = re.findall(r'course_(\d+)',cookies_str)
         has_active_course = False
+        # 这里是处理处理 active_list
         if active_courses_list != []:
             has_active_course = True
+            # 从cookies构造出来active_list
             active_courses_list = [ int(x) for x in active_courses_list ]        
-            print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
+            # print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
+            # 通过model的getcategory获取所有课程数据（带激活标识）+激活的课程数据
+            
+
+            # 
             new_data = Category.get_category(is_active_id=active_courses_list)
             return {'category_data':new_data,'has_active_course':has_active_course } 
+        
+        # cookies没有课程记录
         else:
             return {'category_data':Category.get_category(),'has_active_course':has_active_course }  
         
@@ -137,4 +143,8 @@ class Data_Processor(object):
 
         return result
 
+    @staticmethod
+    def get_user_info(username=None):
+
+        return Userlist.get_user_info(username)
 
