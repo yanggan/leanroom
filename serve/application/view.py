@@ -234,9 +234,9 @@ def logout():
 def index():
 
     # 获取分类和课程信息
-    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
+    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
     dev_data = Data_Processor.get_devtools_data()
-    print current_user
+    print '当前用户',current_user,current_user.is_authenticated
     return render_template(
         "course.html",
         category=cate_data.get('category_data'),
@@ -258,23 +258,19 @@ def course_detail(course_id):
         abort(404)
     course_data =  course_data.get('course_data')
     dev_data = Data_Processor.get_devtools_data()
+    # 密码字典
     passwd_data = Data_Processor.get_passwd_data(course_data)
-    is_free = Data_Processor.get_course_free_status(course_data)
-
-    print "is free " , is_free 
+    is_free = Data_Processor.get_course_free_status(course_data) 
 
     if request.method == "GET":
 
-        # 3种情况，1、第一次访问，2、输入兑换码后，重定向访问，这时候需要返回带密码页面
-        # 0、限免课程，直接返回数据
-        # 1、读取用户的cookies和session，把兑换码拿出来，匹配是否是这门课程的对缓慢
-        # 2、如果是这门课程的兑换码，则返回带提取密码数据的页面
-        # 3、如果不是，则返回普通的页面
+        # 4种情况返回密码字典，免费课程、session、 高级会员、已经兑换过的会员(登录后)、cookies有记录的
         # 判断session,如果有key,value就不用验证了
+        # 1、免费课程
         if is_free == True:
             
             return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
-        
+        # 2、session有记录 
         elif session.get('course_'+str(course_id)) != None:
 
             user_input_key =  session.get('course_'+str(course_id))
@@ -284,8 +280,26 @@ def course_detail(course_id):
                 render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
                 )
             return resp
+        # 3、普通用户，但是有兑换记录
+        elif current_user.is_authenticated == True:
+            pass
+            # 查看是否在用户的该用户的已兑换list中。
+            user_course_result = Data_Processor.get_user_courselist(current_user.id)
+            user_course_list = user_course_result.get('data') if user_course_result.get('flag') else [] 
+            print "登录用户的课程列表为", user_course_list 
+            # 判断当前的id是不是在用户的激活课程里面
+            if course_id in user_course_list :
+                # 返回带密码的数据
+                resp = make_response(\
+                    render_template("course_detail.html",course_data=course_data,passwd_dict=course_data.get('passwd_dict'),dev_data=dev_data)
+                    )
+                return resp
+            else:
+                # 返回不带密码的页面
+                return render_template("course_detail.html",course_data=course_data,passwd_dict=None,dev_data=dev_data)
+                return resp
 
-        # 判断cookies,需要重新验证vaule验证码是否合法
+        # 3、cookies有记录,需要重新验证vaule验证码是否合法
         elif request.cookies.get('course_'+ str(course_id)) != None: #有这个课程的cookies
             
             cookie_course_key = request.cookies.get('course_'+ str(course_id))

@@ -325,7 +325,9 @@ class Category(Base):
         real_data = []
 
         # 统计课程大小
-        Course.count_course_size()
+        # Course.count_course_size()
+
+        print "category的激活的课程列表",is_active_id
 
         # 查询分类 
         for instance in sess.query(Category).order_by(Category.id):
@@ -1227,6 +1229,17 @@ class Userlist(Base):
             sess.close()
             return {'flag':True,'status':'del user succeed'}
 
+    # 获取某个用户已经激活的课程list
+    @staticmethod
+    def binding_course(username=None): 
+        
+        get_user_result = Userlist.get_user(username)
+        user_obj = get_user_result.get('obj',None)
+        if user_obj == None:
+            return {'flag':False,'status':'no this user'}
+        user_course_list = [i.course_id for i in user_obj.user_course_record ]
+        return {'flag':True,'status':'get user course succeed','data': user_course_list}
+
 class User_Course(Base):
     """用于关联用户和已经兑换课程的"""
     __tablename__ = 'User_Course'
@@ -1239,10 +1252,49 @@ class User_Course(Base):
 
     # 增加绑定、查询绑定
 
+    # 获取session
+    @staticmethod
+    def get_session(engine):
+        # 获取session对象
+        DBSession = sessionmaker(bind=engine)
+        sess = DBSession()
+        print "Get sesssion OK"
+        return sess
+
     # 增加绑定
     @staticmethod
-    def add_binding(username=None,course_code_list=[]):
-        pass
+    def add_binding(user_id=None,course_code_list=[]):
+        # 传入course_
+        # User_Course(user_id,username_id)
+
+        # 没有数据
+        if user_id == None or course_code_list == [] or type(course_code_list) != list:
+            return  {'flag':False,'status':' no data'}
+
+        sess = User_Course.get_session(engine)
+
+        # 绑定
+        try:
+            wait_list = []
+            for i in course_code_list:
+                new_data = User_Course(
+                    user_id = user_id,
+                    course_id = i
+                    )
+                wait_list.append(new_data)
+            sess.add_all(wait_list)
+            sess.commit()
+            sess.close()
+
+        except Exception as e:
+            sess.close()
+            # 绑定异常
+            return  {'flag':False,'status':' write data error'}
+  
+
+     
+
+
 
     # 删除绑定
     @staticmethod 

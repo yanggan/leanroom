@@ -23,6 +23,14 @@ class Data_Processor(object):
         # 获取分类
         pass
         return Category.get_category()
+    
+    @staticmethod
+    def get_user_courselist(username=None):
+        # 获取普通用户的绑定课程列表
+        if username == None:
+            return {'flag':False,'status':'no username','data': None}
+        return Userlist.binding_course(username)
+
 
     @staticmethod
     def get_category_has_status(cookies=None,user_obj=None):
@@ -38,20 +46,51 @@ class Data_Processor(object):
         active_courses_list = re.findall(r'course_(\d+)',cookies_str)
         has_active_course = False
         # 这里是处理处理 active_list
-        if active_courses_list != []:
+        if active_courses_list != [] or  user_obj.is_authenticated == True:
             has_active_course = True
             # 从cookies构造出来active_list
             active_courses_list = [ int(x) for x in active_courses_list ]        
             # print active_courses_list,type(active_courses_list[0]) # 如 ['10000']
-            # 通过model的getcategory获取所有课程数据（带激活标识）+激活的课程数据
             
 
-            # 
-            new_data = Category.get_category(is_active_id=active_courses_list)
-            return {'category_data':new_data,'has_active_course':has_active_course } 
+            # 有用户登录的前提下,[绑定已兑换课程]，cookies课程+user已绑定课程=新列表，新列表放入用户绑定。
+            if user_obj != None and user_obj.is_authenticated == True: 
+                # 取出用户已经绑定课程
+                username = user_obj.id # 用户名
+                get_user_result = Userlist.get_user(username)
+                user_obj = get_user_result.get('obj')
+                user_id = user_obj.user_id
+
+                print "用户对象所有属性",user_obj.user_course_record
+                print "cookies激活的课程list",active_courses_list
+                old_user_course_list = [i.course_id for i in user_obj.user_course_record ]
+                print 'old 次用户激活的课程list',old_user_course_list
+                all_course_list = list(set(active_courses_list).union(set(old_user_course_list)))
+                print  '2个的交集',all_course_list
+                wait_add_list = list(set(active_courses_list)-set(old_user_course_list))
+                print "需要添加哈哈哈",wait_add_list
+                
+                print "进行到这里"
+
+                # 把all_list 写入用户关系表,绑定用户和课程
+                x = User_Course.add_binding(user_id=user_id,course_code_list=wait_add_list)
+                
+                print "进行到这里"
+                # 获取all_course的对应分类信息
+                print "传入之前的数据",all_course_list
+                new_data = Category.get_category(is_active_id=all_course_list)
+                return {'category_data':new_data,'has_active_course':has_active_course } 
+
+            else:
+                print "进入未判断流程"
+                # 用户未登录
+                # 通过model的getcategory获取所有课程数据（带激活标识）+激活的课程数据             
+                new_data = Category.get_category(is_active_id=active_courses_list)
+                return {'category_data':new_data,'has_active_course':has_active_course } 
         
         # cookies没有课程记录
         else:
+            print "进入这个流程"
             return {'category_data':Category.get_category(),'has_active_course':has_active_course }  
         
 
