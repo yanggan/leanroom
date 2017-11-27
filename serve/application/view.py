@@ -289,21 +289,38 @@ def course_detail(course_id):
             print "登录用户的课程列表为", user_course_list 
             # 判断当前的id是不是在用户的激活课程里面
             if course_id in user_course_list :
-                # 返回带密码的数据
+                
+                # 写入session和cookies中
+                session['course_'+str(course_id)] = 'user_login' # 设置session
+                print '写入的session:',session
+       
+
+
+                # 返回带密码的数据和写入cookies
                 resp = make_response(\
                     render_template("course_detail.html",course_data=course_data,passwd_dict=course_data.get('passwd_dict'),dev_data=dev_data)
                     )
+                resp.set_cookie('course_'+str(course_id),'user_login')
                 return resp
             else:
                 # 返回不带密码的页面
                 return render_template("course_detail.html",course_data=course_data,passwd_dict=None,dev_data=dev_data)
                 return resp
 
-        # 3、cookies有记录,需要重新验证vaule验证码是否合法
+        # 3、cookies有记录,需要重新验证vaule验证码是否合法（码正确或者为'user_login'）,
         elif request.cookies.get('course_'+ str(course_id)) != None: #有这个课程的cookies
             
             cookie_course_key = request.cookies.get('course_'+ str(course_id))
-            print cookie_course_key 
+            # print cookie_course_key 
+            # 如果是'标志user_login'，则直接给通过
+            if cookie_course_key == 'user_login':
+                
+                resp = make_response(\
+                    render_template("course_detail.html",course_data=course_data,passwd_dict=course_data.get('passwd_dict'),dev_data=dev_data)
+                    )
+                return resp
+
+            # 判断数字码是否正确
             verity_result_dict = act.verify_act(course_id,cookies_course_key) #判断code是否有效
             if verity_result_dict['flag'] == True:
 
