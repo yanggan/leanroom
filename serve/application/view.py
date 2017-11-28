@@ -20,6 +20,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
+# REDIS的全局变量
+# R表示实例连接
 
 # Flask-login 模块 =======
 app.secret_key = app.config['SECRET_KEY']
@@ -32,8 +34,6 @@ login_manager.login_message = u'请先登录'
 # 设置闪现的错误消息的类别
 login_manager.login_message_category = "login_info"
 login_manager.init_app(app)
-
-
 
 
 
@@ -419,7 +419,6 @@ def course_activete():
 
 
 # 书架列表
-
 @app.route('/books',methods=['POST','GET'])
 def books():
 
@@ -434,8 +433,6 @@ def books():
         current_user=current_user 
         )
 
-
-
 @app.route('/ways')
 @login_required
 def ways():
@@ -445,8 +442,15 @@ def ways():
 @app.route('/membership',methods=['POST','GET'])
 def membership():
     # 价格方案页面
-    pass
-    return render_template('/pc/price.html')
+    # 用redis缓存这个页面,缓存1天，只有缓存消失才写入
+    
+    if R.get('page_membership') != None:
+        print "页面来自Redis缓存"
+        return R.get('page_membership')
+    else:
+        page = render_template('/pc/price.html')
+        print '缓存写入',R.set('page_membership',page,ex=30,nx=True)
+        return render_template('/pc/price.html')
 
 
 @app.route('/vipactive',methods=['POST','GET'])

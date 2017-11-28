@@ -1,17 +1,5 @@
-
 #coding:utf-8
 
-# 1、需要定义数据库（初始化）
-#     - course表 
-#     - category表
-#     - resouce表
-#     - actcode表
-# 2、需要对表增删改查
-#     - course 
-#     - category
-#     - resource 
-#     - actcode
-# 
 
 
 import json
@@ -25,8 +13,10 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-
 from flask.ext.login import UserMixin
+
+# 引入redis做缓存数据库
+import redis
 
 # 基类：
 Base = declarative_base()
@@ -923,6 +913,7 @@ class Book(Base):
         sess = Book.get_session(engine)
 
         add_book_list = []
+        book_buy = r'https://www.amazon.cn/s/?field-keywords='
         # 插入
         for book in add_list:
             new_books = Book( 
@@ -934,7 +925,7 @@ class Book(Base):
                 book_mark = book.get('book_mark'),
                 book_img_url = book.get('book_img_url'),
                 book_download_url = book.get('book_download_url'),
-                book_buy_url = book.get('book_buy_url'),
+                book_buy_url = unicode(book_buy + book.get('book_name')),
                 bookslist_id= book.get('bookslist_id'),
                 )
             add_book_list.append(new_books)
@@ -974,7 +965,7 @@ class Book(Base):
 
         x = re.findall(r'"summary":"([^",]+)",',unicode(html)) 
         book_desc = unicode("NoneDATA" if x == [] else  " ".join(x))
-        book_sesc = unicode(book_desc[:16] + "...")
+        book_sesc = unicode(book_desc[:26] + "...")
 
         x = re.findall(r'"average":"([^",]+)",',unicode(html)) 
         book_mark = unicode("NoneDATA" if x == [] else  " ".join(x))
@@ -1478,20 +1469,25 @@ class User(UserMixin):
     pass
  
 
-
-# 初始化数据库连接:sqlite:///./application/db/learoom.db
+# SQLITE数据库连接初始化
+# 初始化sqlite数据库连接:sqlite:///./application/db/learoom.db
 engine = create_engine(config["default"].SQLALCHEMY_DATABASE_URI,echo=True)
 
 # 直接 python model.py 开启这个路径
 # engine = create_engine('sqlite:///./db/learoom.db',echo=True)
-
 engine.raw_connection().connection.text_factory = str  # 解决中文插入乱码问题
 
-
-
-# 创建数据库和表结构（目前不支持自动更新表结构，智能删库重新）
+#创建数据库和表结构（目前不支持自动更新表结构，智能删库重新）
 Base.metadata.create_all(bind=engine)
 
+
+# REDIS数据库连接初始化
+pool = redis.ConnectionPool( \
+    host=config["default"].REDIS_DATABASE_URL, 
+    port=config["default"].REDIS_PORT, 
+    decode_responses=True
+    )   # host是redis主机，需要redis服务端和客户端都起着 redis默认端口是6379
+R = redis.Redis(connection_pool=pool)
 
 
 
@@ -1521,9 +1517,9 @@ if __name__ == "__main__":
     # x = Actcode.init_unique_actcode()
     # print x
 
-    print Userlist.add_user(username='ygg',password='1')
-    print "修改密码",Userlist.new_password(username='ygg',old_password='1xxx',new_password='928038123821903')
-    print "删除用户",Userlist.del_user(username='ygg')
+    # print Userlist.add_user(username='ygg',password='1')
+    # print "修改密码",Userlist.new_password(username='ygg',old_password='1xxx',new_password='928038123821903')
+    # print "删除用户",Userlist.del_user(username='ygg')
 
 
    

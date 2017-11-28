@@ -177,9 +177,11 @@ class Data_Processor(object):
         return result
 
     @staticmethod
-    def user_register(username=None,password=None,vipcode=None):
+    def user_register(username=None,password=None,vip_code=None):
         # 交给model
-        vip_code_flag = False
+        # 验证vipcode的有效性
+        code_result = Vipcode.verify_code(vipcode=vip_code,active_flag=True,username=username)
+        vip_code_flag = code_result.get('flag')
         # 验证VIP兑换码有效性
         if vip_code_flag == True:
             result = Userlist.add_user(username,password,user_type=1)
@@ -196,7 +198,7 @@ class Data_Processor(object):
     @staticmethod
     def verify_vipcode(username=None,vip_code=None):
         # 检查码。修改会员类型、废除码有效性。
-
+        
         code_result = Vipcode.verify_code(vipcode=vip_code,active_flag=True,username=username)
         # 让用户变为VIP
         if code_result.get('flag') == True:
