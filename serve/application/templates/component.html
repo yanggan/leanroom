@@ -18,7 +18,7 @@
 <!--登录注册组件 -->
 {% macro login_panel(current_user=None,current_url='',next_url='') %}
     
-    {{current_user.__dict__}}
+   <!--  {{current_user.__dict__}} -->
 
     <!-- 注册登录、我的面板 -->
     {# 用户信息 #}
@@ -76,7 +76,7 @@
             </div>
             <div class="login_div col s6"  >
             <h5>登录</h5>
-            <form action="/fast_login" method="POST" class="login_register_form">
+            <form action="/fast_login?next_url={{next_url}}" method="POST" class="login_register_form">
                 <input placeholder="请输入用户名" id="first_name" type="text" class="login_register_input" name="login_username">
                 
                 <input  placeholder="请输入您的密码" id="password" type="password" class="login_register_input" name="login_password">
@@ -135,7 +135,7 @@
                     {% else %}
                         <a href="#!email">
                             <img src="/static/img/other/vip_disable.png" class="vip_img"   alt="">
-                            <span class="white-text email vip_span">普通会员 <a href="/vip" class="vip_span">查看会员计划</a></span>
+                            <span class="white-text email vip_span">普通会员 <a href="/vip" class="vip_span">查看会员计划</a>&nbsp<a href="/vip" class="vip_span">兑换vip会员</a></span>
                         </a>
                     {%endif%}
 
@@ -149,7 +149,13 @@
         </li>
 
         <!-- 课程显示区域 -->
-        <li><a class="subheader">已兑换的课程</a></li>
+        <!-- vip用户和普通用户非登录用户的显示区别 -->
+        {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 1) %}
+            <li><a class="subheader">VIP会员已激活所有课程权限</a></li>
+        {%else%}
+            <li><a class="subheader">已兑换的课程</a></li>
+        {% endif  %}
+        
         {% for cate in category %} 
             {% if cate.category_active_course %}
                 {% for course in cate.category_active_course %} 

@@ -5,9 +5,17 @@
 
 {% block contents %}
     
+
+
+
+    {# 引入宏组件 #}
+    {% import 'component.html' as md %}
+    
     <div class="nav_bk">
+            <!-- 注册登录入口和登录模态窗口 -->
+            {{md.login_panel(current_user=current_user,current_url='/books',next_url='/books')}}
             <h5>懒人编程 书籍库</h5>
-            <p>自家慢诩便便腹，开卷方知未读书</p>
+            <p>为中华码农之崛起而读书。</p>
             <div class="nav_bk_bk">
                 <img class="nav_bk_img" src="/static/img/other/homepage_bk.png" alt="">
             </div>

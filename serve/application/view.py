@@ -173,9 +173,9 @@ def fast_login():
 
                 # 如果请求中有next参数，则重定向到其指定的地址，
                 # 没有next参数，则重定向到"index"视图
-                next = request.args.get('next')
-                return redirect(url_for('index'))
-                # return redirect(next or url_for('index'))
+                next = request.args.get('next_url')
+                # return redirect(url_for('index'))
+                return redirect(next or url_for('index'))
             
             # 没有通过认证
             flash(result.get('status'),'login_error')
@@ -270,7 +270,12 @@ def course_detail(course_id):
         if is_free == True:
             
             return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
-        # 2、session有记录 
+        
+        # 2、登录用户切为VIP用户，直接返回带密码页面
+        elif current_user.is_authenticated and current_user.data.get('user_type') == 1:
+           return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data) 
+
+        # 3、session有记录 
         elif session.get('course_'+str(course_id)) != None:
 
             user_input_key =  session.get('course_'+str(course_id))
@@ -280,7 +285,7 @@ def course_detail(course_id):
                 render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
                 )
             return resp
-        # 3、普通用户，但是有兑换记录
+        # 4、普通用户，但是有兑换记录
         elif current_user.is_authenticated == True:
             pass
             # 查看是否在用户的该用户的已兑换list中。
@@ -307,14 +312,14 @@ def course_detail(course_id):
                 return render_template("course_detail.html",course_data=course_data,passwd_dict=None,dev_data=dev_data)
                 return resp
 
-        # 3、cookies有记录,需要重新验证vaule验证码是否合法（码正确或者为'user_login'）,
+        # 5、cookies有记录,需要重新验证vaule验证码是否合法（码正确或者为'user_login'）,
         elif request.cookies.get('course_'+ str(course_id)) != None: #有这个课程的cookies
             
             cookie_course_key = request.cookies.get('course_'+ str(course_id))
             # print cookie_course_key 
             # 如果是'标志user_login'，则直接给通过
             if cookie_course_key == 'user_login':
-                
+
                 resp = make_response(\
                     render_template("course_detail.html",course_data=course_data,passwd_dict=course_data.get('passwd_dict'),dev_data=dev_data)
                     )
@@ -413,7 +418,7 @@ def course_activete():
 
 # 书架列表
 
-@app.route('/books')
+@app.route('/books',methods=['POST','GET'])
 def books():
 
 
@@ -434,9 +439,11 @@ def ways():
     return "WAYS"
 
 
-
-
-
+@app.route('/membership',methods=['POST','GET'])
+def membership():
+    # 价格方案页面
+    pass
+    return render_template('/pc/price.html')
 
 @app.route('/test')
 def test():

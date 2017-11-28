@@ -45,6 +45,7 @@ class Data_Processor(object):
         # print "test",long_str
         active_courses_list = re.findall(r'course_(\d+)',cookies_str)
         has_active_course = False
+        
         # 这里是处理处理 active_list
         if active_courses_list != [] or  user_obj.is_authenticated == True:
             has_active_course = True
@@ -54,7 +55,13 @@ class Data_Processor(object):
             
 
             # 有用户登录的前提下,[绑定已兑换课程]，cookies课程+user已绑定课程=新列表，新列表放入用户绑定。
-            if user_obj != None and user_obj.is_authenticated == True: 
+            if user_obj != None and user_obj.is_authenticated == True:
+                # vip用户直接激活所有课程
+                if user_obj.data.get('user_type') == 1:
+                    new_data = Category.get_category(vip_user=True)
+                    return {'category_data':new_data,'has_active_course':has_active_course } 
+
+                # 普通用户的判断。
                 # 取出用户已经绑定课程
                 username = user_obj.id # 用户名
                 get_user_result = Userlist.get_user(username)
@@ -82,7 +89,7 @@ class Data_Processor(object):
                 return {'category_data':new_data,'has_active_course':has_active_course } 
 
             else:
-                print "进入未判断流程"
+
                 # 用户未登录
                 # 通过model的getcategory获取所有课程数据（带激活标识）+激活的课程数据             
                 new_data = Category.get_category(is_active_id=active_courses_list)
@@ -90,7 +97,6 @@ class Data_Processor(object):
         
         # cookies没有课程记录
         else:
-            print "进入这个流程"
             return {'category_data':Category.get_category(),'has_active_course':has_active_course }  
         
 
@@ -176,9 +182,9 @@ class Data_Processor(object):
         vip_code_flag = False
         # 验证VIP兑换码有效性
         if vip_code_flag == True:
-            result =  Userlist.add_user(username,password,user_type=1)
-        else:
             result = Userlist.add_user(username,password,user_type=1)
+        else:
+            result = Userlist.add_user(username,password,user_type=0)
 
         return result
 

@@ -236,7 +236,7 @@ input[type=text].valid:not(.browser-default){
 
     max-width: 120px;
     display: block;
-    margin: 40px auto;
+    margin: 32px auto;
     padding-left: 8px;
 }
 .l-left-nav ul {
@@ -915,4 +915,66 @@ input::-ms-input-placeholder {
     margin: 0 16px 0 0;
     width: 24px;
     color: rgba(0,0,0,0.54);
+}
+
+/* 价格方案页面 */
+.price_div{
+
+    margin-top: 20px;
+}
+.price_content{
+    font-size: 12px;
+    color: #666;
+}
+.vip_title{
+
+/*     background-image: linear-gradient(to right,#383838,#414141);
+    background-color: rgba(56, 56, 56, 1.00); */
+}
+.free_price{
+    
+    font-weight: 400;
+}
+.vip_price{
+
+    font-weight: 400;
+}
+.allproduct{
+
+    margin: 15px auto;
+    padding-bottom: 10px;
+}
+.allproduct i{
+
+    font-size: 40px;
+
+}
+.allproduct p{
+
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0px;
+    padding: 0px;
+}
+.vip_price_img{
+
+    display: inline-block;
+    max-width: 30px;
+    max-height: 26px!important;
+    top: 1px;
+    margin: 0px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+}
+
+.price_action a{
+    
+    color: #444 !important;
+    font-size: 14px;
+    margin: 1px 1px!important;
+}
+.price_button{
+    
+    height: 35px;
+    margin: 4px 2px;
 }

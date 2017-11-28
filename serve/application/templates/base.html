@@ -51,6 +51,8 @@
 
     {% block pc_nav %}
     {# PC端导航 #}
+
+
     <div class="l-left-nav z-depth-4">
         <a href="/" class=" waves-effect waves-brown waves-ripple" ><img src="../static/img/logo/looncode_w.png" alt=""></img>
         </a>
@@ -61,8 +63,8 @@
             <!-- <li><a class=" waves-effect waves-brown waves-ripple" href="/act"><img src="../static/img/nav/conversion.png" alt=""><p>兑换课程</p></a></li> -->
 
             <li><a class=" waves-effect waves-brown waves-ripple" href="/books"><img src="../static/img/nav/book.png" alt=""><p>书籍库</p></a></li>
-            <li><a class=" waves-effect waves-brown waves-ripple" href="/ways"><img src="../static/img/nav/trees.png" alt=""><p>技能树</p></a></li>
-            <li><a class=" waves-effect waves-brown waves-ripple" href="/war"><img src="../static/img/nav/coding.png" alt=""><p>项目实战</p></a></li>
+            <!-- <li><a class=" waves-effect waves-brown waves-ripple" href="/ways"><img src="../static/img/nav/trees.png" alt=""><p>技能树</p></a></li> -->
+            <!-- <li><a class=" waves-effect waves-brown waves-ripple" href="/war"><img src="../static/img/nav/coding.png" alt=""><p>项目实战</p></a></li> -->
             <!-- <li><a class=" waves-effect waves-brown waves-ripple" href="/ways"><img src="../static/img/nav/project.png" alt=""><p>实战项目</p></a></li> -->
             <!-- <li><a class=" waves-effect waves-brown waves-ripple" href="/ways"><img src="../static/img/nav/jobs.png" alt=""><p>求职数据</p></a></li> -->
             
@@ -70,7 +72,7 @@
 
             
             <li><a class=" waves-effect waves-brown waves-ripple" href="/index"><img src="../static/img/nav/count.png" alt=""><p>LEAEyes统计</p></a></li> -->
-            <li><a class=" waves-effect waves-brown waves-ripple" href="/membership"><img src="../static/img/nav/data.png" alt=""><p>招聘数据</p></a></li>
+            <!-- <li><a class=" waves-effect waves-brown waves-ripple" href="/membership"><img src="../static/img/nav/data.png" alt=""><p>招聘数据</p></a></li> -->
             <li><a class=" waves-effect waves-brown waves-ripple" href="/membership"><img src="../static/img/nav/vip.png" alt=""><p>会员计划</p></a></li>
             <!-- <li><a target="_blank" class=" waves-effect waves-brown waves-ripple" href="https://shop131223524.taobao.com/category.htm?spm=a1z10.3-c-s.w4010-17279339713.2.76604142IbWblL&search=y"><img src="../static/img/nav/taobao.png" alt=""><p>前往店铺</p></a></li> -->
         </ul>
@@ -88,7 +90,11 @@
     
 
     {% endblock %}
-   
+    
+    <!-- 引入组件 -->
+    {# 引入宏组件 #}
+    {% import 'component.html' as md %}
+
     <!-- footer -->
     <footer class="page-footer"> 
           <div class="footer-copyright">
@@ -110,7 +116,10 @@
         <span>本站资源结果均来自互联网信息收集整理，本站只提供信息整理和汇总分享服务。内容上如有侵犯的地方，请联系我们及时调整，感谢您的阅读</span>
     </div>
 
+    <!-- 这里是mypanel弹窗 -->
 
+    <!-- 我的个人中心面板 -->
+    {{md.my_panel(current_user=current_user,category=category)}}
         
     {# JS相关文件引入 #}
     <!-- import JS -->

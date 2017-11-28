@@ -319,7 +319,7 @@ class Category(Base):
 
     # 首页分类，带课程数据
     @staticmethod
-    def get_category(where='',is_active_id=[]):
+    def get_category(where='',is_active_id=[],vip_user=False):
         # 直接全部
         sess = Category.get_session(engine)
         real_data = []
@@ -339,7 +339,22 @@ class Category(Base):
             cate_has_active_course = None
             for course_data in instance.category_course:
                
-                if is_active_id !=[]:
+
+                if vip_user == True:
+                    # 为VIP用户，返回带激活状态的所有课程。 
+                    x = {
+                        'course_id':course_data.id,
+                        'course_name':course_data.name,
+                        'course_img':course_data.img_url,
+                        'course_size':course_data.course_size,
+                        'category_id':course_data.category_id,
+                        'course_is_free':course_data.is_free,
+                        'is_active':1, # vip用户所有课程都是激活的
+                        'course_count':len(course_data.course_resouce),
+                        'course_read_count':round(float(course_data.read_count)/1000,2)
+                    }
+
+                elif is_active_id !=[]:
 
                     # 判断激活id = 课程id
                     is_active_flag = [1 if i==course_data.id else 0 for i in is_active_id]
