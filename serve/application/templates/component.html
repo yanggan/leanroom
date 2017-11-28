@@ -18,14 +18,23 @@
 <!--登录注册组件 -->
 {% macro login_panel(current_user=None,current_url='',next_url='') %}
     
-   <!--  {{current_user.__dict__}} -->
+<!--     {{current_user.__dict__}} -->
 
     <!-- 注册登录、我的面板 -->
     {# 用户信息 #}
     {% if (current_user.is_authenticated) %}
     <div class="user_login ">
         <div class="login_links">
-            <a href="#" class=" button-collapse" data-activates="is_active_course_nav" >  欢迎您,{{ current_user.id }}!<i class="material-icons dp48">arrow_drop_down</i></a>
+            <a href="#" class=" button-collapse" data-activates="is_active_course_nav" > 
+                {{ current_user.id }}
+                {%if current_user.data.user_type==0 %}
+                    <span class="label  grey lighten-1 ">免费用户</span>
+                {%elif (current_user.data.user_type==1) %}
+                    <span class="label orange darken-4 ">VIP会员</span>
+                {%endif%}
+                 <i class="material-icons dp48">arrow_drop_down</i>
+             </a>
+               
         </div>
     </div>
 
@@ -129,13 +138,13 @@
                     {% if current_user.data.user_type == 1 %}
                         <a href="#!email">
                             <img src="/static/img/other/vip_enable.png" class="vip_img" alt="">
-                            <span class="white-text email vip_span ">VIP高级会员</span>
-                            <span class="white-text  vip_span ">到期日：永久会员</span>
+                            <span class="white-text email vip_span ">VIP会员</span>
+                            <span class="white-text  vip_span ">类型：永久会员</span>
                         </a>
                     {% else %}
                         <a href="#!email">
                             <img src="/static/img/other/vip_disable.png" class="vip_img"   alt="">
-                            <span class="white-text email vip_span">普通会员 <a href="/membership" class="vip_span">查看会员计划</a>&nbsp<a href="/vipactive" class="vip_span">兑换vip会员</a></span>
+                            <span class="white-text email vip_span">免费会员 <a href="/membership" class="vip_span">查看会员计划</a>&nbsp<a href="/vipactive" class="vip_span">兑换vip会员</a></span>
                         </a>
                     {%endif%}
 
@@ -151,7 +160,7 @@
         <!-- 课程显示区域 -->
         <!-- vip用户和普通用户非登录用户的显示区别 -->
         {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 1) %}
-            <li><a class="subheader">VIP会员已激活所有课程权限</a></li>
+            <li><a class="subheader">VIP会员已激活所有课程和书籍权限</a></li>
         {%else%}
             <li><a class="subheader">已兑换的课程</a></li>
         {% endif  %}

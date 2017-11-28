@@ -117,9 +117,13 @@
             </div>
             {% if (current_user.is_authenticated) %}
                 <!-- 已经是普通会员 -->
-                <div class="card-action price_action">
-                  <a href="https://shop131223524.taobao.com/search.htm?spm=a1z10.3-c-s.w5002-17279339701.1.25d81ac9ZvBNHU&search=y">获取课程兑换码</a>
-                </div>
+                {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 1) %}
+                
+                {%else%}
+                    <div class="card-action price_action">
+                      <a href="https://shop131223524.taobao.com/search.htm?spm=a1z10.3-c-s.w5002-17279339701.1.25d81ac9ZvBNHU&search=y">获取课程兑换码</a>
+                    </div>
+                {%endif%}
             {%else%}
                 <div class="card-action price_action">
 

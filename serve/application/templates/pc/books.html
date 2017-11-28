@@ -70,9 +70,18 @@
                                     <a href="{{book.book_buy_url}}">买正版 ></a>
                                 </span>
                                 <span class="books_hot"><a href=""></span></a>
-                                <span class="books_down">
-                                    <a href="{{book.book_download_url}}"><div class="chip books-chip">PDF下载 </div></a>
-                                </span>
+                                
+                                {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 1) %}
+                                    <span class="books_down">
+                                        <a href="{{book.book_download_url}}"><div class="chip books-chip">PDF下载 </div></a>
+                                    
+                                    </span>
+                                {%else%}
+                                    <span class="books_down">
+                                        <a href="#" onclick="Materialize.toast('非VIP会员不支持PDF下载:）', 1800,)" ><div class="chip books-chip">PDF下载 </div></a>
+                                    
+                                    </span>       
+                                {%endif%}
                             </div>
                         </li>
                         {%endfor%}
@@ -91,6 +100,20 @@
 
     </div>
     
+    <!-- 非VIP用户提醒弹窗 -->
+    <!-- modal内容，输入兑换码 -->
+    <!-- <div class="remodal books_modal z-depth-2 " data-remodal-id="books_modal">
+        
+        <div class="row">
+             <h5>成为VIP会员</h5>
+            <p>
+                祝您事业有成,步步高升 <a href="https://shop131223524.taobao.com">前往小店购买更多课程。</a>
+            </p>
+            <br>
+            <button type="submit" data-remodal-action="confirm" class="remodal-confirm">确认</button>
+        </div>
+    </div> -->
+
 
     {# 开发信息 #}
 

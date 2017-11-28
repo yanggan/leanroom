@@ -430,7 +430,8 @@ def books():
     return render_template( \
         '/pc/books.html',
         all_books_data = cate_data,
-        dev_data=dev_data 
+        dev_data=dev_data,
+        current_user=current_user 
         )
 
 
