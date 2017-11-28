@@ -79,7 +79,11 @@
     </div>
     {% endblock %}
 
-    
+    <!-- 引入组件 -->
+    {# 引入宏组件 #}
+    {% import 'component.html' as md %}
+
+
     {% block contents %}
     {# 内容区域 #}
 <!--     <div class="user_login container-fluid">
@@ -91,9 +95,6 @@
 
     {% endblock %}
     
-    <!-- 引入组件 -->
-    {# 引入宏组件 #}
-    {% import 'component.html' as md %}
 
     <!-- footer -->
     <footer class="page-footer"> 

@@ -445,6 +445,16 @@ def membership():
     pass
     return render_template('/pc/price.html')
 
+
+@app.route('/vipactive',methods=['POST','GET'])
+@login_required
+def vipactive():
+    # 会员激活
+    pass
+    return render_template('/pc/vipactive.html')
+
+
+
 @app.route('/test')
 def test():
     return render_template('test.html')

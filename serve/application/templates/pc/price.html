@@ -12,6 +12,9 @@
 
 
     <div class="nav_bk">
+            <!-- 注册登录入口和登录模态窗口 -->
+            {{md.login_panel(current_user=current_user,current_url='/price',next_url='/index')}}
+            
             <h5>懒人会员计划</h5>
             <p>把100%的努力放在编程实践上，而非资料收集</p>
             <div class="nav_bk_bk">
@@ -42,8 +45,8 @@
         
       <div class="row price_div">
 
-        <div class="col s4 m4">
-          <div class="card ">
+        <div class="col s4 ">
+          <div class="card price_card">
             {% if (current_user.is_authenticated) ==  False %}
                 <span class="label label-success is_active-label gree">当前</span>
             {%endif%}
@@ -54,30 +57,38 @@
  
             <div class="l-title-line"></div> 
             <div class="card-content price_content ">
-            <ul>
-                <li>300+ 完整套课程整理</li>
-                <li>16+ 套全领域汇总包</li>
-                <li>200+ 本书学习书籍</li>
-                <br>
-                <li>单独购买兑换课程包</li>
-                <li>永久有效兑换码</li>
-                <li>凭码免费兑换新课程</li>
-                <br>
-                <li>学习书单查看</li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            {% if (current_user.is_authenticated) ==  False %}
+                <ul>
+                    <li>300+ 完整套课程整理</li>
+                    <li>16+ 套全领域汇总包</li>
+                    <li>200+ 本书学习书籍</li>
+                    <br>
+                    <li>单独购买兑换课程包</li>
+                    <li>永久有效兑换码</li>
+                    <li>凭码免费兑换新课程</li>
+                    <br>
+                    <li>学习书单查看</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
             </div>
+            {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 1) %}
+                <!-- 除了高级会员，都显示课程购买 -->
+            {%else%}
+          
                 <div class="card-action price_action">
-                  <a href="https://shop131223524.taobao.com/search.htm?spm=a1z10.3-c-s.w5002-17279339701.1.25d81ac9ZvBNHU&search=y">获取课程兑换码</a>
+                    <a href="https://shop131223524.taobao.com/search.htm?spm=a1z10.3-c-s.w5002-17279339701.1.25d81ac9ZvBNHU&search=y">获取课程兑换码</a>
+                    <a href="/act">兑换课程</a>
                 </div>
-            </div>
+
+              
+              
             {%endif%}
+              </div>
         </div>
-                <div class="col s4 m4">
-          <div class="card ">
+
+        <div class="col s4 ">
+          <div class="card price_card">
             {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 0) %}
             <span class="label label-success is_active-label gree">您当前为免费会员</span>
             {%endif%}
@@ -106,18 +117,24 @@
             </div>
             {% if (current_user.is_authenticated) %}
                 <!-- 已经是普通会员 -->
+                <div class="card-action price_action">
+                  <a href="https://shop131223524.taobao.com/search.htm?spm=a1z10.3-c-s.w5002-17279339701.1.25d81ac9ZvBNHU&search=y">获取课程兑换码</a>
+                </div>
             {%else%}
-            <div class="card-action price_action">
+                <div class="card-action price_action">
 
-                <a href="/register" >
-                  <button type="button" class="btn btn-default grey darken-1  z-depth-0 price_button" aria-label="Left Align">注册会员</button>
-                </a>
-            </div>
+                    <a href="/register" >
+                      <button type="button" class="btn btn-default grey darken-1  z-depth-0 price_button" aria-label="Left Align">注册会员</button>
+                    </a>
+                </div>
             {%endif%}
           </div>
         </div>
-        <div class="col s4 m4">
-          <div class="card ">
+
+
+
+        <div class="col s4 ">
+          <div class="card  price_card">
             {% if (current_user.is_authenticated) and (current_user.data.get('user_type') == 1) %}
                 <span class="label label-success is_active-label gree">您当前已是VIP会员</span>
             {%endif%}
@@ -153,12 +170,13 @@
                 
                 <!-- 已经是VIP不显示操作 -->
 
+
             {%else%}
              <div class="card-action price_action">
                   <a href="#" >
                       <button type="button" class="btn btn-default grey darken-1  z-depth-0 price_button" aria-label="Left Align">获取VIP激活码</button>
                   </a>
-                  <a href="#">
+                  <a href="/vipactive">
                       <button type="button" class="btn btn-default grey darken-1  z-depth-0 price_button " aria-label="Left Align">VIP激活</button>
                   </a>
             </div>
