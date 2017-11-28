@@ -8,6 +8,7 @@ class DevelopmentConfig():
     REDIS_DATABASE_URL = 'localhost'
     REDIS_PORT = 6379
     REDIS_PASSWD = ''
+    REDIS_CACHE_TIME = 86400
     GIT_VERSION_DISPLAY = False
     pass
 

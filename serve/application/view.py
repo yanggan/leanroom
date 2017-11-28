@@ -21,7 +21,8 @@ sys.setdefaultencoding('utf-8')
 
 
 # REDIS的全局变量
-# R表示实例连接
+# R表示实例连接,缓存的过期时间
+CACHE_TIME = config["default"].REDIS_PORT
 
 # Flask-login 模块 =======
 app.secret_key = app.config['SECRET_KEY']
@@ -233,10 +234,21 @@ def logout():
 @app.route('/course',methods=['GET'])
 def index():
 
+    # 加入Redis缓存
+    # 有缓存
+    cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
+    if R.get('obj_index_user_'+ cache_name)!= None:
+        print "首页数据来自Redis缓存"
+        cate_data = eval(R.get('obj_index_user_'+ cache_name))
+        print cate_data
+    else:
+        # 缓存过期,重新写入
+        cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
+        print '首页缓存写入',R.set('obj_index_user_'+ cache_name,cate_data,ex=CACHE_TIME,nx=True)
+
     # 获取分类和课程信息
-    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
-    dev_data = Data_Processor.get_devtools_data()
-    print '当前用户',current_user,current_user.is_authenticated
+    # cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
+    # dev_data = Data_Processor.get_devtools_data()
     return render_template(
         "course.html",
         category=cate_data.get('category_data'),
@@ -251,8 +263,20 @@ def index():
 @app.route('/course/<int:course_id>',methods=['POST','GET'])
 def course_detail(course_id):
 
+    # 加入Redis缓存
+    # 有缓存
+    if R.get('obj_course_detail_'+str(course_id)) != None:
+        print "详情页数据来自Redis缓存"
+        course_data = eval(R.get('obj_course_detail_'+str(course_id)))
+        print course_data
+    else:
+        # 缓存过期
+        course_data = Data_Processor.get_course_data(course_id)
+        print '详情页缓存写入状态：',R.set('obj_course_detail_'+str(course_id),course_data,ex=CACHE_TIME,nx=True)
+        
+
     # 各种数据获取 {'flag':True,'status':'find the course succeed','course_data':return_data}
-    course_data = Data_Processor.get_course_data(course_id)
+    # course_data = Data_Processor.get_course_data(course_id)
     # 没有找到课程
     if course_data.get('flag') == False:
         abort(404)
@@ -359,13 +383,17 @@ def course_detail(course_id):
             redirect_to_course = redirect(url_for('course_detail',course_id=course_id))
             resp = make_response(redirect_to_course)
             resp.set_cookie('course_'+str(course_id),user_input_key) # 设置cookies
+
+            # 清除首页的redis缓存
+            cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
+            R.delete("obj_index_user_"+cache_name)
+            
             return resp # 返回response让浏览器重定向Get访问
 
         else: #验证失败
 
             flash(verity_result_dict['status'])
             return redirect(url_for('course_detail',course_id=course_id))
-
 
 
 # 通过激活码激活课程
@@ -410,6 +438,9 @@ def course_activete():
             session['course_'+ course_id ] = user_input_act # 设置session
             resp = make_response(redirect(url_for('course_detail',course_id=course_id)))
             resp.set_cookie('course_'+course_id,user_input_act) # 设置cookies
+            # 清除首页的redis缓存
+            cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
+            R.delete("obj_index_user_"+cache_name)
             return resp # 返回response让浏览器重定向Get访问
         
         # 兑换失败
@@ -445,11 +476,11 @@ def membership():
     # 用redis缓存这个页面,缓存1天，只有缓存消失才写入
     
     if R.get('page_membership') != None:
-        print "页面来自Redis缓存"
+        print "价格页面来自Redis缓存"
         return R.get('page_membership')
     else:
         page = render_template('/pc/price.html')
-        print '缓存写入',R.set('page_membership',page,ex=30,nx=True)
+        print '价格页面缓存写入',R.set('page_membership',page,ex=CACHE_TIME,nx=True)
         return render_template('/pc/price.html')
 
 
@@ -562,6 +593,13 @@ def api_upload_db():
             return "upload success"
         return "upload error"
 
+
+@app.route('/api/flushredis',methods=['POST',"GET"],strict_slashes=False)
+@app.route('/api/resetredis',methods=['POST',"GET"],strict_slashes=False)
+def api_flush_redis():
+    # 清空所有缓存
+    R.flushdb()   
+    return '成功清空所有缓存'
 
 @app.errorhandler(404)
 def page_not_found(error):
