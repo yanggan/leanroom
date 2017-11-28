@@ -193,3 +193,18 @@ class Data_Processor(object):
 
         return Userlist.get_user_info(username)
 
+    @staticmethod
+    def verify_vipcode(username=None,vip_code=None):
+        # 检查码。修改会员类型、废除码有效性。
+
+        code_result = Vipcode.verify_code(vipcode=vip_code,active_flag=True,username=username)
+        # 让用户变为VIP
+        if code_result.get('flag') == True:
+            return Userlist.become_vip(username=username,vipcode=vip_code)
+
+        else:
+            return code_result
+
+       
+
+

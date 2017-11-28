@@ -266,11 +266,13 @@ def course_detail(course_id):
 
         # 4种情况返回密码字典，免费课程、session、 高级会员、已经兑换过的会员(登录后)、cookies有记录的
         # 判断session,如果有key,value就不用验证了
-        # 1、免费课程
+        # 1、免费课程（登录会员免费）
         if is_free == True:
             
-            return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
-        
+            if current_user.is_authenticated:
+                return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data)
+            else:
+                return render_template("course_detail.html",course_data=course_data,passwd_dict=None,dev_data=dev_data,member_free=True) 
         # 2、登录用户切为VIP用户，直接返回带密码页面
         elif current_user.is_authenticated and current_user.data.get('user_type') == 1:
            return render_template("course_detail.html",course_data=course_data,passwd_dict=passwd_data,dev_data=dev_data) 
@@ -450,10 +452,21 @@ def membership():
 @login_required
 def vipactive():
     # 会员激活
-    pass
-    return render_template('/pc/vipactive.html')
-
-
+    if request.method == 'GET':
+        return render_template('/pc/vipactive.html')
+    elif  request.method == 'POST':
+        # 用户登录的前提下
+        if current_user.is_authenticated:
+            user_input_code = request.form.get('vip_code',None) 
+            result = Data_Processor.verify_vipcode(current_user.id,user_input_code)
+            if result.get('flag') == True:
+                return redirect(url_for('membership'))
+            else:
+                flash(result.get('status'),'vipcode_error')
+                return render_template('/pc/vipactive.html')
+        else:
+            flash('no login','vipcode_error')
+            return render_template('/pc/vipactive.html')
 
 @app.route('/test')
 def test():

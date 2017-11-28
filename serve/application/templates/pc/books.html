@@ -27,9 +27,9 @@
         {# 这里是分类菜单，从数据库读取 #}
        
         <div class="col s12 books_tabs">
-            <ul class="tabs  ">
+            <ul class="tabs swipeable  ">
                 {% for cate in all_books_data %}
-                    <li class="tab">
+                    <li class="tab ">
                         <a class="{%if loop.first %} active {%endif%}" href="#{{cate.category_id}}">{{cate.category_name}}</a>
                     </li>
                 {% endfor %}

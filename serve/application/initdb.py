@@ -381,6 +381,7 @@ if __name__ == "__main__":
     
     # print add_bookslist()
     # print add_book()
-    print add_book_with_isbn()
+    # print add_book_with_isbn()
     # print test_get_cate_with_bookslist()
     pass
+    print Vipcode.init_vipcode(50)

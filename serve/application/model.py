@@ -1062,11 +1062,13 @@ class Userlist(Base):
     username = Column('username',String(255))
     password = Column('password',String(255))
     user_type = Column('user_type',Integer,default=0)
+    user_type_note = Column('user_type_note',String(255))
     vip_time = Column('vip_time',String(255))
     is_invalid = Column('is_invalid',Boolean,default=False) # 为ture则用户不可用
 
     phone = Column('phone',String(255))
     email = Column('email',String(255))
+
 
     # 和兑换码一对一的关系
     vip_code = relationship("Vipcode", uselist=False, back_populates="active_user")
@@ -1255,6 +1257,29 @@ class Userlist(Base):
         user_course_list = [i.course_id for i in user_obj.user_course_record ]
         return {'flag':True,'status':'get user course succeed','data': user_course_list}
 
+    # 获取某个用户已经激活的课程list
+    @staticmethod
+    def become_vip(username=None,vipcode=None): 
+        
+        get_user_result = Userlist.get_user(username)
+        user_obj = get_user_result.get('obj',None)
+
+        if user_obj == None:
+            return {'flag':False,'status':'no this user'}
+        # 修改类型，成为VIP会员
+        sess = get_user_result.get('session',None)
+        user_obj.user_type = 1
+        # 备注
+        user_obj.user_type_note = unicode(vipcode)
+        sess.add(user_obj)
+        sess.commit()
+        sess.close()
+
+        return {'flag':True,'status':'mod user_type succeed'}
+
+
+
+
 class User_Course(Base):
     """用于关联用户和已经兑换课程的"""
     __tablename__ = 'User_Course'
@@ -1342,7 +1367,43 @@ class Vipcode(Base):
         sess = DBSession()
         print "Get sesssion OK"
         return sess
+    @staticmethod
+    def init_vipcode(number=30):
+        # 1、生成一定数量的 2、查重，避免重复，然后再插入数据
+        sess = Vipcode.get_session(engine)
 
+        # 用来判断不重复的函数
+        def check_code(code,code_list):
+            if code in code_list:
+                new_code = "".join(random.choice(chars) for i in range(6)) #兑换码   
+                new_code = check_code(new_code,code_list)
+                return new_code
+            else:
+                return code
+        # 生成code
+        code_list =[]
+        chars = string.digits
+        for index in range(number):
+            code = "".join(random.choice(chars) for i in range(6)) #兑换码   
+            code = check_code(code,code_list)
+            code_list.append(code)
+        
+        print "码",code_list
+        # 做成生成器，
+        code_gen = (code for code in code_list)
+        # 循环写入db
+        act_code_obj_list = []
+        for i in code_list:
+            new_code = Vipcode(
+                # id = 100,
+                code = code_gen.next()
+                )
+            act_code_obj_list.append(new_code)
+
+        sess.add_all(act_code_obj_list)
+        sess.commit()
+        sess.close()
+        return {'flag':True,'status':"init vipcode succeed"}
 
     # 查、增、验证、修改密码、
     @staticmethod
@@ -1356,8 +1417,49 @@ class Vipcode(Base):
     
     # 验证是否有效
     @staticmethod
-    def verify_code(code=None):
-        pass
+    def verify_code(vipcode=None,active_flag=False,username=None):
+        # 查找和激活，激活后码就失效
+        if vipcode == None:
+            return {'flag':False,'status':'no vipcode pass in '}
+        # 查找
+        sess = Vipcode.get_session(engine)
+        try:
+
+            result_user = sess.query(Vipcode).filter_by(code=unicode(vipcode)).one_or_none()
+        except Exception as e:
+            # 找到多个就会报错
+            sess.close()
+            return {'flag':False,'status':'find more than one vipcode'}  # 找到多余一个的
+        if result_user == None:
+            sess.close()
+            return {'flag':False,'obj':None,'status':'can not find vipcode'}  # 找到多余一个的
+        # 找到1个码,判断是否有效
+        if result_user.is_invalid == True:
+            return {'flag':False,'obj':None,'status':'this code is invalid'}  # 找到多余一个的
+        # 找到一个可用的
+        # 如果是active_flag=True，则直接让这个码失效
+        if active_flag:
+            
+            # 写入使用的用户
+            if username != None:
+                get_user_result = Userlist.get_user(username)
+                user_obj = get_user_result.get('obj',None)
+                if user_obj != None:
+                    sess2 = get_user_result.get('session',None)
+                    # 修改类型，成为VIP会员
+                    result_user.active_userid = user_obj.user_id
+                    sess2.close()
+            # 是让失效
+            result_user.is_invalid = True
+
+            sess.add(result_user) 
+            sess.commit()
+            sess.close()
+            return {'flag':True,'status':'find the code and set code is invalid '}
+        else:
+            sess.close()
+            return {'flag':True,'status':'find the code'}
+
 
     # 添加淘宝订单号
     @staticmethod

@@ -618,7 +618,7 @@ input[type=text].valid:not(.browser-default){
     
     height: 100vh;
     /* background-color: rgba(239, 241, 245, 0.32);  */
-    background-color: rgba(231, 76, 60,0.01);
+   /*  background-color: rgba(231, 76, 60,0.01); */
 /*     background: url('../img/books/bookbk.jpg') no-repeat fixed top; */
 
 }

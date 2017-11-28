@@ -99,6 +99,8 @@
                         <td>
                             {% if passwd_dict %}
                                 <code class='code-passwd'> {{ passwd_dict.get(i.resource_id) }}  </code>
+                            {% elif member_free  %}
+                                <a class="waves-effect waves-light z-depth-0 small btn grey darken-3" href="/login" >会员登录可见</a>
                             {% else %} 
                                 <a class="waves-effect waves-light z-depth-0 small btn grey darken-3" href="#act_modal" >显示提取密码</a>
                             {% endif %}
@@ -115,9 +117,11 @@
                         <td><a target="_blank" href="{{course_data.course_share_url}}">{{course_data.course_share_url}}</a></td>
                         <td class = "update_time" >{{course_data.course_size}} G</td>
                         {%if passwd_dict %}
-                        <td><code class='code-passwd'>{{course_data.course_share_passwd}}</code></td>
+                            <td><code class='code-passwd'>{{course_data.course_share_passwd}}</code></td>
+                        {% elif member_free  %}
+                            <td><a class="waves-effect waves-light z-depth-0 small btn grey darken-3" href="/login" >会员登录可见</a></td>
                         {%else%}
-                        <td><a class="waves-effect waves-light z-depth-0 small btn grey darken-3" href="#act_modal" >显示提取密码</a><td>
+                            <td><a class="waves-effect waves-light z-depth-0 small btn grey darken-3" href="#act_modal" >显示提取密码</a><td>
                         {%endif%}
                     </tr>
 
