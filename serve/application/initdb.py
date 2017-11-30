@@ -322,15 +322,16 @@ def add_bookslist():
     ]
     return Bookslist.add_bookslist(x)
 
-def add_book_with_isbn():
+def add_book_with_isbn(isbn_list=None,booklist=800):
 
-    book_data = Book.get_bookinfo_with_api(9787559609304)
-    book_data["book_buy_url"] = u"www.baiud.com"
-    book_data["book_download_url"] = u""   
-    book_data["bookslist_id"] = 800 
+    for isbn in isbn_list:
 
+        book_data = Book.get_bookinfo_with_api(isbn)
+        book_data["book_buy_url"] = u"www.baiud.com"
+        book_data["book_download_url"] = u""   
+        book_data["bookslist_id"] = booklist
 
-    print Book.add_book([book_data])
+        print Book.add_book([book_data])
 
     return ""
 
@@ -379,9 +380,9 @@ if __name__ == "__main__":
     # print init_actcode()
     # print renew_course_size()
     
-    # print add_bookslist()
+    # print add_bookslist() 9787302255659, 
     # print add_book()
-    print add_book_with_isbn()
+    print add_book_with_isbn([9787121284410],booklist=821)
     # print test_get_cate_with_bookslist()
     pass
     # print Vipcode.init_vipcode(50)

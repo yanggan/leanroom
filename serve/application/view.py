@@ -223,6 +223,11 @@ def fast_login():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
+    # 清除缓存
+    # 清除首页的redis缓存
+    cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
+    R.delete("obj_index_user_"+cache_name)
+    R.delete('page_membership')
     logout_user()
     return redirect(url_for('index'))
 
@@ -401,8 +406,7 @@ def course_detail(course_id):
 def course_activete():
     # pass
     
-    # session增加计时器，错误超过5次就不进行验证了，直接返回错误（防爆破解）
-    
+    # session增加计时器，错误超过5次就不进行验证了，直接返回错误（防爆破解
     
     
     if request.method == 'GET':
