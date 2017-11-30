@@ -143,9 +143,9 @@ input[type=text].valid:not(.browser-default){
 
 }
 .card .card-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: #666;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
 }
 .label-default-tags {
     
