@@ -245,7 +245,6 @@ def index():
     if R.get('obj_index_user_'+ cache_name)!= None:
         print "首页数据来自Redis缓存"
         cate_data = eval(R.get('obj_index_user_'+ cache_name))
-        print cate_data
     else:
         # 缓存过期,重新写入
         cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
@@ -618,8 +617,6 @@ def api_flush_redis():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
-
-
 
 
 

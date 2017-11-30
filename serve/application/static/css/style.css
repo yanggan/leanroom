@@ -997,3 +997,18 @@ input::-ms-input-placeholder {
 
     border-top:4px solid rgba(231, 76, 60, 0.78);
 }
+
+/* base.html */
+.store_links{
+    
+    position: absolute;
+    bottom: 15px;
+    left: 26px;
+    height: 24px;
+    border: 1px;
+    width: 58%;
+    padding: 2px;
+    background-color: rgba(84, 84, 84, 0.55)!important;
+    line-height: 12px;
+    font-size: 10px;
+}
