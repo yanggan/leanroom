@@ -22,6 +22,12 @@ http://www.looncode.com/course/10017
 http://www.looncode.com/course/10018
 http://www.looncode.com/course/10019
 
+http://www.looncode.com/books
+http://www.looncode.com/membership
+http://www.looncode.com/login
+
+
+
 http://www.looncode.com/m
 http://www.looncode.com/m/home
 http://www.looncode.com/m/act
