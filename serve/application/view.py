@@ -456,10 +456,19 @@ def course_activete():
 # 书架列表
 @app.route('/books',methods=['POST','GET'])
 def books():
+    
+    # 开启缓存
+
+    if R.get('obj_bookslist') != None:
+        print "bookslist页面来自Redis缓存"
+        cate_data = eval(R.get('obj_bookslist'))
+    else:
+        cate_data = Data_Processor.get_category_has_bookdata()
+        print 'bookslist缓存写入'
+        R.set('obj_bookslist',cate_data,ex=CACHE_TIME,nx=True)
 
 
     # 获取分类和课程信息
-    cate_data = Data_Processor.get_category_has_bookdata()
     dev_data = Data_Processor.get_devtools_data()
     return render_template( \
         '/pc/books.html',
@@ -479,13 +488,14 @@ def membership():
     # 价格方案页面
     # 用redis缓存这个页面,缓存1天，只有缓存消失才写入
     
-    if R.get('page_membership') != None:
-        print "价格页面来自Redis缓存"
-        return R.get('page_membership')
-    else:
-        page = render_template('/pc/price.html')
-        print '价格页面缓存写入',R.set('page_membership',page,ex=CACHE_TIME,nx=True)
-        return render_template('/pc/price.html')
+    # if R.get('page_membership') != None:
+    #     print "价格页面来自Redis缓存"
+    #     return R.get('page_membership')
+    # else:
+    #     page = render_template('/pc/price.html')
+    #     print '价格页面缓存写入',R.set('page_membership',page,ex=CACHE_TIME,nx=True)
+    #     return render_template('/pc/price.html')
+    return render_template('/pc/price.html',current_user=current_user)
 
 
 @app.route('/vipactive',methods=['POST','GET'])
@@ -619,8 +629,20 @@ def page_not_found(error):
 @app.route('/m/course',methods=['GET'])
 @app.route('/m/home',methods=['GET'])
 def mobile_home():
-    # 
-    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
+
+    # 加入Redis缓存
+    # 有缓存
+    cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
+    if R.get('obj_m_index_user_'+ cache_name)!= None:
+        print "mobile首页数据来自Redis缓存"
+        cate_data = eval(R.get('obj_m_index_user_'+ cache_name))
+    else:
+        # 缓存过期,重新写入
+        cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
+        print 'mobile首页缓存写入'
+        R.set('obj_m_index_user_'+ cache_name,cate_data,ex=CACHE_TIME,nx=True)
+
+    # cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
     dev_data = Data_Processor.get_devtools_data()
     return render_template(
         "/mobile/m_home.html",
@@ -631,8 +653,22 @@ def mobile_home():
 
 @app.route('/m/course/<int:course_id>',methods=['POST','GET'])
 def mobile_course_detail(course_id):
-    # 获取数据
-    course_data = Data_Processor.get_course_data(course_id)
+    
+    # 加入Redis缓存
+    # 有缓存
+    if R.get('obj_course_m_detail_'+str(course_id)) != None:
+        print "mobile详情页数据来自Redis缓存"
+        course_data = eval(R.get('obj_course_m_detail_'+str(course_id)))
+        print course_data
+    else:
+        # 缓存过期
+        course_data = Data_Processor.get_course_data(course_id)
+        print 'mobile详情页缓存写入状态：'
+        R.set('obj_course_m_detail_'+str(course_id),course_data,ex=CACHE_TIME,nx=True)
+
+
+    # # 获取数据
+    # course_data = Data_Processor.get_course_data(course_id)
     # 没有找到课程
     if course_data.get('flag') == False:
         abort(404)

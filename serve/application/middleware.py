@@ -154,14 +154,11 @@ class Data_Processor(object):
         user_input_act = re.search(r'\d{4}',user_input_act).group() 
         print "用户输入数据：",user_input_act
         result = Actcode.verify_only_actcode(user_input_act)
-        print result
-
         return result
     @staticmethod
     def get_category_has_bookdata():
-        # 查询分类
+        # 查询书籍分类
         x =  Category.get_bookslist_category()
-        print x
         return x
 
     @staticmethod
