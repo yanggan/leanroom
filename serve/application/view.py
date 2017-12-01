@@ -27,7 +27,7 @@ CACHE_TIME = config["default"].REDIS_PORT
 # Flask-login 模块 =======
 app.secret_key = app.config['SECRET_KEY']
 login_manager = LoginManager()
-login_manager.session_protection = 'strong'
+login_manager.session_protection = 'none'
 login_manager.login_view = 'login'
 # 设置当未登录用户请求一个只有登录用户才能访问的视图时，闪现的错误消息的内容，
 # 默认的错误消息是：Please log in to access this page.。
@@ -227,7 +227,7 @@ def logout():
     # 清除首页的redis缓存
     cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
     R.delete("obj_index_user_"+cache_name)
-    R.delete('page_membership')
+    # R.delete('page_membership')
     logout_user()
     return redirect(url_for('index'))
 
@@ -241,14 +241,16 @@ def index():
 
     # 加入Redis缓存
     # 有缓存
+
     cache_name = current_user.id if current_user.is_authenticated else 'nologin' 
     if R.get('obj_index_user_'+ cache_name)!= None:
-        print "首页数据来自Redis缓存"
+        print "首页 %s 来自Redis缓存" % ('obj_index_user_'+ cache_name)
         cate_data = eval(R.get('obj_index_user_'+ cache_name))
     else:
         # 缓存过期,重新写入
         cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
-        print '首页缓存写入',R.set('obj_index_user_'+ cache_name,cate_data,ex=CACHE_TIME,nx=True)
+        print '首页缓存写入 %s '% ('obj_index_user_'+ cache_name) 
+        R.set('obj_index_user_'+ cache_name,cate_data,ex=CACHE_TIME,nx=True)
 
     # 获取分类和课程信息
     # cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)

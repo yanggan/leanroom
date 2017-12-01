@@ -31968,3 +31968,106 @@
 [2017-12-01 00:00:27 +0800] [76789] [INFO] Worker exiting (pid: 76789)
 [2017-12-01 00:00:27 +0800] [76788] [INFO] Worker exiting (pid: 76788)
 [2017-12-01 00:00:27 +0800] [76784] [INFO] Shutting down: Master
+[2017-12-01 11:43:44 +0800] [78167] [DEBUG] Current configuration:
+  proxy_protocol: False
+  worker_connections: 1000
+  statsd_host: None
+  max_requests_jitter: 0
+  post_fork: <function post_fork at 0x10d492848>
+  errorlog: application/doc/tmp/error.log
+  enable_stdio_inheritance: False
+  worker_class: gunicorn.workers.ggevent.GeventWorker
+  ssl_version: 2
+  suppress_ragged_eofs: True
+  syslog: False
+  syslog_facility: user
+  when_ready: <function when_ready at 0x10d492578>
+  pre_fork: <function pre_fork at 0x10d4926e0>
+  cert_reqs: 0
+  preload_app: False
+  keepalive: 2
+  accesslog: None
+  group: 20
+  graceful_timeout: 30
+  do_handshake_on_connect: False
+  spew: False
+  workers: 9
+  proc_name: None
+  sendfile: None
+  pidfile: application/doc/tmp/gunicorn.pid
+  umask: 0
+  on_reload: <function on_reload at 0x10d492410>
+  pre_exec: <function pre_exec at 0x10d492de8>
+  worker_tmp_dir: None
+  limit_request_fields: 100
+  pythonpath: None
+  on_exit: <function on_exit at 0x10d497668>
+  config: gunicorn_config/gunconf_local.py
+  logconfig: None
+  check_config: False
+  statsd_prefix: 
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  reload_engine: auto
+  proxy_allow_ips: ['127.0.0.1']
+  pre_request: <function pre_request at 0x10d492f50>
+  post_request: <function post_request at 0x10d4970c8>
+  forwarded_allow_ips: ['127.0.0.1']
+  worker_int: <function worker_int at 0x10d492b18>
+  raw_paste_global_conf: []
+  threads: 1
+  max_requests: 0
+  chdir: /Users/yg/Documents/code/Project/learoom/serve
+  daemon: False
+  user: 501
+  limit_request_line: 4094
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  certfile: None
+  on_starting: <function on_starting at 0x10d4922a8>
+  post_worker_init: <function post_worker_init at 0x10d4929b0>
+  child_exit: <function child_exit at 0x10d497230>
+  worker_exit: <function worker_exit at 0x10d497398>
+  paste: None
+  default_proc_name: runserver:app
+  syslog_addr: unix:///var/run/syslog
+  syslog_prefix: None
+  ciphers: TLSv1
+  worker_abort: <function worker_abort at 0x10d492c80>
+  loglevel: debug
+  bind: ['127.0.0.1:5000']
+  raw_env: []
+  initgroups: False
+  capture_output: False
+  reload: False
+  limit_request_field_size: 8190
+  nworkers_changed: <function nworkers_changed at 0x10d497500>
+  timeout: 60
+  keyfile: None
+  ca_certs: None
+  tmp_upload_dir: None
+  backlog: 2048
+  logger_class: gunicorn.glogging.Logger
+[2017-12-01 11:43:44 +0800] [78167] [INFO] Starting gunicorn 19.7.1
+[2017-12-01 11:43:44 +0800] [78167] [DEBUG] Arbiter booted
+[2017-12-01 11:43:44 +0800] [78167] [INFO] Listening at: http://127.0.0.1:5000 (78167)
+[2017-12-01 11:43:44 +0800] [78167] [INFO] Using worker: gunicorn.workers.ggevent.GeventWorker
+[2017-12-01 11:43:44 +0800] [78171] [INFO] Booting worker with pid: 78171
+[2017-12-01 11:43:44 +0800] [78172] [INFO] Booting worker with pid: 78172
+[2017-12-01 11:43:44 +0800] [78173] [INFO] Booting worker with pid: 78173
+[2017-12-01 11:43:44 +0800] [78174] [INFO] Booting worker with pid: 78174
+[2017-12-01 11:43:44 +0800] [78175] [INFO] Booting worker with pid: 78175
+[2017-12-01 11:43:44 +0800] [78176] [INFO] Booting worker with pid: 78176
+[2017-12-01 11:43:44 +0800] [78177] [INFO] Booting worker with pid: 78177
+[2017-12-01 11:43:44 +0800] [78178] [INFO] Booting worker with pid: 78178
+[2017-12-01 11:43:44 +0800] [78179] [INFO] Booting worker with pid: 78179
+[2017-12-01 11:43:44 +0800] [78167] [DEBUG] 9 workers
+[2017-12-01 11:43:45 +0800] [78167] [INFO] Handling signal: int
+[2017-12-01 11:43:45 +0800] [78172] [INFO] Worker exiting (pid: 78172)
+[2017-12-01 11:43:45 +0800] [78171] [INFO] Worker exiting (pid: 78171)
+[2017-12-01 11:43:45 +0800] [78173] [INFO] Worker exiting (pid: 78173)
+[2017-12-01 11:43:45 +0800] [78174] [INFO] Worker exiting (pid: 78174)
+[2017-12-01 11:43:45 +0800] [78175] [INFO] Worker exiting (pid: 78175)
+[2017-12-01 11:43:45 +0800] [78176] [INFO] Worker exiting (pid: 78176)
+[2017-12-01 11:43:45 +0800] [78177] [INFO] Worker exiting (pid: 78177)
+[2017-12-01 11:43:45 +0800] [78179] [INFO] Worker exiting (pid: 78179)
+[2017-12-01 11:43:45 +0800] [78178] [INFO] Worker exiting (pid: 78178)
+[2017-12-01 11:43:46 +0800] [78167] [INFO] Shutting down: Master
