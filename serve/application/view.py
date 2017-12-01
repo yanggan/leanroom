@@ -788,7 +788,7 @@ def mobile_course_activete():
 
 @app.route("/m/my",methods=['POST','GET'])
 def mobile_my():
-    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies)
+    cate_data = Data_Processor.get_category_has_status(cookies=request.cookies,user_obj=current_user)
     dev_data = Data_Processor.get_devtools_data()
     return render_template(
         "/mobile/m_my.html",
